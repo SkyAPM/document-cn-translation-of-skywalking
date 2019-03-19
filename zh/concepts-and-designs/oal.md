@@ -76,7 +76,7 @@ METRIC_NAME = from(SCOPE.(* | [FIELD][,FIELD ...]))
 
 所有度量指标数据都会使用 Scope.ID 和最小时间桶(min-level time bucket) 进行分组.
 
-- 在端点(Endpoint)域中, Scope.ID = Endpoint 的 ID. In `Endpoint` scope, the Scope.ID = Endpoint id (基于服务及其端点的唯一标志).
+- 在端点(Endpoint)域中, Scope.ID = Endpoint 的 ID(基于服务及其端点的唯一标志).
 
 ## 示例
 
