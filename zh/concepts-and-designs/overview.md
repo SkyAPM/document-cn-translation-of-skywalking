@@ -11,9 +11,9 @@ SkyWalking 更是一种现代的应用程序性能监控(Application Performance
 同时也提供了手动打点 SDK, 像 Go (尚未支持) , C++ (尚未支持). 
 随着越来越多的编程语言需要获得支持, 运行时操作代码的危险性, 以及云原生基础设施越来越强大, 
 SkyWalking 还可以使用服务网格基础探针来收集数据, 以帮助了解整个分布式系统. 
-总之, SkyWalking 为**服务(service)**, **服务实例(service instance)**, 以及**端点(endpoint)**提供了观测能力.
+总之, SkyWalking 为 **服务(service)**, **服务实例(service instance)**, 以及 **端点(endpoint)** 提供了观测能力.
 
-**服务(Service)**, **实例(Instance)**以及**端点(Endpoint)**等概念在如今随处可见, 所以让我们先了解一下他们在 SkyWalking 中都表示什么意思.
+**服务(Service)**, **实例(Instance)**以及 **端点(Endpoint)** 等概念在如今随处可见, 所以让我们先了解一下他们在 SkyWalking 中都表示什么意思.
 
 - **服务(Service)**. 表示对请求提供相同行为的一系列或一组工作负载. 在使用打点代理或 SDK 的时候,
 	你可以定义服务的名字. 如果不定义的话, SkyWalking 将会使用你在平台上定义的名字, 如 Istio.
