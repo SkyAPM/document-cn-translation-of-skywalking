@@ -7,8 +7,8 @@ SkyWalking 更是一种现代的应用程序性能监控(Application Performance
 ## 为什么要使用 SkyWalking?
 
 在许多不同的场景下, SkyWalking 为观察和监控分布式系统提供了解决方案. 
-首先是像传统的方式那样, SkyWalking 为服务提供了自动埋点代理, 如 Java, C# 和 Node.js. 
-同时也提供了手动埋点 SDK, 像 Go (尚未支持) , C++ (尚未支持). 
+首先是像传统的方式那样, SkyWalking 为服务提供了自动打点代理, 如 Java, C# 和 Node.js. 
+同时也提供了手动打点 SDK, 像 Go (尚未支持) , C++ (尚未支持). 
 随着越来越多的编程语言需要获得支持, 运行时操作代码的危险性, 以及云原生基础设施越来越强大, 
 SkyWalking 还可以使用服务网格基础探针来收集数据, 以帮助了解整个分布式系统. 
 总之, SkyWalking 为**服务(service)**, **服务实例(service instance)**, 以及**端点(endpoint)**提供了观测能力.

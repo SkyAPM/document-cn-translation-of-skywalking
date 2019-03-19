@@ -10,8 +10,8 @@
 
 - 探针
   - [简介](probe-introduction.md) 一文将引导读者理解什么是探针, 目前有多少已支持的探针以及为什么我们需要它们.
-  - [服务自动埋点代理工具](service-agent.md) 介绍了自动埋点代理工具具体做了什么, 以及目前 SkyWalking 已经支持自动埋点的编程语言.
-  - [手动埋点 SDK](manual-sdk.md) 介绍了手动埋点 SDK 在 SkyWalking 生态中所扮演的角色.
+  - [服务自动打点代理工具](service-agent.md) 介绍了自动打点代理工具具体做了什么, 以及目前 SkyWalking 已经支持自动打点的编程语言.
+  - [手动打点 SDK](manual-sdk.md) 介绍了手动打点 SDK 在 SkyWalking 生态中所扮演的角色.
   - [服务网格(Service Mesh)探针](service-mesh-probe.md) 介绍了 SkyWalking 为何需要以及如何从服务网格和代理探针接收遥测数据的.
 - 后端
   - [总览](backend-overview.md) 一文从高层次对观测分析协议(Observability Analysis Protocol, OAP)后端进行介绍.
