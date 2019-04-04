@@ -33,7 +33,7 @@
 
 1. 将项目导入为 maven 项目
 1. 运行 `./mvnw compile -Dmaven.test.skip=true` 编译项目, 生成必要的源代码(由于使用了 gRPC 和 protobuf)
-1. 设置**生成的源代码(Generated Source Code)**目录.
+1. 设置 **生成的源代码(Generated Source Code)** 目录.
     * **apm-protocol/apm-network/target/generated-sources/protobuf** 目录下的 `grpc-java` 和 `java` 目录
     * **oap-server/server-core/target/generated-sources/protobuf** 目录下的 `grpc-java` 和 `java` 目录
     * **oap-server/server-receiver-plugin/skywalking-istio-telemetry-receiver-plugin/target/generated-sources/protobuf** 目录下的 `grpc-java` 和 `java`
