@@ -42,25 +42,25 @@ ExitSpan 代表一个服务客户端或MQ的生产者, 在 SkyWalking 的早期�
 1. 客户端 Apache HttpComponent client 插件
 
 ```java
-    span = ContextManager.createExitSpan("/span/operation/name", contextCarrier, "ip:port");
-    CarrierItem next = contextCarrier.items();
-    while (next.hasNext()) {
-        next = next.next();
-        httpRequest.setHeader(next.getHeadKey(), next.getHeadValue());
-    }
+span = ContextManager.createExitSpan("/span/operation/name", contextCarrier, "ip:port");
+CarrierItem next = contextCarrier.items();
+while (next.hasNext()) {
+    next = next.next();
+    httpRequest.setHeader(next.getHeadKey(), next.getHeadValue());
+}
 ```
 
 2. 服务端 Tomcat 7 服务器插件
 
 ```java
-    ContextCarrier contextCarrier = new ContextCarrier();
-    CarrierItem next = contextCarrier.items();
-    while (next.hasNext()) {
-        next = next.next();
-        next.setHeadValue(request.getHeader(next.getHeadKey()));
-    }
+ContextCarrier contextCarrier = new ContextCarrier();
+CarrierItem next = contextCarrier.items();
+while (next.hasNext()) {
+    next = next.next();
+    next.setHeadValue(request.getHeader(next.getHeadKey()));
+}
 
-    span = ContextManager.createEntrySpan("/span/operation/name", contextCarrier);
+span = ContextManager.createEntrySpan("/span/operation/name", contextCarrier);
 ```
 
 ### 上下文快照 (ContextSnapshot)
@@ -105,57 +105,57 @@ public static AbstractSpan createExitSpan(String endpointName, ContextCarrier ca
 ### AbstractSpan
 
 ```java
-    /**
-     * Set the component id, which defines in {@link ComponentsDefine}
-     *
-     * @param component
-     * @return the span for chaining.
-     */
-    AbstractSpan setComponent(Component component);
+/**
+ * Set the component id, which defines in {@link ComponentsDefine}
+ *
+ * @param component
+ * @return the span for chaining.
+ */
+AbstractSpan setComponent(Component component);
 
-    /**
-     * Only use this method in explicit instrumentation, like opentracing-skywalking-bridge.
-     * It it higher recommend don't use this for performance consideration.
-     *
-     * @param componentName
-     * @return the span for chaining.
-     */
-    AbstractSpan setComponent(String componentName);
+/**
+ * Only use this method in explicit instrumentation, like opentracing-skywalking-bridge.
+ * It it higher recommend don't use this for performance consideration.
+ *
+ * @param componentName
+ * @return the span for chaining.
+ */
+AbstractSpan setComponent(String componentName);
 
-    AbstractSpan setLayer(SpanLayer layer);
+AbstractSpan setLayer(SpanLayer layer);
 
-    /**
-     * Set a key:value tag on the Span.
-     *
-     * @return this Span instance, for chaining
-     */
-    AbstractSpan tag(String key, String value);
+/**
+ * Set a key:value tag on the Span.
+ *
+ * @return this Span instance, for chaining
+ */
+AbstractSpan tag(String key, String value);
 
-    /**
-     * Record an exception event of the current walltime timestamp.
-     *
-     * @param t any subclass of {@link Throwable}, which occurs in this span.
-     * @return the Span, for chaining
-     */
-    AbstractSpan log(Throwable t);
+/**
+ * Record an exception event of the current walltime timestamp.
+ *
+ * @param t any subclass of {@link Throwable}, which occurs in this span.
+ * @return the Span, for chaining
+ */
+AbstractSpan log(Throwable t);
 
-    AbstractSpan errorOccurred();
+AbstractSpan errorOccurred();
 
-    /**
-     * Record an event at a specific timestamp.
-     *
-     * @param timestamp The explicit timestamp for the log record.
-     * @param event the events
-     * @return the Span, for chaining
-     */
-    AbstractSpan log(long timestamp, Map<String, ?> event);
+/**
+ * Record an event at a specific timestamp.
+ *
+ * @param timestamp The explicit timestamp for the log record.
+ * @param event the events
+ * @return the Span, for chaining
+ */
+AbstractSpan log(long timestamp, Map<String, ?> event);
 
-    /**
-     * Sets the string name for the logical operation this span represents.
-     *
-     * @return this Span instance, for chaining
-     */
-    AbstractSpan setOperationName(String endpointName);
+/**
+ * Sets the string name for the logical operation this span represents.
+ *
+ * @return this Span instance, for chaining
+ */
+AbstractSpan setOperationName(String endpointName);
 ```
 
 除了设置操作名称, 标签信息和日志外, 还要设置两个属性, 即 component（组件）和 layer（层）, 特别是对于 EntrySpan 和 ExitSpan.
@@ -169,8 +169,6 @@ SpanLayer 是 span 的类别. 有五个值:
 1. MQ
 
 组件 ID 由 SkyWalking 项目定义和保留, 对于组件的名称或 ID 的扩展, 请遵循[组件库的定义与扩展](Component-library-settings.md) 
-
-// TODO
 
 ### 高级 API
 
@@ -205,29 +203,28 @@ AbstractSpan prepareForAsync();
 AbstractSpan asyncFinish();
 ```
 
-1. 在 `#prepareForAsync` in original context.
-1. Propagate the span to any other thread.
-1. After all set, call `#asyncFinish` in any thread.
-1. Tracing context will be finished and report to backend when all spans's `#prepareForAsync` finished(Judged by count of API execution).
-
+1. 在原始上下文中调用 `#prepareForAsync`.
+1. 将该 Span  传播到其他线程.
+1. 在全部操作就绪之后, 可在任意线程中调用 `#asyncFinish` 结束调用.
+1. 追踪上下文结束, 当所有 Span 的 `#prepareForAsync` 完成后, 会一起被回传到后端服务(根据 API 执行次数判断).
 
 ## 开发插件
 
 ### 摘要
 
-跟踪的基本方法是拦截Java方法, 使用字节码操作技术和 AOP 概念. SkyWalking 包装了字节码操作技术并跟踪上下文的传播, 所以你只需要定义拦截点（换句话说就是 Spring 的切面）
+追踪的基本方法是拦截 Java 方法, 使用字节码操作技术和 AOP 概念. SkyWalking 包装了字节码操作技术并追踪上下文的传播, 所以你只需要定义拦截点（换句话说就是 Spring 的切面）
 
 ### 拦截
 
 SkyWalking 提供两类通用的定义去拦截构造器, 实例方法和类方法.
-* Extend `ClassInstanceMethodsEnhancePluginDefine` defines `Contructor` intercept points and `instance method` intercept points.
-* 继承 `ClassInstanceMethodsEnhancePluginDefine` 定义 `Contructor`（构造器）拦截点和 `instance method`（实例化方法）拦截点.
-* 继承 `ClassStaticMethodsEnhancePluginDefine` 定义 `class method`（类方法）拦截点.
+* `ClassInstanceMethodsEnhancePluginDefine` 定义了构造方法 `Contructor` 拦截点和 `instance method` 实例方法拦截点.
+* `ClassStaticMethodsEnhancePluginDefine` 定义了类方法 `class method` 拦截点.
 
-当然, 您也可以集成`ClassEnhancePluginDefine`去设置所有的拦截点, 担着不常用.
+当然, 您也可以集成 `ClassEnhancePluginDefine` 去设置所有的拦截点, 但这不常用.
 
-### Implement plugin（实现插件）
-下文, 我将通过扩展`ClassInstanceMethodsEnhancePluginDefine`来演示如何实现一个插件
+### 实现插件
+
+下文, 我将通过扩展 `ClassInstanceMethodsEnhancePluginDefine` 来演示如何实现一个插件
 
 1. 定义目标类的名称
 
@@ -236,17 +233,15 @@ protected abstract ClassMatch enhanceClass();
 ```
 
 ClassMatch 以下有四种方法表示如何去匹配目标类:
-* byName, 通过完整的类名(package name + `.` + class name)（包名+类名）.
-* byClassAnnotationMatch, 通过目标类存在某些注释.
-* byMethodAnnotationMatch, 通过目标类的方法存在某些注释.
-* byHierarchyMatch, 通过目标类的父类或接口
+* byName, 通过类的全限定名(Fully Qualified Class Name, 即 包名 + `.` + 类名).
+* byClassAnnotationMatch, 根据目标类是否存在某些注解.
+* byMethodAnnotationMatch, 根据目标类的方法是否存在某些注解.
+* byHierarchyMatch, 根据目标类的父类或接口
 
 **注意事项**:
-* 禁止使用 `*.class.getName()` 去获取类名,  建议你使用文字字符串, 这是为了
-避免ClassLoader问题.
-* `by*AnnotationMatch` 不支持继承的注释.
-* 非必要的话, 不推荐使用 `byHierarchyMatch`, 因为使用它可能会触发拦截
-许多未被发现的方法, 会导致性能问题和不稳定.
+* 禁止使用 `*.class.getName()` 去获取类名, 建议你使用文字字符串, 这是为了避免 ClassLoader 问题.
+* `by*AnnotationMatch` 不支持从父类继承来的注解.
+* 除非确实必要, 否则不建议使用 `byHierarchyMatch`, 因为使用它可能会触发拦截许多预期之外的方法, 会导致性能问题和不稳定.
 
 实例：
 
@@ -280,19 +275,20 @@ public interface InstanceMethodsInterceptPoint {
 }
 ```
 
-也可以使用`Matcher`来设置目标方法. 如果要更改参数, 请在`isOverrideArgs`中返回** true ** 参考拦截器.
+也可以使用 `Matcher` 来设置目标方法. 如果要在拦截器中更改引用参数, 请在 `isOverrideArgs` 中返回 **true**.
 
 以下部分将告诉您如何实现拦截器.
 
-3. Add plugin define into skywalking-plugin.def file
+3. 在文件 `skywalking-plugin.def` 中添加插件定义
+
 ```properties
 tomcat-7.x/8.x=TomcatInstrumentation
 ```
 
-
 ### 实现一个拦截器
-作为一个实例方法的拦截器, 需要实现
-`org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.InstanceMethodsAroundInterceptor`
+
+作为一个实例方法的拦截器, 需要实现 `org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.InstanceMethodsAroundInterceptor`
+
 ```java
 /**
  * A interceptor, which intercept method's invocation. The target methods will be defined in {@link
@@ -329,22 +325,20 @@ public interface InstanceMethodsAroundInterceptor {
         Throwable t);
 }
 ```
-在before, after和exception处理阶段使用核心API.
 
+在方法调用前, 调用后以及异常处理阶段使用核心 API.
 
-### 将插件贡献到Apache SkyWalking 仓库中
+### 将插件贡献到 Apache SkyWalking 仓库中
+
 我们欢迎大家贡献插件.
 
 请按照以下步骤操作：
 
 1. 提交有关您要贡献哪些插件的问题, 包括支持的版本.
-1. 在`apm-sniffer / apm-sdk-plugin`或`apm-sniffer / optional-plugins`下创建子模块, 名称应包含支持的库名和版本
-1. Create sub modules under `apm-sniffer/apm-sdk-plugin` or `apm-sniffer/optional-plugins`, and the name should include supported library name and versions
-1. 按照本指南进行开发. 确保提供评论和测试用例.
+1. 在 `apm-sniffer/apm-sdk-plugin` 或 `apm-sniffer/optional-plugins` 下创建子模块, 名称应包含支持的库名和版本
+1. 按照本指南进行开发. 确保提供注释和测试用例.
 1. 开发并测试.
-1. 发送拉取请求并要求审核.
-1. 提供自动测试用例.
-所有测试用例都托管在[SkyAPMTest/agent-auto-integration-testcases repository](https://github.com/SkyAPMTest/agent-auto-integration-testcases).
-关于如何编写测试用例, 请按照[如何编写](https://github.com/SkyAPMTest/agent-auto-integration-testcases/blob/master/docs/how-to-write-a-plugin-testcase.md) 文档来实现.
-1. 在提供自动测试用例并在CI中递交测试后, 插件提交者会批准您的插件.
-1. SkyWalking接受的插件.
+1. 发送 Pull Request 并要求审核.
+1. 提供自动测试用例. 所有自动测试用例都托管在 [SkyAPMTest/agent-auto-integration-testcases repository](https://github.com/SkyAPMTest/agent-auto-integration-testcases). 关于如何编写测试用例, 请按照[如何编写](https://github.com/SkyAPMTest/agent-auto-integration-testcases/blob/master/docs/how-to-write-a-plugin-testcase.md)文档来实现.
+1. 在提供自动测试用例并在 CI 中通过测试后, 插件提交者会批准您的插件.
+1. SkyWalking 接受的插件.
