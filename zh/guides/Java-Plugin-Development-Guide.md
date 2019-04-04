@@ -172,41 +172,40 @@ SpanLayer 是 span 的类别. 有五个值:
 
 // TODO
 
-### Advanced APIs
+### 高级 API
 
-#### Async Span APIs
+#### 异步 Span API
 
-There is a set of advanced APIs in Span, which work specific for async scenario. When tags, logs, attributes(including end time) of the span
-needs to set in another thread, you should use these APIs.
+关于 Span 有一系列高级 API, 他们都是在异步场景下使用的. 当 Span 的 tag, 日志和属性(包括结束时间)需要在另一个线程中设置时, 你就应该使用这些 API.
 
 ```java
-    /**
-     * The span finish at current tracing context, but the current span is still alive, until {@link #asyncFinish}
-     * called.
-     *
-     * This method must be called<br/>
-     * 1. In original thread(tracing context).
-     * 2. Current span is active span.
-     *
-     * During alive, tags, logs and attributes of the span could be changed, in any thread.
-     *
-     * The execution times of {@link #prepareForAsync} and {@link #asyncFinish()} must match.
-     *
-     * @return the current span
-     */
-    AbstractSpan prepareForAsync();
+/**
+ * The span finish at current tracing context, but the current span is still alive, until {@link #asyncFinish}
+ * called.
+ *
+ * This method must be called<br/>
+ * 1. In original thread(tracing context).
+ * 2. Current span is active span.
+ *
+ * During alive, tags, logs and attributes of the span could be changed, in any thread.
+ *
+ * The execution times of {@link #prepareForAsync} and {@link #asyncFinish()} must match.
+ *
+ * @return the current span
+ */
+AbstractSpan prepareForAsync();
 
-    /**
-     * Notify the span, it could be finished.
-     *
-     * The execution times of {@link #prepareForAsync} and {@link #asyncFinish()} must match.
-     *
-     * @return the current span
-     */
-    AbstractSpan asyncFinish();
+/**
+ * Notify the span, it could be finished.
+ *
+ * The execution times of {@link #prepareForAsync} and {@link #asyncFinish()} must match.
+ *
+ * @return the current span
+ */
+AbstractSpan asyncFinish();
 ```
 
-1. Call `#prepareForAsync` in original context.
+1. 在 `#prepareForAsync` in original context.
 1. Propagate the span to any other thread.
 1. After all set, call `#asyncFinish` in any thread.
 1. Tracing context will be finished and report to backend when all spans's `#prepareForAsync` finished(Judged by count of API execution).
