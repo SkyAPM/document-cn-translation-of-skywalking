@@ -57,4 +57,4 @@ ExitSpan 代表服务的一个客户端或一个消息队列的生产者，与 S
 ### 第 3 步. 保活
 
 `ServiceInstancePing#doPing` 方法必须每隔几秒钟就被调用一次，使得后端知道这个服务实例还存活着。
-此方法需要 `doServiceInstanceRegister` 中使用的**服务实例 ID（service instance id）和 **UUID**。
+此方法需要 `doServiceInstanceRegister` 中使用的**服务实例 ID（service instance id）** 和 **UUID**。
