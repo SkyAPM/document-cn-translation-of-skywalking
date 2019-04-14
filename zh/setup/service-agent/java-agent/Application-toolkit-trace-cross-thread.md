@@ -1,4 +1,4 @@
-# trace cross thread
+# 跨线程追踪
 * 使用maven或gradle引入toolkit依赖。
 ```xml
    <dependency>
