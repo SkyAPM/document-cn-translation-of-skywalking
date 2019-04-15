@@ -8,7 +8,7 @@
 报警规则主要有以下几点：
 - **Rule name**。在告警信息中显示的唯一名称。必须以`_rule`结尾。
 - **Indicator name**。 也是oal脚本中的度量名。 只支持long,double和int类型。详情见
-[List of all potential metric name](#list-of-all-potential-metric-name).
+[List of all potential metric name](#所有可能的度量名称列表).
 - **Include names**。其下的实体名称都在此规则中。比如服务名，终端名。
 - **Threshold**。目标值。
 - **OP**。 操作符, 支持 `>`, `<`, `=`。欢迎贡献所有的操作符。

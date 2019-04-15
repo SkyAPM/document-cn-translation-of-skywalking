@@ -1,5 +1,5 @@
 # 设置的覆盖
-SkyWalking backend支持通过系统属性和环境变量来覆盖设置。 
+SkyWalking backend支持通过系统属性和环境变量来覆盖的设置。 
 你可以覆盖`application.yml`文件中设置。
 
 ## 系统属性key规则
