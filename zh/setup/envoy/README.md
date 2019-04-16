@@ -1,9 +1,9 @@
 # 配置 Envoy 来向 SkyWalking 发送度量指标
 
 为了让 Envoy 发送度量指标到 SkyWalking，我们需要给予 Envoy 一些包含 `stats_sinks` 的配置，其中包括 `envoy.metrics_service`。
-`envoy.metrics_service` 此配置应该作为一个 [`config.grpc_service`](https://www.envoyproxy.io/docs/envoy/latest/api-v2/api/v2/core/grpc_service.proto#envoy-api-msg-core-grpcservice) 配置项进行配置。
+`envoy.metrics_service` 此配置应该作为 [`config.grpc_service`](https://www.envoyproxy.io/docs/envoy/latest/api-v2/api/v2/core/grpc_service.proto#envoy-api-msg-core-grpcservice) 的一个配置项进行配置。
 
-以下配置展示了其中比较有意思的某些配置项：
+以下配置展示了其中比较有用的某些配置项：
 
 ```yaml
 stats_sinks:
