@@ -14,7 +14,7 @@
 
 ## 开启并配置TLS
 
-### agent配置
+### agent配置
 - 将`ca.crt`放到agent包的`/ca`文件夹下。注意，`/ca`文件夹并没有在分发包中创建，请自己创建它。
 
 当agent检测到`/ca/ca.crt`后，会自动开启TLS。
