@@ -7,10 +7,10 @@
 ## 规则
 报警规则主要有以下几点：
 - **Rule name**。在告警信息中显示的唯一名称。必须以`_rule`结尾。
-- **Indicator name**。 也是oal脚本中的度量名。 只支持long,double和int类型。详情见
-[List of all potential metric name](#所有可能的度量名称列表).
+- **Indicator name**。 也是oal脚本中的度量名。只支持long,double和int类型。详情见
+[所有可能的度量名称列表](#所有可能的度量名称列表).
 - **Include names**。其下的实体名称都在此规则中。比如服务名，终端名。
-- **Threshold**。目标值。
+- **Threshold**。阈值。
 - **OP**。 操作符, 支持 `>`, `<`, `=`。欢迎贡献所有的操作符。
 - **Period**.。多久告警规则需要被核实一下。这是一个时间窗口，与后端部署环境时间相匹配。                     
 - **Count**。 在一个Period窗口中，如果**value**s超过Threshold值（按op），达到Count值，需要发送警报。
