@@ -26,7 +26,7 @@
     - [从 Engoy 向 SkyWalking 发送指标数据](envoy/README.md)。介绍了如何使用[Metrics 服务](https://www.envoyproxy.io/docs/envoy/latest/api-v2/config/metrics/v2/metrics_service.proto.html)将指标项从Envoy发到SkyWalking。
 
 ## 安装后端
-从 [backend 和 UI 设置文档](backend/backend-ui-setup.md)中可以了解到在不同的场景下如何对后端服务进行配置，以及如何开启高级特性。
+从 [后端和 UI 设置文档](backend/backend-ui-setup.md)中可以了解到在不同的场景下如何对后端服务进行配置，以及如何开启高级特性。
 
 ## 更新历史
 后端、UI和Java agent的更新历史可以在[这里](../../../CHANGES.md)找到。
