@@ -23,7 +23,3 @@
  -Dskywalking_config=/path/to/agent.config
  ```
  `/path/to/agent.config`  是指定的配置文件的绝对路径。
- 
-
-
-  
