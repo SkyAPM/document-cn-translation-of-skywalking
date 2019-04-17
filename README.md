@@ -7,7 +7,7 @@
 ## 译者
 - [@kezhenxu94](https://github.com/kezhenxu94)
 - [@KAMIJYOUDOUMA](https://github.com/KAMIJYOUDOUMA)
-
+- [@thelight1](https://github.com/thelight1)
 
 ## LICENSE
 Apache 2.0
