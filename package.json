@@ -1,0 +1,25 @@
+{
+  "name": "document-cn-translation-of-skywalking",
+  "version": "0.0.1",
+  "description": "SkyWalking 文档社区翻译版",
+  "contributors": [
+    "kezhenxu94 <kezhenxu94@apache.org> (https://github.com/kezhenxu94)",
+    "KAMIJYOUDOUMA (https://github.com/KAMIJYOUDOUMA)",
+    "thelight1 (https://github.com/thelight1)"
+  ],
+  "repository": "https://github.com/SkyAPM/document-cn-translation-of-skywalking",
+  "scripts": {
+    "clean": "rimraf dist/*",
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "license": "Apache 2.0",
+  "devDependencies": {
+    "vuepress": "^0.14.9"
+  },
+  "dependencies": {
+    "markdown-it": "^8.4.1",
+    "markdown-it-emoji": "^1.4.0",
+    "markdown-it-katex": "^2.0.3"
+  }
+}

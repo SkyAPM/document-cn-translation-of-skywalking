@@ -1,0 +1,30 @@
+language: node_js
+
+node_js:
+  - "8"
+
+script:
+      - npm run build
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: "$GITHUB_TOKEN"
+  keep_history: false
+  local_dir: dist
+  target_branch: gh-pages
+  name: kezhenxu94
+  email: kezhenxu94@apache.org
+  on:
+    branch: master
+
+notifications:
+  email:
+    recipients:
+      - kezhenxu94@apache.org
+    on_success: change
+    on_failure: always
+
+env:
+  global:
+    secure: AG7s/4NxeS8ygux0GNgcSQevnmAT5rvf/3NTJulNXmCcCCpk0i9FGHMh9fNQzNL8slePdW2X8R5AtAtO+KfxFAp7g8WcTRaNsy7qWfghgMG/BtTHZYNMqAlhlfecM0SPOS77qWvYDl8HRQ7qWODDcQ4uLolMZFWVcUTzUEXmU6STPyEF7N2oHgdUv7wod+V7G1stPSmZTGJXj0kCvaZeIeV2FV+SqrT0hn1D6Iyc8PhYLCKJnCTt+cckiQ3A9bKYQM3WLtfGd7ed9jcp2YbpJO/cygMsLD9TDgHuaGDuHg1QgQ3qHdUaCFJ9C+xgVvdt4XK+v//BkiXLg42dISHc/wGKxK1EFSxsaAcvdStbqxEW18GD+6aoc0fJs+JrLf0rZ9JOO+j9IujS/TCqvXok0ZM/S6OjEnmQ4Es08BNWtzmLrMIAFsK+sk2DRtehjhOgU5sW8IX+GfU1EykYy9zm29Rdxi3SF1ARbTpjTTF3+wl5E5XBSiltZfipCG3Qytqnnf2mDvQsfytx+tOP8tEYsFAc4rMhCm+yM8Qt7Xibj1+kFNOA8llXXKV0FIqnDoVb7kS6VAoN9zP+PyJ1ed7skFU9AlzvIfO+wb135ZMU4Naz0mxz7itAnUus1ZrdSZB8zBojrqfKkqe+s77JbC5o3LSzYmpiTXiINw6g/3OS+dE=
