@@ -47,7 +47,7 @@ storage:
     concurrentRequests: ${SW_STORAGE_ES_CONCURRENT_REQUESTS:2} # the number of concurrent requests
 ```
 
-### ElasticSearch 6 with Zipkin trace extension
+### ElasticSearch 6 与 Zipkin 的追踪扩展
 这个实现共享了大部分的 `elasticsearch`，只是扩展到支持Zipkin-Span存储。它有所以相同的配置。
 ```yaml
 storage:

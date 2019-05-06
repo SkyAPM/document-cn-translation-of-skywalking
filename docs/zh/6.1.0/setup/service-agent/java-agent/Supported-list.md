@@ -63,6 +63,9 @@
 * [Canal: 阿里巴巴的基于MySQL binlog的增量订阅与消费组件](https://github.com/alibaba/canal) 1.0.25 -> 1.1.2
 * JSON
   * [GSON](https://github.com/google/gson) 2.8.x (可选²)
+* Vert.x 生态
+  * Vert.x Eventbus 3.2+
+  * Vert.x Web 3.x
 
 ¹由于许可的限制或不兼容，这些插件发布在第三方仓库中。可以到[SkyAPM java插件扩展仓库](https://github.com/SkyAPM/java-plugin-extensions)获得这些插件。
 
