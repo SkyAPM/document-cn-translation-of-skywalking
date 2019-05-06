@@ -41,8 +41,9 @@ SkyWalking 提供了许多方法来对现有功能进行扩展. 如果你对这�
 
 SkyWalking UI 由静态页面和 Web 容器构成.
 
-- **静态页面** 是建立在 [Ant Design Pro](https://pro.ant.design/)之上, SkyWalking UI 源码托管在[SkyWalking UI](https://github.com/apache/incubator-skywalking-ui).
+- 自 6.1 版本开始, [RocketBot UI](https://github.com/apache/skywalking-rocketbot-ui) 已经成为 SkyWalking 的原生 UI. 其采用 VueJS + TypeScript 构建. 你可以在 RocketBot 代码仓库了解更多.
 - **Web容器** 源代码在 `apm-webapp` 模块中. 这是一个简单的 zuul 代理, 用于托管静态资源并使用 GraphQL 想后端发送查询请求.
+- [旧的 UI 代码仓库](https://github.com/apache/incubator-skywalking-ui) 依旧保留, 但从 6.0.0-GA 以后不会再被包含在 SkyWalking 发行版中.
 
 ## 发布
 

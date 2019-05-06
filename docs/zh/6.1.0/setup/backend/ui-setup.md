@@ -30,9 +30,3 @@ security:
       password: admin
 
 ```
-
-## 另一个开源UI RocketBot
-
-Apache SkyWalking的一个时髦且让人惊叹的UI。
-
-Github: [https://github.com/TinyAllen/rocketbot](https://github.com/TinyAllen/rocketbot)

@@ -15,7 +15,7 @@
 Istio 是一个非常典型的服务网格设计和实现, 它定义了**控制面板**和**数据面板**, 受到广泛应用.
 以下是 Istio 的架构:
 
-<img src="https://istio.io/docs/concepts/what-is-istio/img/overview/arch.svg"/>
+<img src="https://istio.io/docs/concepts/what-is-istio/arch.svg"/>
 
 服务网格探针可以选择从**控制面板**或**数据面板**收集数据. 对应到 Istio 中, 则是从 Mixer(控制面板)
 或 Envoy sidecar(数据面板) 收集遥测数据. 底层上它们都是相同的数据, 探针会从每个请求的服务端和客户端

@@ -10,9 +10,9 @@
 - [@thelight1](https://github.com/thelight1)
 
 ## 版本
-此文档从 SkyWalking 6.0.0-GA 版开始提供中文翻译版本, 各版本文档分别如下:
+此文档从 SkyWalking 6.1.0 版开始提供中文翻译版本, 各版本文档分别如下:
 
-- [6.0.0-GA](zh/6.0.0-GA/README.md)
+- [6.1.0](zh/6.1.0/README.md)
 
 ## LICENSE
 Apache 2.0
