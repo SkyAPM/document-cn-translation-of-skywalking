@@ -9,8 +9,8 @@
 ### 从 GitHub 构建
 
 1. 预备好 Git, JDK8 以及 Maven3
-1. `git clone https://github.com/apache/incubator-skywalking.git`
-1. `cd incubator-skywalking/`
+1. `git clone https://github.com/apache/skywalking.git`
+1. `cd skywalking/`
 1. 使用 `git checkout [tagname]` 切换到指定的 tag (可选的, 只有当你想编译某个特定版本的代码时才需要)
 1. `git submodule init`
 1. `git submodule update`
@@ -43,7 +43,7 @@
 ## 设置 Eclipse IDE
 
 1. 将项目导入为 maven 项目
-1. 为了支持多个源代码目录, 你需要在文件 `incubator-skywalking/pom.xml` 中添加以下配置:
+1. 为了支持多个源代码目录, 你需要在文件 `skywalking/pom.xml` 中添加以下配置:
 
 ```xml
 <plugin>

@@ -4,13 +4,13 @@
 
 ## 摘要
 
-追踪数据协议在 [gRPC 格式](https://github.com/apache/incubator-skywalking-data-collect-protocol) 中定义和提供。
+追踪数据协议在 [gRPC 格式](https://github.com/apache/skywalking-data-collect-protocol) 中定义和提供。
 
 对于每个代理/SDK，在报告任何追踪/指标数据之前，它都需要注册服务 ID 和服务实例 ID。
 
 ### 第 1 步. 注册
 
-[注册服务](https://github.com/apache/incubator-skywalking-data-collect-protocol/tree/master/register/Register.proto)掌管了所有注册方法。
+[注册服务](https://github.com/apache/skywalking-data-collect-protocol/tree/master/register/Register.proto)掌管了所有注册方法。
 第一步我们需要调用 `doServiceRegister`，然后调用`doServiceInstanceRegister`.
 
 1. 首先，调用 `doServiceRegister`，输入是**服务名称（serviceName）**，这可以定义为任何 UTF-8 编码的字符串。

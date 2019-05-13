@@ -14,11 +14,11 @@ v1 版本
 
 #### gRPC proto 文件
 
-[gRPC proto 文件](https://github.com/apache/incubator-skywalking-data-collect-protocol/tree/v2.0)
+[gRPC proto 文件](https://github.com/apache/skywalking-data-collect-protocol/tree/v2.0)
 
 ## 追踪段服务
 
-[gRPC 服务定义](https://github.com/apache/incubator-skywalking-data-collect-protocol/blob/v2.0/TraceSegmentService.proto)
+[gRPC 服务定义](https://github.com/apache/skywalking-data-collect-protocol/blob/v2.0/TraceSegmentService.proto)
 
 - UniqueId 代表段的 ID （segmentId）和全局追踪 ID（globalTraceId）。它包含三部分（long 类型）。
   1. 应用实例 ID（applicationInstanceId）
@@ -31,7 +31,7 @@ v1 版本
   - entryServiceName/entryServiceId
   - parentServiceName/parentServiceId
   - peerId/peer
-- 组件 ID（componentIds）在后端中定义，参考[此处](https://github.com/apache/incubator-skywalking//blob/master/apm-protocol/apm-network/src/main/java/org/apache/skywalking/apm/network/trace/component/ComponentsDefine.java)
+- 组件 ID（componentIds）在后端中定义，参考[此处](https://github.com/apache/skywalking//blob/master/apm-protocol/apm-network/src/main/java/org/apache/skywalking/apm/network/trace/component/ComponentsDefine.java)
 
 HTTP 格式:
 
@@ -129,7 +129,7 @@ HTTP 格式:
 
 注册应用代码到后端中，且返回一个整数标识该应用。
 
-[gRPC 服务定义](https://github.com/apache/incubator-skywalking-data-collect-protocol/blob/v2.0/ApplicationRegisterService.proto)
+[gRPC 服务定义](https://github.com/apache/skywalking-data-collect-protocol/blob/v2.0/ApplicationRegisterService.proto)
 
 - 应用编码（applicationCode）是配置在你 `agent.config` 中的.
 - 返回的 ID 是**应用 ID（ApplicationId）**，存储在 `KeyWithIntegerValue` 的 `value` 中，会在后续数据上传中使用到。
@@ -140,7 +140,7 @@ HTTP 格式:
 
 ### ~~注册实例服务~~
 
-[gRPC 服务定义](https://github.com/apache/incubator-skywalking-data-collect-protocol/blob/v2.0/DiscoveryService.proto#L29)
+[gRPC 服务定义](https://github.com/apache/skywalking-data-collect-protocol/blob/v2.0/DiscoveryService.proto#L29)
 
 - 代理唯一键（agentUUID）由代理生成，必须全局唯一，且至少在重启之前保持一致
 - **应用实例 ID（ApplicationInstanceId）** 将会在后续数据上传过程中使用
@@ -169,7 +169,7 @@ HTTP 格式 http://ip:port/instance/register(默认: localhost:12800)
 
 ### ~~心跳服务~~
 
-[gRPC 服务定义](https://github.com/apache/incubator-skywalking-data-collect-protocol/blob/v2.0/DiscoveryService.proto#L32)
+[gRPC 服务定义](https://github.com/apache/skywalking-data-collect-protocol/blob/v2.0/DiscoveryService.proto#L32)
 
 - 推荐每隔 20-60 秒进行一次心跳检测。
 - Java 代理不会使用这个服务，因为 JVM 指标上游替换了此服务的能力。 
@@ -193,7 +193,7 @@ HTTP 格式 http://ip:port/instance/heartbeat(默认: localhost:12800)
 
 使用整型 ID 替换字符串类型的服务（操作）名称
 
-[gRPC 服务定义](.https://github.com/apache/incubator-skywalking-data-collect-protocol/blob/v2.0/DiscoveryService.proto#L70)
+[gRPC 服务定义](.https://github.com/apache/skywalking-data-collect-protocol/blob/v2.0/DiscoveryService.proto#L70)
 
 - 可选的服务，降低网络开销，但增大内存使用（因为使用了缓冲映射）
 
@@ -228,7 +228,7 @@ HTTP 格式 http://ip:port/servicename/discovery(默认: localhost:12800)
 
 网络地址包括所有已经被移除的服务的地址，包含 IP，端口，主机等，这些在 RPC 框架和消息队列、数据库等中使用。
 
-[gRPC 服务定义](https://github.com/apache/incubator-skywalking-data-collect-protocol/blob/v2.0/NetworkAddressRegisterService.proto)
+[gRPC 服务定义](https://github.com/apache/skywalking-data-collect-protocol/blob/v2.0/NetworkAddressRegisterService.proto)
 
 - 可选的服务，降低网络开销，但增大内存使用（因为使用了缓冲映射）
 

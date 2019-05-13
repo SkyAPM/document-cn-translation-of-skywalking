@@ -2,7 +2,7 @@
 `apm-customize-enhance-plugin`为可选插件
 
 ## 介绍
-SkyWalking提供了[Java agent插件开发指南](https://github.com/apache/incubator-skywalking/blob/master/docs/en/guides/Java-Plugin-Development-Guide.md)帮助开发者们构建新的插件。
+SkyWalking提供了[Java agent插件开发指南](https://github.com/apache/skywalking/blob/master/docs/en/guides/Java-Plugin-Development-Guide.md)帮助开发者们构建新的插件。
 
 这个插件不是为替代某个插件而设计，而是为了用户使用方便。这个插件的行为跟[@Trace toolkit](Application-toolkit-trace.md)很相似，但是不需要对代码进行修改，而且功能更强大，比如提供了tag和log。
 
