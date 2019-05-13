@@ -34,4 +34,4 @@ SkyWalking backend 发行包包括下面几部分
 - [Backend setup document](backend-setup.md)
 - [UI setup document](ui-setup.md)
 
-此外，为了方便起见，我们提供了[k8s settings](https://github.com/apache/incubator-skywalking-kubernetes#deploy-skywalking-backend-to-kubernetes-cluster)。
+此外，为了方便起见，我们提供了[k8s settings](https://github.com/apache/skywalking-kubernetes#deploy-skywalking-backend-to-kubernetes-cluster)。

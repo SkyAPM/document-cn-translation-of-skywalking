@@ -4,7 +4,7 @@
 
 ## 在源代码中查找 oal 脚本
 
-官方 official_analysis.oal 在[这里](https://github.com/apache/incubator-skywalking/blob/master/oap-server/generated-analysis/src/main/resources/official_analysis.oal).
+官方 official_analysis.oal 在[这里](https://github.com/apache/skywalking/blob/master/oap-server/generated-analysis/src/main/resources/official_analysis.oal).
 
 ## 生成工具
 

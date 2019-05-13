@@ -1,5 +1,5 @@
 # SkyWalking 文档中文版（社区提供）
-此文档源自 Apache SkyWalking [官方文档](https://github.com/apache/incubator-skywalking/blob/master/docs/README.md)。
+此文档源自 Apache SkyWalking [官方文档](https://github.com/apache/skywalking/blob/master/docs/README.md)。
 由社区志愿者提供翻译和更新。
 
 **所有文档内容仅供参考，所有描述以英文官方文档为准。**
