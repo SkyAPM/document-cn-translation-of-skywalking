@@ -1,10 +1,10 @@
 # 如何构建项目
 
-本文档将帮助你如何使用 maven 编译构建 SkyWalking 项目, 并设置你的 IDE.
+本文档将帮助你使用 maven 编译构建 SkyWalking 项目, 并指导你对 IDE 进行设置.
 
 ## 构建项目
 
-**由于本项目使用了 Git 子模块, 我们不建议使用 GitHub 的 tag 或发行页面下载的源代码来进行编译.**
+**由于本项目使用了 Git 子模块, 我们不建议使用从 `GitHub` tag 或 release 页面下载的源代码来进行编译.**
 
 ### 从 GitHub 构建
 
@@ -36,14 +36,15 @@
 1. 设置 **生成的源代码(Generated Source Code)** 目录.
     * **apm-protocol/apm-network/target/generated-sources/protobuf** 目录下的 `grpc-java` 和 `java` 目录
     * **oap-server/server-core/target/generated-sources/protobuf** 目录下的 `grpc-java` 和 `java` 目录
-    * **oap-server/server-receiver-plugin/skywalking-istio-telemetry-receiver-plugin/target/generated-sources/protobuf** 目录下的 `grpc-java` 和 `java`
+    * **oap-server/server-receiver-plugin/receiver-proto/target/generated-sources/protobuf** 目录下的 `grpc-java` 和 `java`
+    * **oap-server/exporter/target/generated-sources/protobuf** 目录下的 `grpc-java` 和 `java`
     * **oap-server/generate-tool-grammar/target/generated-sources** 目录下的 `antlr4` 
     * **oap-server/generated-analysis/target/generated-sources** 目录下的 `oal`
     
 ## 设置 Eclipse IDE
 
 1. 将项目导入为 maven 项目
-1. 为了支持多个源代码目录, 你需要在文件 `skywalking/pom.xml` 中添加以下配置:
+2. 为了支持多个源代码目录, 你需要在文件 `skywalking/pom.xml` 中添加以下配置:
 
 ```xml
 <plugin>
@@ -74,7 +75,7 @@
 ```xml
 <pluginManagement>
     <plugins>
-    <!--此插件的配置仅仅存放 Eclipse m2e 设置, 不会影响任何 Maven 本身的构建 -->
+    <!--此插件的配置仅仅存放 Eclipse m2e 设置, 不会影响任何 Maven 本身的构建. -->
         <plugin>
             <groupId>org.eclipse.m2e</groupId>
             <artifactId>lifecycle-mapping</artifactId>
