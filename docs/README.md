@@ -12,6 +12,10 @@
 ## 版本
 此文档从 SkyWalking 6.1.0 版开始提供中文翻译版本, 各版本文档分别如下:
 
+> 其中 `master` 对应主仓库上 `master` 分支的文档. 其余为已发行版本的对应文档.
+
+- [master](zh/master/README.md)
+
 - [6.1.0](zh/6.1.0/README.md)
 
 ## 参与项目
