@@ -1,7 +1,7 @@
 Apache SkyWalking 发布指南
 --------------------
 
-本文档指导每个提交者以 Apache 的方式来发布 SkyWalking, 并且还帮助提交者检查发布的投票. 
+本文档指导每个提交者以 Apache 的方式来发布 SkyWalking, 并且还帮助提交者检查发布以便参与投票.
 
 ## 设置您的开发环境
 
@@ -158,8 +158,8 @@ within the next couple of days.
 
 ## 等待至少 48 小时的测试响应
 
-任何 PMC, 提交者或贡献者都可以测试发布和反馈的功能. 
-基于此, PMC 将决定是否开始投票. 
+任何 PMC, 提交者或贡献者都可以测试发布的功能并提供反馈.
+基于此, PMC 将决定是否开始投票.
 
 ## 在 dev 群组中投票
 
@@ -219,7 +219,7 @@ Voting will start now (xxxx date) and will remain open for at least 72 hours, Re
 所有 PMC 成员和提交者都应在投票 +1 之前检查这些. 
 
 1. 功能测试. 
-1. staging repository 中的所有工件都使用 .asc, .md5, * sha1 文件发布
+1. staging repository 中的所有工件都使用 .asc, .md5, *sha1 文件发布
 1. 源代码和下发包 (apache-skywalking-x.y.z-src.tar.gz, apache-skywalking-x.y.z.tar.gz, apache-skywalking-x.y.z.zip)
 都应该在 `https://dist.apache.org/repos/dist/dev/skywalking/x.y.z` 且包含 .asc, .sha512
 1. `LICENSE` 和 `NOTICE` 文件在源代码和分发包中. 
@@ -229,12 +229,12 @@ Voting will start now (xxxx date) and will remain open for at least 72 hours, Re
 1. 需要有免责声明
 
 投票结果应遵循这些. 
-1.PMC 投票是 +1 绑定, 所有其他投票是 +1 没有约束力. 
-1.在 72 小时内, 你得到至少 3(+1 绑定), 并且 +1 比 -1 更多. 投票通过. 
+1. PMC 投票是 +1 绑定, 所有其他投票是 +1 没有约束力.
+1. 在 72 小时内, 你得到至少 3 个 (+1 绑定), 并且 +1 比 -1 更多. 投票通过.
 
 ## 发版
 
-1. 将源代码tar球和发行版移动到 `https://dist.apache.org/repos/dist/release/skywalking/`.
+1. 将源代码 tar 包和分发包移动到 `https://dist.apache.org/repos/dist/release/skywalking/`.
 
 ```
 > export SVN_EDITOR=vim
