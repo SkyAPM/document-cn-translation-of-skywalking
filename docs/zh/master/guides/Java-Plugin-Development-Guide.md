@@ -6,9 +6,9 @@
 
 ### Span
 
-Span 是分布式跟踪系统中一个重要且常用的概念. 可从 [Google Dapper Paper](https://research.google.com/pubs/pub36356.html) 和 [OpenTracing](http://opentracing.io) 学习更多与 **Span** 相关的知识.
+Span 是分布式追踪系统中一个重要且常用的概念. 可从 [Google Dapper Paper](https://research.google.com/pubs/pub36356.html) 和 [OpenTracing](http://opentracing.io) 学习更多与 **Span** 相关的知识.
 
-SkyWalking 从 2017 年开始支持 OpenTracing 和 OpenTracing-Java API, 我们的 Span 概念与论文和 OpenTracing 类似. 我们也扩展了 Span.
+SkyWalking 从 2017 年开始支持 OpenTracing 和 OpenTracing-Java API, 我们的 Span 在概念上与谷歌论文和 OpenTracing 里描述的类似. 我们也扩展了 Span.
 
 Span 有三种类型
 
@@ -18,15 +18,15 @@ EntrySpan 代表服务提供者, 也是服务器端的端点. 作为一个 APM �
 
 1.2 LocalSpan
 
-LocalSpan 表示普通的 Java 方法, 它与远程服务无关, 也不是 MQ 生产者/消费者, 也不是服务（例如 HTTP 服务）提供者/消费者.
+LocalSpan 表示普通的 Java 方法, 它与远程服务无关, 不是 MQ 生产者/消费者, 也不是服务（例如 HTTP 服务）提供者/消费者.
 
 1.3 ExitSpan
 
-ExitSpan 代表一个服务客户端或MQ的生产者, 在 SkyWalking 的早期命名为 `LeafSpan`. 例如 通过 JDBC 访问DB, 读取 Redis/Memcached 被归类为 ExitSpan.
+ExitSpan 代表一个服务客户端或 MQ 的生产者, 在 SkyWalking 的早期命名为 `LeafSpan`. 例如 通过 JDBC 访问 DB, 读取 Redis/Memcached 被归类为 ExitSpan.
 
 ### 上下文载体 (ContextCarrier)
 
-为了实现分布式跟踪, 需要绑定跨进程的追踪, 并且上下文应该在整个过程中随之传播. 这就是 ContextCarrier 的职责.
+为了实现分布式追踪, 需要绑定跨进程的追踪, 并且上下文应该在整个过程中随之传播. 这就是 ContextCarrier 的职责.
 
 以下是有关如何在 `A -> B` 分布式调用中使用 **ContextCarrier** 的步骤.
 
@@ -35,7 +35,7 @@ ExitSpan 代表一个服务客户端或MQ的生产者, 在 SkyWalking 的早期�
 1. 将 `ContextCarrier` 所有信息放到请求头 (如 HTTP HEAD), 附件(如 Dubbo RPC 框架), 或者消息 (如 Kafka) 中
 1. 通过服务调用, 将 `ContextCarrier` 传递到服务端.
 1. 在服务端, 在对应组件的头部, 附件或消息中获取 `ContextCarrier` 所有内容.
-1. 通过 `ContestManager#createEntrySpan` 创建 EntrySpan 或者使用 `ContextManager#extract` 将服务端和客户端的绑定.
+1. 通过 `ContestManager#createEntrySpan` 创建 EntrySpan 或者使用 `ContextManager#extract` 来绑定服务端和客户端.
 
 让我们通过 Apache HttpComponent client 插件和 Tomcat 7 服务器插件演示, 步骤如下:
 
@@ -65,7 +65,7 @@ span = ContextManager.createEntrySpan("/span/operation/name", contextCarrier);
 
 ### 上下文快照 (ContextSnapshot)
 
-除了跨进程, 跨线程也是需要支持的, 例如异步线程（内存中的消息队列）和批处理在 Java 中很常见, 跨进程和跨线程十分相似, 因为都是需要传播上下文. 唯一的区别是, 不需要跨线程序列化.
+除了跨进程, 跨线程也是需要支持的, 例如异步线程（内存中的消息队列）和批处理在 Java 中很常见. 跨进程和跨线程十分相似, 因为都是需要传播上下文. 唯一的区别是, 跨线程不需要序列化.
 
 以下是有关跨线程传播的三个步骤：
 1. 使用 `ContextManager#capture` 方法获取 ContextSnapshot 对象.
@@ -76,7 +76,7 @@ span = ContextManager.createEntrySpan("/span/operation/name", contextCarrier);
 
 ### 上下文管理器 (ContextManager)
 
-ContextManager 提供所有主要API.
+ContextManager 提供所有主要 API.
 
 1. 创建 EntrySpan
 
@@ -84,7 +84,7 @@ ContextManager 提供所有主要API.
 public static AbstractSpan createEntrySpan(String endpointName, ContextCarrier carrier)
 ```
 
-根据操作名称创建 EntrySpan (例如服务名称, uri) 和 **上下文载体 (ContextCarrier)**.
+根据操作名称(例如服务名称, uri) 和 **上下文载体 (ContextCarrier)** 创建 EntrySpan.
 
 2. 创建 LocalSpan
 
@@ -92,7 +92,7 @@ public static AbstractSpan createEntrySpan(String endpointName, ContextCarrier c
 public static AbstractSpan createLocalSpan(String endpointName)
 ```
 
-根据操作名称创建 LocalSpan (例如完整的方法签名)
+根据操作名称(例如完整的方法签名)创建 LocalSpan.
 
 3. 创建 ExitSpan
 
@@ -100,7 +100,7 @@ public static AbstractSpan createLocalSpan(String endpointName)
 public static AbstractSpan createExitSpan(String endpointName, ContextCarrier carrier, String remotePeer)
 ```
 
-根据操作名称创建 ExitSpan (例如服务名称, uri) 和 **上下文载体 (ContextCarrier)** 和对等端 (peer) 地址 (例如 ip + port 或 hostname + port)
+根据操作名称(例如服务名称, uri), **上下文载体 (ContextCarrier)** 以及对等端 (peer) 地址(例如 ip + port 或 hostname + port) 创建 ExitSpan.
 
 ### AbstractSpan
 
@@ -168,7 +168,7 @@ SpanLayer 是 span 的类别. 有五个值:
 1. HTTP
 1. MQ
 
-组件 ID 由 SkyWalking 项目定义和保留, 对于组件的名称或 ID 的扩展, 请遵循[组件库的定义与扩展](Component-library-settings.md) 
+组件 ID 由 SkyWalking 项目定义和保留, 对于组件的名称或 ID 的扩展, 请遵循[组件库的定义与扩展](Component-library-settings.md).
 
 ### 高级 API
 
@@ -206,21 +206,21 @@ AbstractSpan asyncFinish();
 1. 在原始上下文中调用 `#prepareForAsync`.
 1. 将该 Span  传播到其他线程.
 1. 在全部操作就绪之后, 可在任意线程中调用 `#asyncFinish` 结束调用.
-1. 追踪上下文结束, 当所有 Span 的 `#prepareForAsync` 完成后, 会一起被回传到后端服务(根据 API 执行次数判断).
+1. 当所有 Span 的 `#prepareForAsync` 完成后, 追踪上下文会结束, 并一起被回传到后端服务(根据 API 执行次数判断).
 
 ## 开发插件
 
 ### 摘要
 
-追踪的基本方法是拦截 Java 方法, 使用字节码操作技术和 AOP 概念. SkyWalking 包装了字节码操作技术并追踪上下文的传播, 所以你只需要定义拦截点（换句话说就是 Spring 的切面）
+追踪的基本方法是拦截 Java 方法, 使用字节码操作技术和 AOP 概念. SkyWalking 包装了字节码操作技术, 并追踪上下文的传播. 所以你只需要定义拦截点(换句话说就是 Spring 的切面).
 
 ### 拦截
 
-SkyWalking 提供两类通用的定义去拦截构造器, 实例方法和类方法.
+SkyWalking 提供两类通用的定义去拦截构造方法, 实例方法和类方法.
 * `ClassInstanceMethodsEnhancePluginDefine` 定义了构造方法 `Contructor` 拦截点和 `instance method` 实例方法拦截点.
 * `ClassStaticMethodsEnhancePluginDefine` 定义了类方法 `class method` 拦截点.
 
-当然, 您也可以集成 `ClassEnhancePluginDefine` 去设置所有的拦截点, 但这不常用.
+当然, 您也可以继承 `ClassEnhancePluginDefine` 去设置所有的拦截点, 但这不常用.
 
 ### 实现插件
 
@@ -232,14 +232,14 @@ SkyWalking 提供两类通用的定义去拦截构造器, 实例方法和类方�
 protected abstract ClassMatch enhanceClass();
 ```
 
-ClassMatch 以下有四种方法表示如何去匹配目标类:
+ClassMatch 表示如何去匹配目标类, 这里有四种方法:
 * byName, 通过类的全限定名(Fully Qualified Class Name, 即 包名 + `.` + 类名).
 * byClassAnnotationMatch, 根据目标类是否存在某些注解.
 * byMethodAnnotationMatch, 根据目标类的方法是否存在某些注解.
 * byHierarchyMatch, 根据目标类的父类或接口
 
 **注意事项**:
-* 禁止使用 `*.class.getName()` 去获取类名, 建议你使用文字字符串, 这是为了避免 ClassLoader 问题.
+* 禁止使用 `*.class.getName()` 去获取类名, 建议你使用文本字符串, 这是为了避免 ClassLoader 的问题.
 * `by*AnnotationMatch` 不支持从父类继承来的注解.
 * 除非确实必要, 否则不建议使用 `byHierarchyMatch`, 因为使用它可能会触发拦截许多预期之外的方法, 会导致性能问题和不稳定.
 
@@ -248,7 +248,7 @@ ClassMatch 以下有四种方法表示如何去匹配目标类:
 ```java
 @Override
 protected ClassMatch enhanceClassName() {
-    return byName("org.apache.catalina.core.StandardEngineValve");		
+    return byName("org.apache.catalina.core.StandardEngineValve");
 }
 
 ```
@@ -339,6 +339,6 @@ public interface InstanceMethodsAroundInterceptor {
 1. 按照本指南进行开发. 确保提供注释和测试用例.
 1. 开发并测试.
 1. 发送 Pull Request 并要求审核.
-1. 提供自动测试用例. 所有自动测试用例都托管在 [SkyAPMTest/agent-auto-integration-testcases repository](https://github.com/SkyAPMTest/agent-auto-integration-testcases). 关于如何编写测试用例, 请按照[如何编写](https://github.com/SkyAPMTest/agent-auto-integration-testcases/blob/master/docs/how-to-write-a-plugin-testcase.md)文档来实现.
-1. 在提供自动测试用例并在 CI 中通过测试后, 插件提交者会批准您的插件.
-1. SkyWalking 接受的插件.
+1. 提供自动测试用例.
+1. 在提供自动测试用例并在 CI 通过测试后, 插件审批人员会批准您的插件.
+1. SkyWalking 接受新的插件.
