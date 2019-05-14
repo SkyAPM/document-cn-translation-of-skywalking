@@ -43,4 +43,4 @@ public Class<? extends ModuleDefine> module() {
 
 ## 重新发布新的数据存储实现
 
-您不必为了实现数据存储而克隆主托管库, 您可以轻松地依赖我们的 Apache 版本. 看一下 [OpenSkywalking/SkyWalking-With-Es5x-Storage](https://github.com/OpenSkywalking/SkyWalking-With-Es5x-Storage) 仓库, SkyWalking v6 重新发布 ElasticSearch 5 TCP 链接数据存储的实现.
+您不必为了实现数据存储而克隆主托管库, 您可以轻松地依赖我们的 Apache 发布版本. 看一下 [OpenSkywalking/SkyWalking-With-Es5x-Storage](https://github.com/OpenSkywalking/SkyWalking-With-Es5x-Storage) 仓库, SkyWalking v6 重新发布 ElasticSearch 5 TCP 链接数据存储的实现.
