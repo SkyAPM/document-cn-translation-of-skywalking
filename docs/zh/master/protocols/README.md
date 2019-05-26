@@ -2,9 +2,9 @@
 
 有以下两种类型的协议.
 
-- [**探针协议**](#probe-protocols). 包括了对打点代理如何发送所收集的指标数据和追踪的描述和定义, 以及各自实体的格式.
+- [**探针协议**](#探针协议). 包括对探针如何发送收集到的度量数据、跟踪信息以及涉及到的每个实体格式的描述和定义。
 
-- [**查询协议**](#query-protocol). 服务后端给 SkyWalking 自有的 UI 和任何第三方 UI 提供了查询的能力. 这些查询都是基于 GraphQL 的.
+- [**查询协议**](#查询协议). 服务后端给 SkyWalking 自有的 UI 和任何第三方 UI 提供了查询的能力. 这些查询都是基于 GraphQL 的.
 
 
 ## 探针协议
@@ -16,7 +16,7 @@
 
 包含服务, 服务实例, 网络地址以及端点元数据注册.
 注册的目的是:
-1. 对于服务, 网络地址和端点, 注册之后将会返回注册对象的一个唯一 ID, 通常是一个整数. 探针可以使用这个 ID 来替代字符串文本. 达到数据压缩的功能. 进一步讲, 有些协议只接收 ID.
+1. 对于服务, 网络地址和端点, 注册之后将会返回注册对象的一个唯一 ID, 通常是一个整数. 探针可以使用这个 ID 来替代字符串文本, 达到数据压缩的功能. 进一步讲, 有些协议只接收 ID.
 1. 对于服务实例, 注册之后将会为每个新的实例返回一个新的唯一 ID. 每个服务实例必须包含服务 ID.
 
 ### 基于语言的原生代理协议
@@ -38,13 +38,13 @@
 
 ### 服务网格探针协议
 
-Sidecar 中的探针或代理可以使用该协议发送数据到后端. 该服务通过 gRPC 实现, 需要一下关键信息:
+Sidecar 中的探针或代理可以使用该协议发送数据到后端. 该服务通过 gRPC 实现, 需要以下关键信息:
 
 1. 在服务两侧都需要服务名或 ID
 1. 在服务两侧都需要服务实例名称或 ID
 1. 端点. HTTP 中的 URI, gRPC 中的方法完整签名.
 1. 时延. 以毫秒为单位
-1. HTTP 中的响应吗
+1. HTTP 中的响应码
 1. 状态. 成功或失败
 1. 协议. HTTP, gRPC 等
 1. 监测点. 在服务网格 sidecar 中, `client` 或 `server`。 在普通的 L7 代理中, 值是 `proxy`.
@@ -58,18 +58,18 @@ SkyWalking 并不定义第三方打点协议. 它们只是协议和数据格式,
 
 查询协议遵循 GraphQL 语法, 提供了数据查询能力, 这都取决于你要分析的指标.
 
-提供了以下 5 个纬度的数据:
+提供了以下 5 个维度的数据:
 1. 元数据. 元数据包括了底层监控的所有服务及其实例, 端点等的简要信息. 可以使用多种方式来查询这些元数据.
 1. 拓扑图. 展示服务或端点的拓扑图和依赖图. 包括了直接关系或全局图.
 1. 指标. 指标查询针对所有在 [OAL 脚本](../concepts-and-designs/oal.md) 中定义的对象. 你可以在脚本中基于聚合函数获得指标数据的线性矩阵或热力学矩阵格式.
-1. 聚合. 聚合查询意味着在查询阶段需要对指标数据进行再次聚合, 这将使得查询接口需要一些不一样的参数. 例如 `TopN` 个服务就是一个非常典型的聚合查询,
+1. 聚合. 聚合查询意味着在查询阶段需要对指标数据进行再次聚合, 这将使得查询接口需要一些不一样的参数. 例如 `TopN` 查询服务就是一个非常典型的聚合查询,
 指标流聚合仅仅计算每个服务的度量值, 但是期望的列表需要将指标数据进行排序.
 1. 追踪. 查询分布式追踪
 1. 报警. 通过报警查询, 你可以得到报警趋势和细节.
 
-实际的查询 GraphQL 脚本可以在 `query-protocol` [文件夹](../../../oap-server/server-query-plugin/query-graphql-plugin/src/main/resources)内找到.
+实际的查询 GraphQL 脚本可以在 `query-protocol` [文件夹](https://github.com/apache/skywalking/tree/master/oap-server/server-query-plugin/query-graphql-plugin/src/main/resources)内找到.
 
-以下是目前已有的指标名称, 基于[official_analysis.oal](../../../oap-server/generated-analysis/src/main/resources/official_analysis.oal)
+以下是目前已有的指标名称, 基于[official_analysis.oal](https://github.com/apache/skywalking/blob/master/oap-server/generated-analysis/src/main/resources/official_analysis.oal)
 
 **全局指标**
 - all_p99, 所有服务响应时间的 p99 值
@@ -77,7 +77,7 @@ SkyWalking 并不定义第三方打点协议. 它们只是协议和数据格式,
 - all_p90
 - all_p75
 - all_p70
-- all_heatmap, 所有服务响应时间的热点图 
+- all_heatmap, 所有服务响应时间的热点图
 
 **服务指标**
 - service_resp_time, 服务的平均响应时间
