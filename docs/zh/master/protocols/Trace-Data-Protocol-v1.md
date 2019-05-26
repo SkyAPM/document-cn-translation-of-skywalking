@@ -1,6 +1,6 @@
 # 追踪数据协议
 
-追踪数据协议描述了 SkyWalking 代理/sniffer 和后端之间的数据交互格式. 
+追踪数据协议描述了 SkyWalking 代理/sniffer 和后端之间的数据交互格式.
 
 ## 摘要
 
@@ -26,7 +26,7 @@ v1 版本
   1. 时间戳（Timestamp）+ 10000 + seq(seq is in [0, 100000) )
 - Span 数据请参考 [插件开发指南](../guides/Java-Plugin-Development-Guide.md)
 - 当以下 ID 和名称（name）同时存在时，在可能的情况下优先使用 ID
-  - operationNameId/endpointName 
+  - operationNameId/endpointName
   - networkAddress/networkAddressId
   - entryServiceName/entryServiceId
   - parentServiceName/parentServiceId
@@ -40,9 +40,9 @@ HTTP 格式:
 ```
 [
   {
-    "gt": [[230150, 185809, 24040000]], 
-    "sg": { //TraceSegmentObject 
-      "ts": [137150, 185809, 48780000], 
+    "gt": [[230150, 185809, 24040000]],
+    "sg": { //TraceSegmentObject
+      "ts": [137150, 185809, 48780000],
       "ai": 2, //serviceId
       "ii": 3, //applicationInstanceId
       "ss": [ //SpanObject
@@ -123,7 +123,7 @@ HTTP 格式:
 
 ## ~~应用注册服务~~
 
-**弃用的服务** 
+**弃用的服务**
 
 ### 摘要
 
@@ -136,7 +136,7 @@ HTTP 格式:
 
 ## ~~发现服务~~
 
-**弃用的服务** 
+**弃用的服务**
 
 ### ~~注册实例服务~~
 
@@ -145,7 +145,7 @@ HTTP 格式:
 - 代理唯一键（agentUUID）由代理生成，必须全局唯一，且至少在重启之前保持一致
 - **应用实例 ID（ApplicationInstanceId）** 将会在后续数据上传过程中使用
 
-HTTP 格式 http://ip:port/instance/register(默认: localhost:12800) 
+HTTP 格式 http://ip:port/instance/register(默认: localhost:12800)
 
 输入:
 
@@ -172,9 +172,9 @@ HTTP 格式 http://ip:port/instance/register(默认: localhost:12800)
 [gRPC 服务定义](https://github.com/apache/skywalking-data-collect-protocol/blob/v2.0/DiscoveryService.proto#L32)
 
 - 推荐每隔 20-60 秒进行一次心跳检测。
-- Java 代理不会使用这个服务，因为 JVM 指标上游替换了此服务的能力。 
+- Java 代理不会使用这个服务，因为 JVM 指标上游替换了此服务的能力。
 
-HTTP 格式 http://ip:port/instance/heartbeat(默认: localhost:12800) 
+HTTP 格式 http://ip:port/instance/heartbeat(默认: localhost:12800)
 
 输入:
 
@@ -231,4 +231,3 @@ HTTP 格式 http://ip:port/servicename/discovery(默认: localhost:12800)
 [gRPC 服务定义](https://github.com/apache/skywalking-data-collect-protocol/blob/v2.0/NetworkAddressRegisterService.proto)
 
 - 可选的服务，降低网络开销，但增大内存使用（因为使用了缓冲映射）
-
