@@ -4,10 +4,11 @@
 
 **所有文档内容仅供参考，所有描述以英文官方文档为准。**
 
-## 译者
+## 贡献者
 - [@kezhenxu94](https://github.com/kezhenxu94)
 - [@KAMIJYOUDOUMA](https://github.com/KAMIJYOUDOUMA)
 - [@thelight1](https://github.com/thelight1)
+- [@SataQiu](https://github.com/SataQiu)
 
 ## 版本
 此文档从 SkyWalking 6.1.0 版开始提供中文翻译版本, 各版本文档分别如下:
