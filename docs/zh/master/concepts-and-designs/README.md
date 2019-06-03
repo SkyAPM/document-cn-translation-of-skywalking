@@ -1,6 +1,6 @@
 # 概念与设计
 
-了解 SkyWalking 的概念与设计能够帮助大家从总体上了解 SkyWalking 以及进一步学习 SkyWalking. 
+了解 SkyWalking 的概念与设计能够帮助大家从总体上了解 SkyWalking 以及进一步学习 SkyWalking.
 
 - 什么是 SkyWalking?
   - [核心概念与概览](overview.md) 一文对 SkyWalking 进行高层次的概述和介绍, 包括 SkyWalking 所要解决的问题.
@@ -14,7 +14,7 @@
   - [手动打点 SDK](manual-sdk.md) 介绍了手动打点 SDK 在 SkyWalking 生态中所扮演的角色.
   - [服务网格(Service Mesh)探针](service-mesh-probe.md) 介绍了 SkyWalking 为何需要以及如何从服务网格和代理探针接收遥测数据的.
 - 后端
-  - [总览](backend-overview.md) 一文从高层次对观测分析协议(Observability Analysis Protocol, OAP)后端进行介绍.
+  - [总览](backend-overview.md) 一文从高层次对观测分析平台(Observability Analysis Platform, OAP)进行介绍.
   - [观测分析语言(Observability Analysis Language)](oal.md) 介绍了一些用于聚合行为定义的核心语言.
   - [OAP 中的查询](../protocols/README.md#query-protocol) 基于观测分析语言的指标定义, 涵盖了一系列查询协议.
 - 用户界面(UI)
