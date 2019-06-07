@@ -2,7 +2,7 @@
   "envoyMetrics": [
     {
       "name": "cluster.service_stats.upstream_cx_total",
-      "metric": [
+      "metrics": [
         {
           "counter": {
             "value": 1
@@ -13,7 +13,7 @@
     },
     {
       "name": "cluster.service_stats.upstream_rq_pending_total",
-      "metric": [
+      "metrics": [
         {
           "counter": {
             "value": 1
@@ -24,7 +24,7 @@
     },
     {
       "name": "cluster.service_stats.update_attempt",
-      "metric": [
+      "metrics": [
         {
           "counter": {
             "value": 2
@@ -35,7 +35,7 @@
     },
     {
       "name": "cluster.service_stats.upstream_cx_tx_bytes_total",
-      "metric": [
+      "metrics": [
         {
           "counter": {
             "value": 2185
@@ -46,7 +46,7 @@
     },
     {
       "name": "cluster.service_stats.upstream_cx_rx_bytes_total",
-      "metric": [
+      "metrics": [
         {
           "counter": {
             "value": 48
@@ -57,7 +57,7 @@
     },
     {
       "name": "cluster.service_stats.membership_change",
-      "metric": [
+      "metrics": [
         {
           "counter": {
             "value": 1
@@ -68,7 +68,7 @@
     },
     {
       "name": "cluster.service_stats.upstream_rq_total",
-      "metric": [
+      "metrics": [
         {
           "counter": {
             "value": 1
@@ -79,7 +79,7 @@
     },
     {
       "name": "cluster.service_stats.upstream_cx_http2_total",
-      "metric": [
+      "metrics": [
         {
           "counter": {
             "value": 1
@@ -90,7 +90,7 @@
     },
     {
       "name": "cluster.service_stats.update_success",
-      "metric": [
+      "metrics": [
         {
           "counter": {
             "value": 2
@@ -101,7 +101,7 @@
     },
     {
       "name": "cluster.service_google.update_attempt",
-      "metric": [
+      "metrics": [
         {
           "counter": {
             "value": 2
@@ -112,7 +112,7 @@
     },
     {
       "name": "cluster.service_google.update_success",
-      "metric": [
+      "metrics": [
         {
           "counter": {
             "value": 2
@@ -123,7 +123,7 @@
     },
     {
       "name": "cluster.service_google.membership_change",
-      "metric": [
+      "metrics": [
         {
           "counter": {
             "value": 1
@@ -134,7 +134,7 @@
     },
     {
       "name": "http.async-client.rq_total",
-      "metric": [
+      "metrics": [
         {
           "counter": {
             "value": 1
@@ -145,7 +145,7 @@
     },
     {
       "name": "listener_manager.listener_added",
-      "metric": [
+      "metrics": [
         {
           "counter": {
             "value": 1
@@ -156,7 +156,7 @@
     },
     {
       "name": "listener_manager.listener_create_success",
-      "metric": [
+      "metrics": [
         {
           "counter": {
             "value": 1
@@ -167,7 +167,7 @@
     },
     {
       "name": "cluster_manager.cluster_added",
-      "metric": [
+      "metrics": [
         {
           "counter": {
             "value": 2
@@ -178,7 +178,7 @@
     },
     {
       "name": "runtime.deprecated_feature_use",
-      "metric": [
+      "metrics": [
         {
           "counter": {
             "value": 18
@@ -190,7 +190,7 @@
     {
       "name": "cluster.service_stats.membership_healthy",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {
             "value": 1
@@ -202,7 +202,7 @@
     {
       "name": "cluster.service_stats.upstream_rq_pending_active",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {},
           "timestampMs": "1551781663344"
@@ -212,7 +212,7 @@
     {
       "name": "cluster.service_stats.membership_degraded",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {},
           "timestampMs": "1551781663344"
@@ -222,7 +222,7 @@
     {
       "name": "cluster.service_stats.membership_total",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {
             "value": 1
@@ -234,7 +234,7 @@
     {
       "name": "cluster.service_stats.upstream_cx_rx_bytes_buffered",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {
             "value": 39
@@ -246,7 +246,7 @@
     {
       "name": "cluster.service_stats.circuit_breakers.default.rq_pending_open",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {},
           "timestampMs": "1551781663344"
@@ -256,7 +256,7 @@
     {
       "name": "cluster.service_stats.upstream_rq_active",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {
             "value": 1
@@ -268,7 +268,7 @@
     {
       "name": "cluster.service_stats.upstream_cx_active",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {
             "value": 1
@@ -280,7 +280,7 @@
     {
       "name": "cluster.service_stats.circuit_breakers.default.rq_open",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {},
           "timestampMs": "1551781663344"
@@ -290,7 +290,7 @@
     {
       "name": "cluster.service_google.membership_total",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {
             "value": 1
@@ -302,7 +302,7 @@
     {
       "name": "cluster.service_google.membership_degraded",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {},
           "timestampMs": "1551781663344"
@@ -312,7 +312,7 @@
     {
       "name": "cluster.service_google.membership_healthy",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {
             "value": 1
@@ -324,7 +324,7 @@
     {
       "name": "server.parent_connections",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {},
           "timestampMs": "1551781663344"
@@ -334,7 +334,7 @@
     {
       "name": "server.live",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {
             "value": 1
@@ -346,7 +346,7 @@
     {
       "name": "listener_manager.total_listeners_active",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {
             "value": 1
@@ -358,7 +358,7 @@
     {
       "name": "server.memory_heap_size",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {
             "value": 3145728
@@ -370,7 +370,7 @@
     {
       "name": "server.uptime",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {
             "value": 10
@@ -382,7 +382,7 @@
     {
       "name": "server.days_until_first_cert_expiring",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {
             "value": 2147483647
@@ -394,7 +394,7 @@
     {
       "name": "server.concurrency",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {
             "value": 1
@@ -406,7 +406,7 @@
     {
       "name": "server.total_connections",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {},
           "timestampMs": "1551781663344"
@@ -416,7 +416,7 @@
     {
       "name": "server.hot_restart_epoch",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {},
           "timestampMs": "1551781663344"
@@ -426,7 +426,7 @@
     {
       "name": "server.memory_allocated",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {
             "value": 1767200
@@ -438,7 +438,7 @@
     {
       "name": "cluster_manager.active_clusters",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {
             "value": 2
@@ -450,7 +450,7 @@
     {
       "name": "server.version",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {
             "value": 13301675
@@ -462,7 +462,7 @@
     {
       "name": "listener_manager.total_listeners_warming",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {},
           "timestampMs": "1551781663344"
@@ -472,7 +472,7 @@
     {
       "name": "runtime.num_keys",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {},
           "timestampMs": "1551781663344"
@@ -482,7 +482,7 @@
     {
       "name": "cluster_manager.warming_clusters",
       "type": "GAUGE",
-      "metric": [
+      "metrics": [
         {
           "gauge": {},
           "timestampMs": "1551781663344"
@@ -492,7 +492,7 @@
     {
       "name": "cluster.service_stats.upstream_cx_connect_ms",
       "type": "SUMMARY",
-      "metric": [
+      "metrics": [
         {
           "summary": {
             "quantile": [

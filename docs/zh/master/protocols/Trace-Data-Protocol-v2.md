@@ -27,7 +27,7 @@
 
 ### 第 2 步. 发送追踪数据和指标
 
-一旦你有了追踪 ID 和追踪实例 ID，你就可以发送追踪数据和指标数据了。目前：
+一旦你有了服务 ID 和服务实例 ID，你就可以发送追踪数据和指标数据了。目前：
 
 1. 对于 SkyWalking 原生追踪数据格式，我们有 `TraceSegmentReportService#collect` 方法
 2. 对于 SkyWalking 原生 JVM 格式，我们有 `JVMMetricReportService#collect` 方法

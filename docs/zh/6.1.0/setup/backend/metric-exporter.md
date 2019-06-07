@@ -1,9 +1,9 @@
-# Metric Exporter
+# Metrics Exporter
 Skywalking提供基本的，并且最为重要的度量聚合、告警和分析。
 在事件使用时，人们可能希望将数据转发到第三方系统，以便进行更深入的分析或其它任何操作。
-**Metric Exporter**使之成为可能。
+**Metrics Exporter**使之成为可能。
 
-Metric Exporter是一个独立的模块，您需要手动激活它。
+Metrics Exporter是一个独立的模块，您需要手动激活它。
 
 目前，我们提供下面这些exporter
 1. gRPC exporter

@@ -7,7 +7,7 @@ Receiver是SkyWalking backend中的一个概念。 所有负责从其它监控�
 1. **service-mesh**。 gRPC服务，接收来自入站网格探针的数据。
 1. **receiver-jvm**。 gRPC services，接收JVM度量数据。.
 1. **istio-telemetry**。 ISTIO遥测来自ISTIO官方的旁路适配器，这个Receiver匹配它自己的gRPC服务。
-1. **envoy-metric**. Envoyd的`metrics_service` 由它提供支持。 OAL脚本支持所有仪表类型度量。
+1. **envoy-metrics**. Envoyd的`metrics_service` 由它提供支持。 OAL脚本支持所有仪表类型度量。
 1. **receiver_zipkin**. 详见 [details](#zipkin-receiver).
 1. **receiver_jaeger**. 详见 [details](#jaeger-receiver).
 
@@ -32,7 +32,7 @@ service-mesh:
     bufferFileCleanWhenRestart: false
 istio-telemetry:
   default:
-envoy-metric:
+envoy-metrics:
   default:
 receiver_zipkin:
   default:

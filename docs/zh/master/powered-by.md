@@ -39,6 +39,7 @@
 1. Hundun YUNRONG Fintech. 杭州恒生云融网络科技有限公司 https://www.hsjry.com/
 1. hunliji.com 婚礼纪 https://www.hunliji.com/
 1. iFLYTEK. 科大讯飞股份有限公司-消费者BG http://www.iflytek.com/
+1. lizhi.fm 荔枝FM https://www.lizhi.fm/
 1. Ke.com. 贝壳找房. https://www.ke.com
 1. Keking.cn 凯京集团. http://www.keking.cn
 1. JoinTown. 九州通医药集团 http://www.jztey.com/
@@ -60,10 +61,12 @@
 1. Qk365.com 上海青客电子商务有限公司 https://www.qk365.com
 1. Rongjinbao. 深圳融金宝互联网金融服务有限公司. http://www.rjb777.com
 1. Shouqi Limousine & chauffeur Group 首约科技(北京)有限公司. https://www.01zhuanche.com/
+1. Sijibao.com 司机宝 https://www.sijibao.com/
 1. Sinolink Securities Co.,Ltd. 国金证券佣金宝 http://www.yongjinbao.com.cn/
 1. Source++ https://sourceplusplus.com
 1. StartDT 奇点云 https://www.startdt.com/
 1. Successchannel 苏州渠成易销网络科技有限公司. http://www.successchannel.com
+1. syswin.com 北京思源集团 http://www.syswin.com/
 1. Tetrate.io https://www.tetrate.io/
 1. Today36524.com Today便利店
 1. Tools information technology co. LTD 杭州图尔兹信息技术有限公司 http://bintools.cn/
@@ -75,6 +78,7 @@
 1. Weier. 广州文尔软件科技有限公司. https://www.site0.cn
 1. Wochu. 我厨买菜. https://www.wochu.cn
 1. Xiaomi. 小米. https://www.mi.com/en/
+1. Xinyebang.com 重庆欣业邦网络技术有限公司 http://www.xinyebang.com
 1. xueqiu.com 雪球财经. https://xueqiu.com/
 1. Yiguo. 易果生鲜. http://www.yiguo.com/
 1. Yinji(shenzhen)Network Technology Co.,Ltd. 印记. http://www.yinjiyun.cn/
@@ -114,3 +118,12 @@ Tetrate 提供了商业水平的服务网格. SkyWalking 作为它的核心观�
 
 ## Source++
 一个开源智能的编程助手, 旨在桥接 APM 工具和开发者 IDE 工具, 使得反馈循环更加紧凑. Source++ 使用 SkyWalking 作为基于 JVM 应用的 APM.
+
+## lagou.com
+拉勾 Lagou.com 在基于 JVM 的生产环境应用程序中使用 SkyWalking. 自定义和优化了多个收集器 collector 的功能, 如告警, SQL 指标, 循环操作指标, 线程监控, 细节模式. 支持了超过 200 个实例, 每分钟超过 4500k 的 Segments.
+
+## 永辉超市
+
+永辉超市使用 SkyWalking 作为主要的 APM 系统, 来监控 1 千多个实例集群, 支持了 150K+ tps/qps 的负载.
+SkyWalking 每天全量收集, 分析和保存 100 亿 Segment (消耗 3T 硬盘),
+SkyWalking 后端集群由 15 个 OAP 节点和 20 个 ElasticSearch 节点构成.

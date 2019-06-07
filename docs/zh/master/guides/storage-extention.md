@@ -20,12 +20,12 @@ public Class<? extends ModuleDefine> module() {
 
 1. IServiceInventoryCacheDAO
 1. IServiceInstanceInventoryCacheDAO
-1. H2EndpointInventoryCacheDAO
-1. H2NetworkAddressInventoryCacheDAO
+1. IEndpointInventoryCacheDAO
+1. INetworkAddressInventoryCacheDAO
 1. IBatchDAO
 1. StorageDAO
 1. IRegisterLockDAO
-1. H2TopologyQueryDAO
+1. ITopologyQueryDAO
 1. IMetricQueryDAO
 1. ITraceQueryDAO
 1. IMetadataQueryDAO
