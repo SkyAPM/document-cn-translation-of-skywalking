@@ -82,6 +82,8 @@ set "CATALINA_OPTS=-javaagent:/path/to/skywalking-agent/skywalking-agent.jar"
 `plugin.elasticsearch.trace_dsl`|如果为true，记录所有访问ElasticSearch的DSL信息。默认为false。|`false`|
 `plugin.springmvc.use_qualified_name_as_endpoint_name`|如果为true，endpoint的name为方法的全限定名，而不是请求的URL。默认为false。|`false`|
 `plugin.toolit.use_qualified_name_as_operation_name`|如果为true，operation的name为方法的全限定名，而不是给定的operation name。默认为false。|`false`|
+`plugin.solrj.trace_statement`|如果为 true, 追踪 Solr 查询请求中的所有查询参数(包括 deleteByIds 和 deleteByQuery) 默认为 false.|`false`|
+`plugin.solrj.trace_ops_params`|如果为 true, 追踪 Solr 查询中所有操作参数, 默认为 false.|`false`|
 
 ## 可选的插件 
 Java agent的所有插件都是可插拔的。在agent或第三方仓库的`optional-plugins` 文件夹下提供了可选的插件。
@@ -95,6 +97,7 @@ Java agent的所有插件都是可插拔的。在agent或第三方仓库的`opti
 * Lettuce 5.x(JRE1.8+)
 * Zookeeper 3.4.x。 将此插件定为可选插件的原因在于：会生成大量的业务不相关的trace，对agent和后端产生了额外的负载。并且，这些trace数据可能仅仅是心跳数据。
 * [自定义增强](Customize-enhance-trace.md) 基于描述文件对方法进行追踪，而不是通过写插件或修改源代码。
+* Spring Cloud Gateway 2.1.x 插件. 只有当你在 Spring Gateway 端安装了插件时才开启此插件.
 
 ## 高级特性
 * 可通过设置系统属性覆盖配置文件中的配置。请见[配置覆盖](Setting-override.md).

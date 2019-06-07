@@ -29,6 +29,57 @@
 1. 运行 `./mvnw clean package -DskipTests`
 1. 所有打出来的包都在目录 `/dist` 下 (Linux 下为 .tar.gz, Windows 下为 .zip).
 
+### 高级编译
+
+SkyWalking 是一个复杂的 Maven 项目, 包括许多模块, 其中可能包含一些编译耗时非常长的模块.
+如果你只想重新编译项目的某个部分, 有以下选项可以支持:
+
+- 编译 agent 包
+
+>  ./mvnw package -Pagent,dist
+
+或
+
+> make build.agent
+
+- 编译 backend 包并且打完整包
+
+>  ./mvnw package -Pbackend,dist
+
+或
+
+> make build.backend
+
+- 编译 UI 并且打完整包
+
+>  ./mvnw package -Pui,dist
+
+或
+
+> make build.ui
+
+
+### 构建 docker 镜像
+
+我们可以使用根目录下的 `Makefile` 文件来构建 `backend` 和 `ui` 的 docker 镜像.
+
+- 构建所有 docker 镜像
+
+> make docker.all
+
+- 构建 oap 服务的 docker 镜像
+
+> make docker.oap
+
+- 构建 UI 的 docker 镜像
+
+> make docker.ui
+
+`HUB` 和 `TAG` 变量用于设置一个 docker 镜像的 `REPOSITORY` 和 `TAG`.
+要得到一个名为 `bar/oap:foo` 的 OAP 镜像, 运行以下命令:
+
+> HUB=bar TAG=foo make docker.oap
+
 ## 设置 IntelliJ IDEA
 
 1. 将项目导入为 maven 项目
@@ -38,6 +89,7 @@
     * **oap-server/server-core/target/generated-sources/protobuf** 目录下的 `grpc-java` 和 `java` 目录
     * **oap-server/server-receiver-plugin/receiver-proto/target/generated-sources/protobuf** 目录下的 `grpc-java` 和 `java`
     * **oap-server/exporter/target/generated-sources/protobuf** 目录下的 `grpc-java` 和 `java`
+    * **oap-server/server-configuration/grpc-configuration-sync/target/generated-sources/protobuf** 目录下的 `grpc-java` 和 `java` 
     * **oap-server/generate-tool-grammar/target/generated-sources** 目录下的 `antlr4` 
     * **oap-server/generated-analysis/target/generated-sources** 目录下的 `oal`
     

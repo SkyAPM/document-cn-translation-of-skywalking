@@ -63,7 +63,7 @@ Receiver有许多不同的模块名，你可以阅读[link list](#advanced-featu
 1. 官方 [OAL scripts](../../guides/backend-oal-scripts.md)。正如您从我们的[OAL introduction](../../concepts-and-designs/oal.md)中所知，大多数backend分析功能都基于脚本。这是对官方手稿的描述，这有助于您了解正在处理的度量数据，也可以用于警报。
 1. [Alarm](backend-alarm.md). 告警提供基于时间序列的检查机制。你可以设置针对分析OAL度量对象的告警规则。
 1. [Advanced deployment options](advanced-deployment.md)。如果你需要部署的backend有很大的扩展性并支持高负载，你需要看看这个。
-1. [Metric exporter](metric-exporter.md). 使用metric data导出器将metric数据转发给第三方系统。
+1. [Metrics exporter](metrics-exporter.md). 使用metrics data导出器将metric数据转发给第三方系统。
 
 ## backend遥测
 OAP后端集群本身的底层是一个分布式流处理系统。为了帮助运营团队，我们为OAP后端本身提供遥测。按照[document](backend-telemetry.md)使用它。

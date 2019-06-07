@@ -16,14 +16,18 @@
 - [SkyAPM .NET Core agent](https://github.com/SkyAPM/SkyAPM-dotnet)。可以通过 .NET Core agent的项目文档查看到更详细的信息。
 - [SkyAPM Node.js agent](https://github.com/SkyAPM/SkyAPM-nodejs)。可以通过Node.js服务端agent的项目文档查看到更详细的信息。
 - [SkyAPM PHP SDK](https://github.com/SkyAPM/SkyAPM-php-sdk)。可以通过PHP agent项目文档查看到更详细的信息。
+- [Tetrate GO2Sky](https://github.com/tetratelabs/go2sky). 参考 GO2Sky 项目文档获得更多信息.
 
 ## Service Mesh
   - Istio
     - [SkyWalking on Istio](istio/README.md)。介绍了如何使用Istio Mixer，并通过适配与SkyWalking一起工作。
+  - Envoy
+    - 使用 [ALS(访问日志服务)](https://www.envoyproxy.io/docs/envoy/latest/api-v2/service/accesslog/v2/als.proto) 来观测服务网格, 无需使用 Mixer. 按照 [文档](envoy/als_setting.md) 来开启此功能.
 
 ## Proxy
   - [Envoy Proxy](https://www.envoyproxy.io/)
-    - [从 Engoy 向 SkyWalking 发送指标数据](envoy/README.md)。介绍了如何使用[Metrics 服务](https://www.envoyproxy.io/docs/envoy/latest/api-v2/config/metrics/v2/metrics_service.proto.html)将指标项从Envoy发到SkyWalking。
+    - [从 Engoy 向 SkyWalking 发送指标数据](envoy/metrics_service_setting.md)。介绍了如何使用[Metrics 服务](https://www.envoyproxy.io/docs/envoy/latest/api-v2/config/metrics/v2/metrics_service.proto.html) 将指标项从Envoy发到SkyWalking。
+    - [从 Envoy 发送指标到 Skywalking](envoy/metrics_service_setting.md). 介绍了如何使用 [Metrics service](https://www.envoyproxy.io/docs/envoy/latest/api-v2/config/metrics/v2/metrics_service.proto.html) 向 SkyWalking 发送指标.
 
 ## 安装后端
 从 [后端和 UI 设置文档](backend/backend-ui-setup.md)中可以了解到在不同的场景下如何对后端服务进行配置，以及如何开启高级特性。

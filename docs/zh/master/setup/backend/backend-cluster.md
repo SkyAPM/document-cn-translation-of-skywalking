@@ -6,7 +6,7 @@ SkyWalking的backend提供了几种集群管理的方案。选择你需要或想
 - [Zookeeper协调方式](#Zookeeper协调方式)。使用ZooKeeper让后端实例彼此之间检测和通信。
 - [Kubernetes](#kubernetes)。 当backend集群部署在kubernetes时，你可以使用k8s原生的APIs来管理集群。
 - [Consul](#consul)。 使用Consul作为集群管理的实现者，来协调backend的实例。
-
+- [Nacos](#nacos). 使用 Nacos 作为集群管理的实现者, 来协调后端的实例。
 
 ## Zookeeper协调方式
 Zookeeper是一个很常见并的广泛使用的集群协调者。在yml文件中设置 **cluster** 实现者为**zookeeper**来启用它。 
@@ -72,3 +72,15 @@ cluster:
 根据您自己的LAN环境，可通过下列参数设置你的host和port。
 - InternalComHost。已注册的主机和其它OAP节点使用它与当前节点通信。
 - InternalCompart。已注册的端口和其它OAP节点使用它与当前节点通信。
+
+
+## Nacos
+在 yml 文件中设置 **cluster** 模块的实现为 **nacos** 来激活 Nacos. 
+
+```yaml
+cluster:
+  nacos:
+    serviceName: ${SW_SERVICE_NAME:"SkyWalking_OAP_Cluster"}
+    # Nacos cluster nodes, example: 10.0.0.1:8848,10.0.0.2:8848,10.0.0.3:8848
+    hostPort: ${SW_CLUSTER_NACOS_HOST_PORT:localhost:8848}
+```
