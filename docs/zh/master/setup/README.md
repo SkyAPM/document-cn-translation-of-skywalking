@@ -16,7 +16,7 @@
 - [SkyAPM .NET Core agent](https://github.com/SkyAPM/SkyAPM-dotnet)。可以通过 .NET Core agent的项目文档查看到更详细的信息。
 - [SkyAPM Node.js agent](https://github.com/SkyAPM/SkyAPM-nodejs)。可以通过Node.js服务端agent的项目文档查看到更详细的信息。
 - [SkyAPM PHP SDK](https://github.com/SkyAPM/SkyAPM-php-sdk)。可以通过PHP agent项目文档查看到更详细的信息。
-- [Tetrate GO2Sky](https://github.com/tetratelabs/go2sky). 参考 GO2Sky 项目文档获得更多信息.
+- [SkyAPM GO2Sky](https://github.com/SkyAPM/go2sky). 参考 GO2Sky 项目文档获得更多信息.
 
 ## Service Mesh
   - Istio

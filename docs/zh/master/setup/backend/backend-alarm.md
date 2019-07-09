@@ -2,7 +2,7 @@
 告警的核心由一组规则驱动，这些规则定义在`config/ Alarm -settings.yml`文件中。
 告警规则的定义分为两部分。
 1. 告警规则。它们定义了应该如何触发度量警报，应该考虑什么条件。
-2. 网络钩子。当警告触发时，哪些服务终端需要被告知。
+2. [网络钩子](#Webhook}。当警告触发时，哪些服务终端需要被告知。
 
 ## 规则
 报警规则主要有以下几点：
@@ -59,3 +59,32 @@ rules:
 
 如果你希望有其它的告警场景，请提交issue或pr。
 
+
+## Webhook
+SkyWalking 的告警 Webhook 要求对等方是一个 Web 容器. 告警的消息会通过 HTTP 请求进行发送, 请求方法为 `POST`, `Content-Type` 为 `application/json`,
+JSON 格式基于 `List<org.apache.skywalking.oap.server.core.alarm.AlarmMessage`, 包含以下信息.
+- **scopeId**. 所有可用的 Scope 请查阅 `org.apache.skywalking.oap.server.core.source.DefaultScopeDefine`.
+- **name**. 目标 Scope 的实体名称.
+- **id0**. Scope 实体的 ID.
+- **id1**. 未使用.
+- **alarmMessage**. 报警消息内容.
+- **startTime**. 告警时间, 位于当前时间与 UTC 1920/1/1 之间.
+
+以下是一个样例
+```json
+[{
+	"scopeId": 1, 
+        "name": "serviceA", 
+	"id0": 12,  
+	"id1": 0,  
+	"alarmMessage": "alarmMessage xxxx",
+	"startTime": 1560524171000
+}, {
+	"scopeId": 1,
+        "name": "serviceB",
+	"id0": 23,
+	"id1": 0,
+	"alarmMessage": "alarmMessage yyy",
+	"startTime": 1560524171000
+}]
+```

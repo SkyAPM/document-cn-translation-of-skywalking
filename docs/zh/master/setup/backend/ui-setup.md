@@ -9,7 +9,6 @@ UI的设置文件是发行包里的`webapp/webapp.yml`。它由三个部分组�
 
 1. 监听端口
 1. Backend连接信息
-1. 认证设置
 
 ```yaml
 server:
@@ -21,12 +20,5 @@ collector:
     ReadTimeout: 10000
     # Point to all backend's restHost:restPort, split by , 
     listOfServers: 10.2.34.1:12800,10.2.34.2:12800
-
-security:
-  user:
-    # username
-    admin:
-      # password
-      password: admin
 
 ```

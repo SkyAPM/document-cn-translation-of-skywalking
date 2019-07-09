@@ -23,7 +23,22 @@
 
 ## 对于代码开发者
 
-作为开发者, 首先阅读[编译指南](How-to-build.md). 它会告诉你如何在本地构建 SkyWalking.
+对于代码开发者, 首先阅读[编译指南](How-to-build.md). 它会告诉你如何在本地构建 SkyWalking.
+
+在搭建好本地开发环境并且写完代码之后, 为了能够让你的代码更快更容易被 SkyWalking 合并, 你需要在本地先运行单元测试 (UT), 确保你修改/新加的代码
+没有破坏现有的功能, 还需要新增一些单元测试代码来验证你修改/新增的代码正常工作, 同时也可以避免以后的贡献者修改你代码的时候遭到破坏.
+如果新增的代码涉及到第三方组件/库, 你还需要编写一些集成测试 (IT).
+
+SkyWalking 利用插件 `maven-surefire-plugin` 来运行单元测试, 而使用插件 `maven-failsafe-plugin` 来运行集成测试,
+插件 `maven-surefire-plugin` 运行时将会把集成测试 (类名以 `IT` 开头的类) 排除, 留给插件 `maven-failsafe-plugin` 去运行,
+`maven-failsafe-plugin` 被绑定到 maven 的 `CI-with-IT` profile, `verify` 执行目标上. 因此, 如果你要运行单元测试,
+使用 `./mvnw clean test`, 这只会运行单元测试, 不会运行集成测试.
+
+如果你想运行集成测试, 请确保激活 `CI-with-IT` profile 以及你要运行集成测试的模块的 profile.
+举个例子, 如果你想运行 `oap-server` 模块的集成测试, 使用 `./mvnw -Pbackend,CI-with-IT clean verify`,
+如果你想运行所有集成测试, 只需要运行 `./mvnw -Pall,CI-with-IT clean verify`.
+
+请注意, 如果你要编写集成测试, 命名时请使用 `IT*` 开头, 使得只在 `CI-with-IT` profile 下才会运行.
 
 ### 项目扩展
 

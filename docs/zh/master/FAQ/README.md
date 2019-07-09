@@ -11,3 +11,4 @@
 * [Kafka消费端trace断裂](kafka-plugin.md)
 * [Agent或collector版本升级](Upgrade.md)
 * [EnhanceRequireObjectCache类转换异常](EnhanceRequireObjectCache-Cast-Exception.md)
+* [ElasticSearch 服务器性能常见问题, 包括 ERROR CODE:429](ES-Server-FAQ.md)

@@ -63,6 +63,7 @@ set "CATALINA_OPTS=-javaagent:/path/to/skywalking-agent/skywalking-agent.jar"
 `agent.span_limit_per_segment`|单个segment中的span的最大个数。通过这个配置项，Skywalking可评估应用程序内存使用量。| 未设置|
 `agent.ignore_suffix`|如果这个集合中包含了第一个span的操作名，这个segment将会被忽略掉。|未设置|
 `agent.is_open_debugging_class`|如果为true，skywalking会将所有经Instrument转换过的类文件保存到`/debugging`文件夹下。Skywalking团队会要求你提供这些类文件以解决兼容性问题。|未设置|
+`agent.cause_exception_depth`|在记录异常信息的时候, 探针需要记录的堆栈深度.|5|
 `agent.active_v2_header`|是否默认使用v2版本的header。|`true`|
 `agent.instance_uuid` |实例id。skywalking会将实例id相同的看做一个实例。如果为空，skywalking agent会生成一个32位的uuid。|`""`|
 `agent.active_v1_header `|是否默认使用v1版本的header。|`false`|
@@ -82,6 +83,8 @@ set "CATALINA_OPTS=-javaagent:/path/to/skywalking-agent/skywalking-agent.jar"
 `plugin.elasticsearch.trace_dsl`|如果为true，记录所有访问ElasticSearch的DSL信息。默认为false。|`false`|
 `plugin.springmvc.use_qualified_name_as_endpoint_name`|如果为true，endpoint的name为方法的全限定名，而不是请求的URL。默认为false。|`false`|
 `plugin.toolit.use_qualified_name_as_operation_name`|如果为true，operation的name为方法的全限定名，而不是给定的operation name。默认为false。|`false`|
+`plugin.mysql.trace_sql_parameters`|如果设置为 true, SQL 查询 (典型的是 `java.sql.PreparedStatement`) 的参数也会被采集.|`false`|
+`plugin.mysql.sql_parameters_max_length`|如果设置为正整数, 收集的 SQL 参数 `db.sql.parameters` 会被截断到这个长度, 否则会被完整保存, 这可能会导致性能问题.|`512`|
 `plugin.solrj.trace_statement`|如果为 true, 追踪 Solr 查询请求中的所有查询参数(包括 deleteByIds 和 deleteByQuery) 默认为 false.|`false`|
 `plugin.solrj.trace_ops_params`|如果为 true, 追踪 Solr 查询中所有操作参数, 默认为 false.|`false`|
 

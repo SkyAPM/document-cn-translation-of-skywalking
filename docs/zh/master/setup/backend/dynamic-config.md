@@ -33,7 +33,21 @@ configuration:
     #clusterName: "default" # the name of current cluster, set the name if you want to upstream system known.  
 ```
 
-## Nacos DCS
+## 动态配置 Apollo 实现
+
+动态配置服务也支持 [Apollo](https://github.com/ctripcorp/apollo/), 只需按如下配置:
+
+```yaml
+configuration:
+  apollo:
+    apolloMeta: <your apollo meta address>
+    apolloCluster: default
+    # apolloEnv: # defaults to null
+    appId: skywalking
+    period: 5
+```
+
+## 动态配置 Nacos 实现
 
 动态配置服务也支持 [Nacos](https://github.com/alibaba/nacos), 只需按如下配置:
 
@@ -52,7 +66,22 @@ configuration:
     clusterName: "default"
 ```
 
+## Dynamic Configuration Zookeeper Implementation
+
+动态配置也支持 [Zookeeper](https://github.com/apache/zookeeper) 作为配置中心, 如需启用, 只需按如下配置:
+
+```yaml
+configuration:
+  zookeeper:
+    period : 60 # Unit seconds, sync period. Default fetch every 60 seconds.
+    nameSpace: /default
+    hostPort: localhost:2181
+    #Retry Policy
+    baseSleepTimeMs: 1000 # initial amount of time to wait between retries
+    maxRetries: 3 # max number of times to retry
+```
+
 ## 第三方配置中心
-欢迎贡献此模块的实现来支持一些流行的配置中心, 如 Zookeeper, etcd, Consul. 提交 issue 进行讨论。
+欢迎贡献此模块的实现来支持一些流行的配置中心, 如 etcd, Consul. 提交 issue 进行讨论。
 
 

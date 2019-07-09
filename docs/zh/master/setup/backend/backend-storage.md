@@ -51,6 +51,9 @@ storage:
     concurrentRequests: ${SW_STORAGE_ES_CONCURRENT_REQUESTS:2} # the number of concurrent requests
 ```
 
+### 数据 TTL
+ElasticSearch 的 TTL 会覆盖内核的配置, 阅读 [TTL 中的 ElasticSearch 章节](ttl.md#elasticsearch-6--ttl)
+
 ### ElasticSearch 6 与 Zipkin 的追踪扩展
 这个实现共享了大部分的 `elasticsearch`，只是扩展到支持Zipkin-Span存储。它有所以相同的配置。
 ```yaml
@@ -72,6 +75,10 @@ storage:
     flushInterval: ${SW_STORAGE_ES_FLUSH_INTERVAL:10} # flush the bulk every 10 seconds whatever the number of requests
     concurrentRequests: ${SW_STORAGE_ES_CONCURRENT_REQUESTS:2} # the number of concurrent requests
 ```
+
+如果你是 ElasticSearch 新用户, 请阅读 [ElasticSearch 存储 FAQ](../../FAQ/ES-Server-FAQ.md),
+我们也建议你阅读 ES 官方文档了解更多相关的配置.
+这些配置都会很影响 ES 的性能.
 
 ### ElasticSearch 6 with Jaeger trace extension
 这个实现共享了大部分的 `elasticsearch`，只是扩展到支持Jaeger -Span存储。它有所以相同的配置。
