@@ -17,6 +17,8 @@
 
 - [master](zh/master/README.md)
 
+- [6.2.0](zh/6.2.0/README.md)
+
 - [6.1.0](zh/6.1.0/README.md)
 
 ## 参与项目
