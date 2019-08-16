@@ -21,6 +21,8 @@
 
 - [6.1.0](zh/6.1.0/README.md)
 
+- [5.0.0-beta](zh/5.0.0-beta/README.md)
+
 ## 参与项目
 中文版文档托管在[GitHub](https://skyapm.github.io/document-cn-translation-of-skywalking/)，欢迎大家参与文档翻译和更新工作。
 
