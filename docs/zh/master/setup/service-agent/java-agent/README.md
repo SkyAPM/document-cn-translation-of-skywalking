@@ -105,7 +105,7 @@ Java agent的所有插件都是可插拔的。在agent或第三方仓库的`opti
 ## 高级特性
 * 可通过设置系统属性覆盖配置文件中的配置。请见[配置覆盖](Setting-override.md).
 * 可使用gRPC TLS将后端连接起来。请见[open TLS](TLS.md)
-* 通过不同的SkyWalking服务实现对大集群的监控。使用[命令空间](Namespace.md)隔离上下文传播。
+* 通过不同的SkyWalking服务实现对大集群的监控。使用[命名空间](Namespace.md)隔离上下文传播。
 * 如果后端开启了[token鉴权](../../backend/backend-token-auth.md)，客户端可设置[token](Token-auth.md)。
 * 应用工具包。应用工具包，是Skywalking提供的一些库的集合。通过这些库，可以将你的应用同Skywalking agent联系起来。
     * 如果你想使用OpenTracing的Java API，可以试试[兼容OpenTracing的Skywalking tracer](Opentracing.md). 更多细节可以查看http://opentracing.io
