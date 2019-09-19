@@ -1,7 +1,7 @@
 # Backend存储
 Skywalking存储可插拔，我们提供了以下存储解决方案，你可以通过更改'application.yml`轻松使用。
 
-原生支持的存储e
+原生支持的存储
 - H2
 - ElasticSearch 6
 - MySQL
