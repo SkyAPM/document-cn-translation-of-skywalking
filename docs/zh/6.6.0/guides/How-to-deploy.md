@@ -16,7 +16,6 @@ unzip apache-skywalking-apm-es7-6.6.0.zip
 ## 服务端配置
 ```
 默认使用H2内存数据库，这里改成mysql，存放监控数据
-cat /opt/apache-skywalking-apm-bin-es7/config/application.yml
 
 由于license冲突，skywalking的license不含mysql的依赖包，需要自行下载：
 cd oap-libs
