@@ -28,7 +28,7 @@
 
 - 你可以在[社区资源目录](https://github.com/OpenSkywalking/Community)找到关于 SkyWalking 在大会上的演讲日程, 线上视频和文章。
 
-我们一直在寻找优化文档和代码的帮助, 所以如果你发现了有什么问题, 不要犹豫, [给我们提 Issue](https://github.com/apache/skywalking/issues/new), 
+我们一直在寻找优化文档和代码的帮助, 所以如果你发现了有什么问题, 不要犹豫, [给我们提 Issue](https://github.com/apache/skywalking/issues/new),
 或者, 通过 PR 把你的贡献提交给我们, 帮助我们把 SkyWalking 做得更好。
 
 ___
