@@ -39,15 +39,15 @@ ___
 
 - [概念与设计](concepts-and-designs/README.md)
   - SkyWalking 是什么?
-    - [核心概念纵览](concepts-and-designs/overview.md). 提供高可用的描述和介绍，包括项目解决的问题。
-    - [项目目标](concepts-and-designs/project-goals.md). 提供 SkyWalking 努力关注的目标和特性.
+    - [核心概念纵览](concepts-and-designs/overview.md). 提供高层次的描述和介绍，包括项目解决的问题。
+    - [项目目标](concepts-and-designs/project-goals.md). 阐述了 SkyWalking 所重点关注的目标和为此提供的特性.
   - 探针
     - [介绍](concepts-and-designs/probe-introduction.md). 引导读者理解探针是什么, 存在多少种不同的探测以及为什么需要它们。
     - [服务自动打点代理工具](concepts-and-designs/service-agent.md). 介绍自动 instrument 代理程序的功能以及 SkyWalking 已经支持哪些语言。
     - [手动打点 SDK](concepts-and-designs/manual-sdk.md). 介绍了手动打点 SDK 在 SkyWalking 生态系统中的作用。
     - [服务网格探针](concepts-and-designs/service-mesh-probe.md). 介绍了如何从服务网格和代理探针接收遥测数据。
   - 后台
-    - [总览](concepts-and-designs/backend-overview.md). 提供了有关 OAP 后台的高可用介绍。
+    - [总览](concepts-and-designs/backend-overview.md). 提供了有关 OAP 后台的高层次的介绍。
     - [可观测性分析语言](concepts-and-designs/oal.md). 介绍了为聚合行为定义而设计的核心语言。
     - [OAP 中使用查询](protocols/README.md#query-protocol). 提供了一套基于可观察性分析语言指标定义的查询协议。
   - UI
