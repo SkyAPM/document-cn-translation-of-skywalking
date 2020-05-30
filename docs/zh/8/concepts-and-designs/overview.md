@@ -4,13 +4,6 @@ SkyWalking: 一个开源的可观测平台, 用于从服务和云原生基础设
 
 ## 为什么使用 SkyWalking
 
-SkyWalking provides solutions for observing and monitoring distributed systems, in many different scenarios. First of all,
-like traditional approaches, SkyWalking provides auto instrument agents for services, such as Java, C#, Node.js, Go, PHP and Nginx LUA. 
-(with calls out for Python and C++ SDK contributions). 
-In multilanguage, continuously deployed environments, cloud native infrastructures grow more powerful but also more complex. 
-SkyWalking's service mesh receiver allows SkyWalking to receive telemetry data from service mesh frameworks
-such as Istio/Envoy and Linkerd, allowing users to understanding the entire distributed system.
-
 在许多不同的场景下, SkyWalking 为观察和监控分布式系统提供了解决方案。首先是像传统的方式那样, SkyWalking 为服务提供了自动打点的代理, 如 Java, C# , Node.js , Go , PHP 以及 Nginx LUA（包括 Python 和 C++ 调用的 SDK 捐献）。
 
 对于多数语言，持续部署环境，云原生基础设施正变得更加强大，但也更加复杂。
