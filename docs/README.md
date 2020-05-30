@@ -20,7 +20,7 @@
 
 > 其中 `master` 对应主仓库上 `master` 分支的文档. 其余为已发行版本的对应文档.
 
-- [8](zh/8/README.md) - master
+- [8.x dev](zh/8/README.md)
 
 - [6.3](zh/master/README.md)
 
