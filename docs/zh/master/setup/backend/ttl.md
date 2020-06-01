@@ -7,13 +7,13 @@
 
 针对不同的类型, 你有以下设置:
 ```yaml
-    # Set a timeout on metrics data. After the timeout has expired, the metrics data will automatically be deleted.
-    enableDataKeeperExecutor: ${SW_CORE_ENABLE_DATA_KEEPER_EXECUTOR:true} # Turn it off then automatically metrics data delete will be close.
-    recordDataTTL: ${SW_CORE_RECORD_DATA_TTL:90} # Unit is minute
-    minuteMetricsDataTTL: ${SW_CORE_MINUTE_METRIC_DATA_TTL:90} # Unit is minute
-    hourMetricsDataTTL: ${SW_CORE_HOUR_METRIC_DATA_TTL:36} # Unit is hour
-    dayMetricsDataTTL: ${SW_CORE_DAY_METRIC_DATA_TTL:45} # Unit is day
-    monthMetricsDataTTL: ${SW_CORE_MONTH_METRIC_DATA_TTL:18} # Unit is month
+    # 设置指标数据的超时. 超时到期后，指标数据将自动删除.
+    enableDataKeeperExecutor: ${SW_CORE_ENABLE_DATA_KEEPER_EXECUTOR:true} # 关闭后，指标数据自动删除也将随之关闭.
+    recordDataTTL: ${SW_CORE_RECORD_DATA_TTL:90} # 单位为分钟
+    minuteMetricsDataTTL: ${SW_CORE_MINUTE_METRIC_DATA_TTL:90} # 单位为分钟
+    hourMetricsDataTTL: ${SW_CORE_HOUR_METRIC_DATA_TTL:36} # 单位为小时
+    dayMetricsDataTTL: ${SW_CORE_DAY_METRIC_DATA_TTL:45} # 单位为天
+    monthMetricsDataTTL: ${SW_CORE_MONTH_METRIC_DATA_TTL:18} # 单位为月
 ```
 
 - `recordDataTTL` 影响 **记录** 数据.
@@ -30,10 +30,10 @@
 
 在 ElasticSearch 存储中, 有以下的配置.
 ```yaml
-    # Those data TTL settings will override the same settings in core module.
-    recordDataTTL: ${SW_STORAGE_ES_RECORD_DATA_TTL:7} # Unit is day
-    otherMetricsDataTTL: ${SW_STORAGE_ES_OTHER_METRIC_DATA_TTL:45} # Unit is day
-    monthMetricsDataTTL: ${SW_STORAGE_ES_MONTH_METRIC_DATA_TTL:18} # Unit is month
+    # 这些TTL配置将覆盖核心模块中的相同配置。
+    recordDataTTL: ${SW_STORAGE_ES_RECORD_DATA_TTL:7} # 单位为天
+    otherMetricsDataTTL: ${SW_STORAGE_ES_OTHER_METRIC_DATA_TTL:45} # 单位为天
+    monthMetricsDataTTL: ${SW_STORAGE_ES_MONTH_METRIC_DATA_TTL:18} # 单位为月
 ``` 
 
 - `recordDataTTL` 影响 **记录** 数据.
