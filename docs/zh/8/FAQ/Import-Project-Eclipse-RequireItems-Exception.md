@@ -1,5 +1,5 @@
-### Problem
-- Import skywalking project to Eclipse,Occur following errors:
+### 问题描述
+- 导入skywalking工程到eclipse,遇到如下异常
 > Software being installed: Checkstyle configuration plugin for
 > M2Eclipse 1.0.0.201705301746
 > (com.basistech.m2e.code.quality.checkstyle.feature.feature.group 
@@ -7,11 +7,10 @@
 > (com.basistech.m2e.code.quality.checkstyle.feature.feature.group 
 > 1.0.0.201705301746) requires 'net.sf.eclipsecs.core 5.2.0' but it could not be found
 
-### Reason
-Haven't installed Eclipse Checkstyle Plug-in
+### 原因
+没有安装Eclipse Checkstyle Plug-in插件
 
-### Resolve
-Download the plugin through the link:https://sourceforge.net/projects/eclipse-cs/?source=typ_redirect，Eclipse Checkstyle Plug-in version:8.7.0.201801131309 plugin required.
-plugin notification:
-The Eclipse Checkstyle plug-in integrates the Checkstyle Java code auditor into the Eclipse IDE. The plug-in provides real-time feedback to the user about 
-violations of rules that check for coding style and possible error prone code constructs.
+### 解决方法
+下载Eclipse Checkstyle Plug-in插件（版本：8.7.0.201801131309），地址：[https://sourceforge.net/projects/eclipse-cs/?source=typ_redirect](https://sourceforge.net/projects/eclipse-cs/?source=typ_redirect)。
+插件说明:
+此插件将JAVA的代码审计功能集成到了Eclipse中。该插件向用户实时反馈违反编码风格和可能出错的代码构造规则。

@@ -1,12 +1,11 @@
-# Official OAL script
-First, read [OAL introduction](../concepts-and-designs/oal.md).
+# 官方 OAL 脚本
+在阅读本文档前请先阅读 [OAL 简介](../concepts-and-designs/oal.md).
 
-Find OAL script at the `/config/oal/*.oal` of SkyWalking dist, since 8.0.0.
-You could change it(such as adding filter condition, or add new metrics) and reboot the OAP server, then it will affect.
+8.0版本以后 oal脚本存放目录 '/config/oal/*.oal'
+你可以修改相关内容，重启OAP服务，即可生效。
 
-All metrics named in this script could be used in alarm and UI query. 
+此脚本中命名的所有指标都可以用于报警和UI查询. 
 
-Notice,
+注意！
 
-If you try to add or remove some metrics, UI may break, we only recommend you to do this when you plan
-to build your own UI based on the customization analysis core. 
+建议基于自定义指标构建的自定义UI功能才能添加或删除一些指标，否则UI可能会有问题。
