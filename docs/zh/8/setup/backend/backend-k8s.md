@@ -1,6 +1,6 @@
-# Deploy SkyWalking backend and UI in kubernetes
+# 在kubernetes中部署
 
-Follow instructions in the [deploying SkyWalking backend to Kubernetes cluster](https://github.com/apache/skywalking-kubernetes)
- to deploy oap and ui to a kubernetes cluster.
+按照[deploying SkyWalking backend to Kubernetes cluster](https://github.com/apache/skywalking-kubernetes#deploy-skywalking-backend-to-kubernetes-cluster)
+中的说明在kubernetes集群中部署oap和ui。
  
-Please read the Readme file.
+请仔细阅读[README.md](https://github.com/apache/skywalking-kubernetes#deploy-skywalking-backend-to-kubernetes-cluster)
