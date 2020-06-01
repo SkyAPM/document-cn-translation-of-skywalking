@@ -1,5 +1,6 @@
-# Telemetry for backend
-By default, the telemetry is disabled by setting `selector` to `none`, like this
+# 后台遥测数据
+
+默认情况下, telemetry 功能是关闭的(`selector` to `none`)，像这样：
 
 ```yaml
 telemetry:
@@ -14,20 +15,22 @@ telemetry:
     prometheusExporterPort: ${SW_TELEMETRY_PROMETHEUS_PORT:1234}
 ```
 
-but you can set one of `prometheus` or `so11y` to enable them, for more information, refer to the details below.
+但你可以设置 `prometheus` 或者 `so11y` 其中之一启用，更多参考如下。
 
 ## Prometheus
-Prometheus is supported as telemetry implementor. 
-By using this, prometheus collects metrics from SkyWalking backend.
 
-Set `prometheus` to provider. The endpoint open at `http://0.0.0.0:1234/` and `http://0.0.0.0:1234/metrics`.
+Prometheus 可做为 telemetry 功能的实现者。使用这个功能，prometheus 可以从 Skywalking 的 backend 收集度量数据。
+
+将 `prometheus` 提供出来。端点在开放在 `http://0.0.0.0:1234/` 和 `http://0.0.0.0:1234/metrics`。
+
 ```yaml
 telemetry:
   selector: ${SW_TELEMETRY:prometheus}
   prometheus:
 ```
 
-Set host and port if needed.
+根据需要设置主机和端口。
+
 ```yaml
 telemetry:
   selector: ${SW_TELEMETRY:prometheus}
@@ -36,16 +39,15 @@ telemetry:
     port: 1543
 ```
 
-### Grafana Visualization
-Provide the grafana dashboard settings. Check [SkyWalking Telemetry dashboard](grafana.json) config.
+### Grafana 可视化
 
+提供了 Grafana 面板的设置。参考 [SkyWalking 遥测数据面板](grafana.json)。
 
-## Self Observability
+## 自身可观测性
 
-SkyWalking supports to collect telemetry data into OAP backend directly. Users could check them out through UI or
-GraphQL API then.
+SkyWalking 支持将遥测数据直接收集到 OAP 后台。用户可以通过 UI 或 GraphQL API 查看它们。
 
-Adding following configuration to enable `so11y`(self-observability) related modules.
+添加如下配置可以启用 `so11y`(自观测)关联模块。
 
 ```yaml
 receiver-so11y:
@@ -56,7 +58,7 @@ telemetry:
   # ... other configurations
 ```
 
-Another example represents how to combine `promethues` and `so11y`. Adding some items in `so11y` to make it happen.
+另一个示例展示如何结合 `promethues` 和 `so11y`。添加一些项到 `so11y` 使其生效。
 
 ```yaml
 telemetry:
@@ -67,4 +69,4 @@ telemetry:
     prometheusExporterPort: 1234
 ```
 
-Then prometheus exporter is listening on `0.0.0.0:1234`.
+prometheus exporter 监听在 `0.0.0.0:1234`。
