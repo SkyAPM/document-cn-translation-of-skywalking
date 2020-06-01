@@ -1,15 +1,21 @@
 # Metrics Exporter
-SkyWalking provides basic and most important metrics aggregation, alarm and analysis. 
-In real world, people may want to forward the data to their 3rd party system, for deeper analysis or anything else.
-**Metrics Exporter** makes that possible.
 
-Metrics exporter is an independent module, you need manually active it.
+Skywalking 提供基本的，并且最为重要的度量聚合、告警和分析。
 
-Right now, we provide the following exporters
+在实际使用时，人们可能希望将数据转发到第三方系统，以便进行更深入的分析或其它任何操作。
+
+**Metrics Exporter** 使之成为可能。
+
+Metrics exporter 是一个独立的模块，您需要手动激活它。
+
+目前，我们提供下面这些 exporter
+
 1. gRPC exporter
 
 ## gRPC exporter
-gRPC exporter uses SkyWalking native exporter service definition. Here is proto definition.
+
+gRPC exporter 使用 SkyWalking 原生的 exporter 服务定义。下面是 proto 的定义。
+
 ```proto
 service MetricExportService {
     rpc export (stream ExportMetricValue) returns (ExportResponse) {
@@ -48,7 +54,8 @@ message ExportResponse {
 }
 ```
 
-To active the exporter, you should add this into your `application.yml`
+要激活这个 exporter，你需要把下面的配置加到 `application.yml` 文件中。
+
 ```yaml
 exporter:
   grpc:
@@ -56,14 +63,15 @@ exporter:
     targetPort: 9870
 ```
 
-- `targetHost`:`targetPort` is the expected target service address. You could set any gRPC server to receive the data.
-- Target gRPC service needs to be standby, otherwise, the OAP starts up failure.
+- `targetHost`:`targetPort`是期望的目标服务器地址。你可以设置任意 gRPC 服务来接收数据。
+- 目标 gRPC 服务准备好，否则 OAP 会启动失败。
 
-## For target exporter service 
-### subscription implementation
-Return the expected metrics name list, all the names must match the OAL script definition. Return empty list, if you want
-to export all metrics.
+## 针对目标 exporter 的服务
 
-### export implementation
-Stream service, all subscribed metrics will be sent to here, based on OAP core schedule. Also, if the OAP deployed as cluster, 
-then this method will be called concurrently. For metrics value, you need follow `#type` to choose `#longValue` or `#doubleValue`.
+### 订阅实现
+
+返回预期的度量名称列表，所有名称都必须与 OAL 脚本定义匹配。如果要导出所有度量值，则返回空列表。
+
+### 导出实现
+
+流服务，所有订阅的度量将根据 OAP 核心调度发送到这里。另外，如果 OAP 部署为集群，此方法将被并发地调用。对于度量值，您需要根据 `#type` 选择 `#longValue` 或 `#doubleValue`。
