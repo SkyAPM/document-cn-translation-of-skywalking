@@ -1,38 +1,29 @@
-# Probe Introduction
-In SkyWalking, probe means an agent or SDK library integrated into target system, which take charge of 
-collecting telemetry data including tracing and metrics. Based on the target system tech stack, probe could use very different
-ways to do so. But ultimately they are same, just collect and reformat data, then send to backend.
+# 探针简介
 
-In high level, there are three typical groups in all SkyWalking probes.
-- **Language based native agent**. This kind of agents runs in target service user space, like a part of user codes. Such as
-SkyWalking Java agent, use `-javaagent` command line argument to manipulate codes in runtime, `manipulate` means change and inject
-user's codes. Another kind of agents is using some hook or intercept mechanism provided by target libraries. So you can see, these kinds
-of agents based on languages and libraries.
- 
-- **Service Mesh probe**. Service Mesh probe collects data from sidecar, control panel in service mesh or proxy. In old days, proxy
-is only used as ingress of the whole cluster, but with the Service Mesh and sidecar, now we can do observe based on that.
- 
-- **3rd-party instrument library**. SkyWalking accepts other popular used instrument libraries data format. It analysis the
-data, transfer it to SkyWalking formats of trace, metrics or both. This feature starts with accepting Zipkin span data. See
-[Receiver for other tracers](../setup/backend/backend-receivers.md) to know more. 
+在 SkyWalking 中, 探针表示集成到目标系统中的代理或 SDK 库, 它负责收集遥测数据, 包括链路追踪和性能指标。根据目标系统的技术栈, 探针可能有差异巨大的方式来达到以上功能. 但从根本上来说都是一样的, 即收集并格式化数据, 并发送到后端。
 
-You don't need to use **Language based native agent** and **Service Mesh probe** at the same time, because they both collect
-metrics data. As a result of that, your system suffers twice payloads, and the analytic numbers are doubled.
+从高层次上来讲, SkyWalking 探针可分为以下三组：
 
-There are several recommend ways in using these probes:
-1. Use **Language based native agent** only.
-1. Use **3rd-party instrument library** only, like Zipkin instrument ecosystem.
-1. Use **Service Mesh probe** only.
-1. Use **Service Mesh probe** with **Language based native agent** or **3rd-party instrument library** in tracing status. (Advanced usage)
+- **基于语言的原生代理**. 这种类型的代理运行在目标服务的用户空间中, 就像用户代码的一部分一样. 如 SkyWalking Java 代理, 使用 `-javaagent` 命令行参数在运行期间对代码进行操作, `操作` 一词表示修改并注入用户代码. 另一种代理是使用目标库提供的钩子函数或拦截机制. 如你所见, 这些探针是基于特定的语言和库。
 
-In addition, let's example what is the meaning of **in tracing status**?
+- **服务网格探针**. 服务网格探针从服务网格的 Sidecar 和控制面板收集数据. 在以前, 代理只用作整个集群的入口, 但是有了服务网格和 Sidecar 之后, 我们可以基于此进行观测了。
 
-In default, **Language based native agent** and **3rd-party instrument library** both send distributed traces to backend,
-which do analysis and aggregate on those traces. **In tracing status** means, backend considers these traces as something
-like logs, just save them, and build the links between traces and metrics, like `which endpoint and service does the trace belong?`.
+- **第三方打点类库**. SkyWalking 也能够接收其他流行的打点库产生的数据格式. SkyWalking 通过分析数据,将数据格式化成自身的链路和度量数据格式. 该功能最初只能接收 Zipkin 的 span 数据. 更多参考[其他追踪系统的接收器](../setup/backend/backend-receivers.md)。
 
-## What is next?
-- Learn the SkyWalking supported probes in [Service auto instrument agent](service-agent.md), [Manual instrument SDK](manual-sdk.md),
-[Service Mesh probe](service-mesh-probe.md) and [Zipkin receiver](trace-receiver.md).
-- After understand the probe, read [backend overview](backend-overview.md) for understanding analysis and persistence.
+你不必同时使用 **基于语言的原生代理** 和 **服务网格探针** ，因为两者都收集指标数据，否则你的系统就要承受双倍负载, 且分析数量会翻倍.
 
+有如下几种推荐的方式来使用探针:
+
+1. 只使用 **基于语言的原生代理**.
+2. 只使用 **第三方打点库**, 如 Zipkin 打点系统.
+3. 只使用 **服务网格探针**.
+4. 使用 **服务网格探针**, 配合 **语言原生代理** 或 **第三方打点库**, 来 **追踪状态** . (高级用法)
+
+另外，让我们举例说明什么是 **追踪状态**？
+
+默认情况下, **基于语言的原生代理** 和 **第三方打点库** 都会发送分布式追踪数据到后台, 后者分析/聚合这些追踪数据. **追踪状态**意味着, 后端把这些追踪数据看作是日志一类的事情, 仅仅将他们保存下来, 并且在追踪和指标之间建立联系, 比如 `这个追踪数据属于哪个入口哪个服务?` 。
+
+## 下一步
+
+- 学习 SkyWalking 如何支持探针，参考[服务自动打点代理](service-agent.md), [手动打点 SDK](manual-sdk.md), [服务网格探针](service-mesh-probe.md)以及[Zipkin 接收器](trace-receiver.md)文档。
+- 理解了探针之后, 阅读[后端概览](backend-overview.md) 理解如何分析及持久化数据。
