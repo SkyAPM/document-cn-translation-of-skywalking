@@ -1,24 +1,22 @@
-# Cluster Management
-In many product environments, backend needs to support high throughput and provides HA to keep robustness,
-so you should need cluster management always in product env.
- 
-Backend provides several ways to do cluster management. Choose the one you need/want.
+# 集群管理
 
-- [Zookeeper coordinator](#zookeeper-coordinator). Use Zookeeper to let backend instance detects and communicates
-with each other.
-- [Kubernetes](#kubernetes). When backend cluster are deployed inside kubernetes, you could choose this
-by using k8s native APIs to manage cluster.
-- [Consul](#consul). Use Consul as backend cluster management implementor, to coordinate backend instances.
-- [Nacos](#nacos). Use Nacos to coordinate backend instances.
-- [Etcd](#etcd). Use Etcd to coordinate backend instances.
+在大多数生产环境中，后端应用需要支持高吞吐量并且支持高可用来保证服务的稳定，所以你始终需要在生产环境进行集群管理。
 
-In the `application.yml`, there're default configurations for the aforementioned coordinators under the section `cluster`,
-you can specify one of them in the `selector` property to enable it.
+SkyWalking 的后台提供了几种集群管理的方案。选择你需要或想要的那个。
+
+- [Zookeeper 协调方式](#zookeeper-coordinator)。使用 ZooKeeper 让后端实例彼此之间检测和通信。
+- [Kubernetes](#kubernetes). 当后台集群部署在 kubernetes 中，你可以选择使用 k8s 原生的 APIs 来管理集群。
+- [Consul](#consul). 使用 Consul 作为集群管理的实现者，来协调的实例。
+- [Nacos](#nacos). 使用 Nacos 作为集群管理的实现者, 来协调后端的实例。
+- [Etcd](#etcd). 使用 Etcd 作为集群管理的实现者, 来协调后端的实例。
+
+在 `application.yml` 中, 在 `cluster` 部分有上述协调器的默认配置，你可以通过 `selector` 属性启用他们中的任意一个。
 
 ## Zookeeper coordinator
-Zookeeper is a very common and wide used cluster coordinator. Set the **cluster/selector** to **zookeeper** in the yml to enable.
 
-Required Zookeeper version, 3.4+
+Zookeeper 是一个很常见并的广泛使用的集群协调者。在 yml 文件中设置 **cluster/selector** 为 **zookeeper** 来启用它。
+
+Zookeeper 需要在 3.4 以上版本。
 
 ```yaml
 cluster:
@@ -26,20 +24,21 @@ cluster:
   # other configurations
 ```
 
-- `hostPort` is the list of zookeeper servers. Format is `IP1:PORT1,IP2:PORT2,...,IPn:PORTn`
-- `enableACL` enable [Zookeeper ACL](https://zookeeper.apache.org/doc/r3.4.1/zookeeperProgrammers.html#sc_ZooKeeperAccessControl) to control access to its znode.
-- `schema` is Zookeeper ACL schemas.
-- `expression` is a expression of ACL. The format of the expression is specific to the [schema](https://zookeeper.apache.org/doc/r3.4.1/zookeeperProgrammers.html#sc_BuiltinACLSchemes). 
-- `hostPort`, `baseSleepTimeMs` and `maxRetries` are settings of Zookeeper curator client.
+- `hostPort` 是 zookeeper 一组服务列表。 格式： `IP1:PORT1,IP2:PORT2,...,IPn:PORTn`
+- `enableACL` 启用 [Zookeeper ACL](https://zookeeper.apache.org/doc/r3.4.1/zookeeperProgrammers.html#sc_ZooKeeperAccessControl) 来控制访问 zk 节点.
+- `schema` Zookeeper ACL schemas.
+- `expression` ACL 的表达式. 表达式的格式是针对于 [schema](https://zookeeper.apache.org/doc/r3.4.1/zookeeperProgrammers.html#sc_BuiltinACLSchemes).
+- `hostPort`, `baseSleepTimeMs` 和 `maxRetries` 是Zookeeper客户端的设置。
 
-Note: 
-- If `Zookeeper ACL` is enabled and `/skywalking` existed, must be sure `SkyWalking` has `CREATE`, `READ` and `WRITE` permissions. If `/skywalking` is not exists, it will be created by SkyWalking and grant all permissions to the specified user. Simultaneously, znode is granted READ to anyone.
-- If set `schema` as `digest`, the password of expression is set in **clear text**. 
+提醒:
 
-In some cases, oap default gRPC host and port in core are not suitable for internal communication among the oap nodes.
-The following setting are provided to set the host and port manually, based on your own LAN env.
-- internalComHost, the host registered and other oap node use this to communicate with current node.
-- internalComPort, the port registered and other oap node use this to communicate with current node.
+- 如果 `Zookeeper ACL` 是启用的并且 `/skywalking` 节点存在，必须确保 `SkyWalking` 拥有 `CREATE`, `READ` 和 `WRITE` 的权限。如果 `/skywalking` 节点不存在，将会自动创建并针对指定用户授权所有权限。同时节点也会授权任意用户读权限。
+- 如果设置 `schema` 为 `digest` ，密码的表达式设置在 **明文** 中。
+
+在某些情况下，OAP 默认的 gRPC 主机和端口在核心中不适合 OAP 节点之间的内部通信。根据您自己的 LAN 环境，可通过下列参数设置你的 host 和 port。
+
+- internalComHost, 已注册的主机和其它 OAP 节点使用它与当前节点通信。
+- internalComPort, 已注册的端口和其它 OAP 节点使用它与当前节点通信。
 
 ```yaml
 zookeeper:
@@ -54,12 +53,11 @@ zookeeper:
   enableACL: ${SW_ZK_ENABLE_ACL:false} # disable ACL in default
   schema: ${SW_ZK_SCHEMA:digest} # only support digest schema
   expression: ${SW_ZK_EXPRESSION:skywalking:skywalking}
-``` 
-
+```
 
 ## Kubernetes
-Require backend cluster are deployed inside kubernetes, guides are in [Deploy in kubernetes](backend-k8s.md).
-Set the selector to `kubernetes`.
+
+需要后端集群部署在 kubernetes 中，参考 [kubernetes 中部署](backend-k8s.md)。设置 selector 为 `kubernetes`。
 
 ```yaml
 cluster:
@@ -68,8 +66,8 @@ cluster:
 ```
 
 ## Consul
-Now, consul is becoming a famous system, many of companies and developers using consul to be 
-their service discovery solution. Set the **cluster/selector** to **nacos** in the yml to enable.
+
+目前，consul 正成为一个著名的系统，很多公司和开发者使用它作为服务发现的方案。在 yml 文件中设置 **cluster/selector** 为 **consul** 启用它。
 
 ```yaml
 cluster:
@@ -77,15 +75,14 @@ cluster:
   # other configurations
 ```
 
-Same as Zookeeper coordinator,
-in some cases, oap default gRPC host and port in core are not suitable for internal communication among the oap nodes.
-The following setting are provided to set the host and port manually, based on your own LAN env.
-- internalComHost, the host registered and other oap node use this to communicate with current node.
-- internalComPort, the port registered and other oap node use this to communicate with current node.
+与 Zookeeper 协调器一样，在某些情况下，OAP 默认的 gRPC 主机和端口在核心中不适合 OAP 节点之间的内部通信。根据您自己的 LAN 环境，可通过下列参数设置你的 host 和 port。
 
-
+- internalComHost, 已注册的主机和其它 OAP 节点使用它与当前节点通信。
+- internalComPort, 已注册的端口和其它 OAP 节点使用它与当前节点通信。
+  
 ## Nacos
-Set the **cluster/selector** to **nacos** in the yml to enable.
+
+在 yml 文件中设置 **cluster/selector** 为 **nacos** 启用它。
 
 ```yaml
 cluster:
@@ -94,7 +91,8 @@ cluster:
 ```
 
 ## Etcd
-Set the **cluster/selector** to **etcd** in the yml to enable.
+
+在 yml 文件中设置 **cluster/selector** 为 **etcd** 启用它。
 
 ```yaml
 cluster:
