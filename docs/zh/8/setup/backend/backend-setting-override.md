@@ -1,13 +1,12 @@
-# Setting Override
-SkyWalking backend supports setting overrides by system properties and system environment variables. 
-You could override the settings in `application.yml`
+# 设置的覆盖
+SkyWalking backend 支持通过系统属性和环境变量来覆盖的设置。 你可以覆盖`application.yml`文件中设置。 
 
-## System properties key rule
+## 系统属性key规则
 **ModuleName**.**ProviderName**.**SettingKey**.
 
-- Example
+- 示例
 
-  Override `restHost` in this setting segment
+  覆盖设置分区的 `restHost`
   
 ```yaml
 core:
@@ -19,15 +18,15 @@ core:
     gRPCPort: ${SW_CORE_GRPC_PORT:11800}
 ```
 
-Use command arg
+使用命令行
 ```
 -Dcore.default.restHost=172.0.4.12
 ```
 
-## System environment variables
-- Example
+## 系统环境变量
+- 示例
 
-  Override `restHost` in this setting segment through environment variables
+  通过环境变量覆盖设置分区的 `restHost` 
   
 ```yaml
 core:
@@ -39,13 +38,13 @@ core:
     gRPCPort: ${SW_CORE_GRPC_PORT:11800}
 ```
 
-If the `REST_HOST ` environment variable exists in your operating system and its value is `172.0.4.12`, 
-then the value of `restHost` here will be overwritten to `172.0.4.12`, otherwise, it will be set to `0.0.0.0`.
+如果 `REST_HOST ` 存在于你操作系统的环境变量中，并且它的值为 `172.0.4.12`, 
+ `restHost` 的值就会被重写为 `172.0.4.12`, 否则,就会被设为 `0.0.0.0`.
 
-By the way, Placeholder nesting is also supported, like `${REST_HOST:${ANOTHER_REST_HOST:127.0.0.1}}`.
-In this case, if the `REST_HOST ` environment variable not exists, but the ```REST_ANOTHER_REST_HOSTHOST``` 
-environment variable exists and its value is `172.0.4.12`, then the value of `restHost` here will be overwritten to `172.0.4.12`,
-otherwise, it will be set to `127.0.0.1`.
+顺便说一下，占位符嵌套也支持，比如 `${REST_HOST:${ANOTHER_REST_HOST:127.0.0.1}}`.
+ 在这种情况下，如果 `REST_HOST ` 环境变量不存在，但 ```REST_ANOTHER_REST_HOSTHOST``` 
+环境变量存在并且其值为 `172.0.4.12`, 此处的 `restHost` 也会被重写为 `172.0.4.12`,
+否则,就会被设为 `127.0.0.1`.
 
 
 

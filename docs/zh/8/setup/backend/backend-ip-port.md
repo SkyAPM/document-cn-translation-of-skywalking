@@ -1,6 +1,5 @@
-# IP and port setting
-Backend is using IP and port binding, in order to support the OS having multiple IPs.
-The binding/listening IP and port are specified by core module
+# IP和端口设置
+Backend使用IP和端口绑定，以支持具有多个IP的操作系统。 绑定/监听IP和端口由核心模块指定。
 ```yaml
 core:
   default:
@@ -10,21 +9,15 @@ core:
     gRPCHost: 0.0.0.0
     gRPCPort: 11800
 ```
-There are two IP/port pair for gRPC and HTTP rest services.
+有两对IP/port，分别提供给gRPC和HTTP的rest服务。
 
-- Most agents and probes use gRPC service for better performance and code readability.
-- Few agent use rest service, because gRPC may be not supported in that language.
-- UI uses rest service, but data in GraphQL format, always.
-
-
-## Notice
-### IP binding
-In case some users are not familiar with IP binding, you should know, after you did that, 
-the client could only use this IP to access the service. For example, bind `172.09.13.28`, even you are
-in this machine, must use `172.09.13.28` rather than `127.0.0.1` or `localhost` to access the service.
-
-### Module provider specified IP and port
-The IP and port in core are only default provided by core. But some module provider may provide other
-IP and port settings, this is common. Such as many receiver modules provide this.
+- 大多数agent和探针使用GRPC服务以获得更好的性能和代码可读性。
+- 少数agent使用REST服务，因为该语言可能不支持GRPC。
+- 用户界面使用REST服务，但数据始终采用graphql格式。
 
 
+## 注意
+### IP绑定
+如果有些用户不熟悉IP绑定，您应该知道，当IP绑定完成后，客户端只能使用此IP访问服务。例如，绑定了`172.09.13.28`，即使是在此计算机中，必须使用`172.09.13.28`而不是`127.0.0.1`或`localhost`来访问服务。
+### 模块提供者指定的IP和端口
+核心模块的IP和端口默认有核心模块提供。但某些模块提供者可能提供其它的IP和端口设置，这很正常。比如一些接收模块。
