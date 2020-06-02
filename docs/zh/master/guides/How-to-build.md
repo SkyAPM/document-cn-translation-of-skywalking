@@ -6,6 +6,17 @@
 
 **由于本项目使用了 Git 子模块, 我们不建议使用从 `GitHub` tag 或 release 页面下载的源代码来进行编译.**
 
+### Maven代理
+如果需要在代理之后执行构建，请编辑*.mvn/jvm.config*并放置以下属性
+```properties
+-Dhttp.proxyHost=proxy_ip
+-Dhttp.proxyPort=proxy_port
+-Dhttps.proxyHost=proxy_ip
+-Dhttps.proxyPort=proxy_port 
+-Dhttp.proxyUser=username
+-Dhttp.proxyPassword=password
+```
+
 ### 从 GitHub 构建
 
 1. 预备好 Git, JDK8 以及 Maven3
