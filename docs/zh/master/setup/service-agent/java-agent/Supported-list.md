@@ -12,6 +12,9 @@
   * [Spring Webflux](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html) 5.x
   * [Undertow](http://undertow.io/)  2.0.0.Final -> 2.0.13.Final
   * [RESTEasy](https://resteasy.github.io/)  3.1.0.Final -> 3.7.0.Final
+  * [Play Framework](https://www.playframework.com/) 2.6.x -> 2.8.x
+  * [Light4J Microservices Framework](https://doc.networknt.com/) 1.6.x -> 2.x
+  * [Netty SocketIO](https://github.com/mrniko/netty-socketio) 1.x
 * HTTP Client
   * [Feign](https://github.com/OpenFeign/feign) 9.x
   * [Netflix Spring Cloud Feign](https://github.com/spring-cloud/spring-cloud-netflix/tree/master/spring-cloud-starter-feign) 1.1.x, 1.2.x, 1.3.x
@@ -30,6 +33,7 @@
   * [ShardingSphere](https://github.com/apache/incubator-shardingsphere) 3.0.0
   * [ShardingSphere](https://github.com/apache/incubator-shardingsphere) 3.0.0, 4.0.0-RC1
   * PostgreSQL Driver 8.x, 9.x, 42.x
+  * Mariadb Driver 2.x, 1.8
 * RPC框架
   * [Dubbo](https://github.com/alibaba/dubbo) 2.5.4 -> 2.6.0
   * [Dubbox](https://github.com/dangdangdotcom/dubbox) 2.8.4
@@ -38,11 +42,15 @@
   * [gRPC](https://github.com/grpc/grpc-java) 1.x
   * [Apache ServiceComb Java Chassis](https://github.com/apache/servicecomb-java-chassis) 0.1 -> 0.5,1.0.x
   * [SOFARPC](https://github.com/alipay/sofa-rpc) 5.4.0
+  * [Armeria](https://github.com/line/armeria) 0.63.0 -> 0.98.0
+  * [Apache Avro](http://avro.apache.org) 1.7.0 - 1.8.x
+  * [Finagle](https://github.com/twitter/finagle) 6.25.0 -> 20.1.0 
 * MQ
   * [RocketMQ](https://github.com/apache/rocketmq) 4.x
   * [Kafka](http://kafka.apache.org) 0.11.0.0 -> 1.0
   * [ActiveMQ](https://github.com/apache/activemq) 5.x
   * [RabbitMQ](https://www.rabbitmq.com/) 5.x
+  * [Pulsar](http://pulsar.apache.org) 2.2.x -> 2.4.x
 * NoSQL
   * Redis
     * [Jedis](https://github.com/xetorthio/jedis) 2.x
@@ -54,7 +62,12 @@
     * [Xmemcached](https://github.com/killme2008/xmemcached) 2.x
   * [Elasticsearch](https://github.com/elastic/elasticsearch)
     * [transport-client](https://github.com/elastic/elasticsearch/tree/master/client/transport) 5.2.x-5.6.x
+    * [transport-client](https://github.com/elastic/elasticsearch/tree/v6.7.1/client/transport) 6.7.1-6.8.4
+    * [rest-high-level-client](https://www.elastic.co/guide/en/elasticsearch/client/java-rest/6.7/index.html) 6.7.1-6.8.4
   * [SolrJ](https://lucene.apache.org/solr) 7.0.0-7.7.1
+    * [SolrJ](https://github.com/apache/lucene-solr/tree/master/solr/solrj) 7.x
+  * [Cassandra](https://github.com/apache/cassandra) 3.x
+    * [cassandra-java-driver](https://github.com/datastax/java-driver) 3.7.0-3.7.2    
 * 服务发现
   * [Netflix Eureka](https://github.com/Netflix/eureka)
 * 分布式协调
@@ -72,6 +85,12 @@
 * Vert.x 生态
   * Vert.x Eventbus 3.2+
   * Vert.x Web 3.x
+* 线程调度框架
+  * [Spring @Async](https://github.com/spring-projects/spring-framework) 4.x and 5.x
+* 缓存
+  * [Ehcache](https://www.ehcache.org/) 2.x
+* Kotlin
+  * [Coroutine](https://kotlinlang.org/docs/reference/coroutines-overview.html) 1.0.1 -> 1.3.x (Optional²)
 
 ¹由于许可的限制或不兼容，这些插件发布在第三方仓库中。可以到[SkyAPM java插件扩展仓库](https://github.com/SkyAPM/java-plugin-extensions)获得这些插件。
 
