@@ -1,22 +1,28 @@
-# Token Authentication
-## Supported version
-7.0.0+
+# 令牌认证
 
-## Why need token authentication after we have TLS?
-TLS is about transport security, which makes sure the network can be trusted. 
-The token authentication is about monitoring application data **can be trusted**.
+## 支持版本
 
-## Token 
-In current version, Token is considered as a simple string.
+7.0.0 以上
 
-### Set Token
-1. Set token in agent.config file
+## 为什么在我们拥有TLS之后还需要令牌身份验证
+
+TLS 是关于传输安全的, 用于确保网络是可信的。令牌身份验证是关于监控应用数据是**可信**的。
+
+## 令牌
+
+当前版本，令牌考虑使用一个简单的字符串。
+
+### 设置令牌
+
+#### 1. 在 agent.config 中设置令牌
+
 ```properties
-# Authentication active is based on backend setting, see application.yml for more details.
+# 认证由后台设定激活，更多详情查看 application.yml 。
 agent.authentication = ${SW_AGENT_AUTHENTICATION:xxxx}
 ```
 
-2. Set token in `application.yml` file
+#### 2. 在 `application.yml` 中设置令牌
+
 ```yaml
 ······
 receiver-sharing-server:
@@ -25,19 +31,22 @@ receiver-sharing-server:
 ······
 ```
 
-## Authentication fails
-The Skywalking OAP verifies every request from agent, only allows requests whose token matches the one configured in `application.yml`.
+## Authentication fails 认证失败
 
-If the token is not right, you will see the following log in agent
-```
+Skywalking OAP 验证每个来自 agent 的请求，只允许令牌与 `application.yml` 中配置一致请求通过。
+
+如果令牌不正确，将会在 agent 端看到如下日志
+
+```java
 org.apache.skywalking.apm.dependencies.io.grpc.StatusRuntimeException: PERMISSION_DENIED
 ```
 
 ## FAQ
-### Can I use token authentication instead of TLS?
-No, you shouldn't. In tech way, you can of course, but token and TLS are used for untrusted network env. In that circumstance,
-TLS has higher priority than this. Token can be trusted only under TLS protection.Token can be stolen easily if you 
-send it through a non-TLS network.
 
-### Do you support other authentication mechanisms? Such as ak/sk?
-For now, no. But we appreciate someone contributes this feature. 
+### 可以使用令牌认证替代 TSL 吗
+
+不能，在技术方面，你当然可以，但是令牌和 TLS 用于不受信任的网络环境。在这种情况下， TLS 具有更高的优先级。令牌只能在 TLS 保护下受信任。如果你在 非 TLS 的网络中发送，令牌很容易被窃取。
+
+### 是否支持其他身份验证机制? 例如 ak/sk
+
+现在没有，但是我们希望有人可以贡献这个特性。
