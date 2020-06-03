@@ -1,25 +1,31 @@
-# Alarm
-Alarm core is driven by a collection of rules, which are defined in `config/alarm-settings.yml`.
-There are three parts in alarm rule definition.
-1. [Alarm rules](#rules). They define how metrics alarm should be triggered, what conditions should be considered.
-1. [Webhooks](#webhook). The list of web service endpoint, which should be called after the alarm is triggered.
-1. [gRPCHook](#gRPCHook). The host and port of remote gRPC method, which should be called after the alarm is triggered.
+# 告警
 
-## Entity name
-Define the relation between scope and entity name.
-- **Service**: Service name
-- **Instance**: {Instance name} of {Service name}
-- **Endpoint**: {Endpoint name} in {Service name}
-- **Database**: Database service name
-- **Service Relation**: {Source service name} to {Dest service name}
-- **Instance Relation**: {Source instance name} of {Source service name} to {Dest instance name} of {Dest service name}
-- **Endpoint Relation**: {Source endpoint name} in {Source Service name} to {Dest endpoint name} in {Dest service name}
+告警的核心由一组规则驱动，这些规则定义在 `config/alarm-settings.yml` 文件中。
 
-## Rules
-Alarm rule is constituted by following keys
-- **Rule name**. Unique name, show in alarm message. Must end with `_rule`.
-- **Metrics name**. A.K.A. metrics name in oal script. Only long, double, int types are supported. See
-[List of all potential metrics name](#list-of-all-potential-metrics-name).
+告警规则的定义分为三部分：
+
+1. [告警规则](#rules). 它们定义了应该如何触发度量警报，应该考虑什么条件。
+1. [Web钩子](#webhook). 当警告触发时，哪些 Web 服务端点需要被告知。
+1. [gRPC钩子](#gRPCHook). 当警告触发时，通知哪些 gRPC 服务方法。
+
+## 实体名称
+
+定义作用域和实体名称之间的关系。
+
+- **Service**: 服务名称
+- **Instance**: {服务名称} 中的 {实例名称}
+- **Endpoint**: {实例名称} 中的 {端点名称}
+- **Database**: 数据库服务名称
+- **Service Relation**: {原服务名称} 指向 {目标服务名称}
+- **Instance Relation**: {原服务名称} 的 {原实例名称} 指向 {目标服务名称} 的 {目标实例名称}
+- **Endpoint Relation**: {原服务名称} 的 {原端点名称} 指向 {目标服务名称} 的 {目标端点名称}
+
+## 告警规则
+
+报警规则主要有以下几点：
+
+- **规则名称**. 在告警信息中显示的唯一名称。必须以`_rule`结尾。
+- **度量指标名称**. 也是 oal 脚本中的度量名。只支持 long,double 和 int 类型。详情见 [所有可能的度量名称列表](#list-of-all-potential-metrics-name).
 - **Include names**. The following entity names are included in this rule. Please follow [Entity name define](#entity-name).
 - **Exclude names**. The following entity names are excluded in this rule. Please follow [Entity name define](#entity-name).
 - **Include names regex**. Provide a regex to include the entity names. If both setting the include name list and include name regex, both rules will take effect.
