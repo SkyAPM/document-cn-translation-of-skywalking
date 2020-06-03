@@ -59,7 +59,7 @@ receiver-sharing-server:
 ## Zipkin receiver
 Zipkin receiver可以在两种不同的模式下工作。
 1. Tracing mode(默认)。追踪模式就是，skywalking的OAP表现得像个Zipkin收集器，通过HTTP服务完全支持Zipkin的v1/v2格式， 还在Skywalking用户界面提供了持久化和查询。但它不会从中分析度量标准。在大多数情况下，当度量来自service mesh时，我建议你可以使用这个特性。                    
-注意，在这种模式下，Zipkinr eceiver需要激活`zipkin-elasticsearch`的存储实现。阅读[this]（backend storage.md elasticsearch-6-with-zipkin-trace-extension）了解如何激活。
+注意，在这种模式下，Zipkinr receiver 需要激活`zipkin-elasticsearch`的存储实现。阅读[this](backend-storage.md#elasticsearch-6-with-zipkin-trace-extension)了解如何激活。
 
 使用以下配置来激活.
 ```yaml
