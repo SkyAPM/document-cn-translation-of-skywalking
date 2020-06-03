@@ -1,13 +1,14 @@
 # Open Fetcher
-Fetcher is a concept in SkyWalking backend. It uses pulling mode rather than [receiver](backend-receivers.md), which
-read the data from the target systems. This mode is typically in some metrics SDKs, such as Prometheus.
+
+Fetcher 是 SkyWalking 后台的一个概念。当从目标系统读数据时，使用拉模式相比 [receiver](backend-receivers.md) 更合适。这个模式典型的存在一些度量 SDK 中，例如 Prometheus。
 
 ## Prometheus Fetcher
+
 ```yaml
 prometheus-fetcher:
   selector: ${SW_PROMETHEUS_FETCHER:default}
   default:
     active: ${SW_PROMETHEUS_FETCHER_ACTIVE:false}
-``` 
+```
 
-TODO: More detail should be added when this fetcher provided.
+TODO: 当 fetcher 提供时，将会添加更多信息。
