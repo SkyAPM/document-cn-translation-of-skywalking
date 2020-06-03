@@ -9,7 +9,7 @@
 ```
 
 * 用法1
-```java
+``` java
     @TraceCrossThread
     public static class MyCallable<String> implements Callable<String> {
         @Override
@@ -22,7 +22,7 @@
     executorService.submit(new MyCallable());
 ```
 * 用法2 
-```java
+``` java
     ExecutorService executorService = Executors.newFixedThreadPool(1);
     executorService.submit(CallableWrapper.of(new Callable<String>() {
         @Override public String call() throws Exception {
@@ -30,8 +30,9 @@
         }
     }));
 ```
+
 或者 
-```java
+``` java
     ExecutorService executorService = Executors.newFixedThreadPool(1);
     executorService.execute(RunnableWrapper.of(new Runnable() {
         @Override public void run() {
@@ -40,4 +41,22 @@
     }));
 ```
 
+* 用法 3.
+```java
+    @TraceCrossThread
+    public class MySupplier<String> implements Supplier<String> {
+        @Override
+        public String get() {
+            return null;
+        }
+    }
+```
+    CompletableFuture.supplyAsync(new MySupplier<String>());
+
+或者 
+``` java
+    CompletableFuture.supplyAsync(SupplierWrapper.of(()->{
+            return "SupplierWrapper";
+    })).thenAccept(System.out::println);
+```
 _仅为示例代码_
