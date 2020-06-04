@@ -1,7 +1,8 @@
-### Problem： Maven compilation failure with error like `Error: not found: python2`
-When you compile the project via maven, it failed at module `apm-webapp` and the following error occured.
+### 问题描述： Maven编译失败，错误类似于“error: not found: python2”
 
-Pay attention to key words such as `node-sass` and `Error: not found: python2`.
+当编译apm-webapp项目时，会出现以下错误。
+
+注意关键词，如“node-sass”和“Error: not found: python2”。
 
 ```
 [INFO] > node-sass@4.11.0 postinstall C:\XXX\skywalking\skywalking-ui\node_modules\node-sass
@@ -40,23 +41,23 @@ Pay attention to key words such as `node-sass` and `Error: not found: python2`.
 [INFO] apache-skywalking-apm-es7 .......................... SKIPPED
 ```
 
-### Reason
+### 原因
 
-It has nothing to do with SkyWalking.   
-According to https://github.com/sass/node-sass/issues/1176, if you live in countries where requesting resources from `GitHub` and `npmjs.org` is very slowly, some precompiled binaries for dependency `node-sass` will fail to be downloaded during `npm install`, then npm will try to compile them itself. That's why `python2` is needed.
+该问题与skywalking本身没关系，根据[https://github.com/sass/nosass/issues/1176]如果你访问“GitHub”和“npmjs.org”请求非常慢，
+那么在“npm安装”期间，一些预编译的依赖项“node-sass”二进制文件将无法下载，然后npm会尝试自己编译，npm自己编译需要依赖python2。
 
-### Resolve
-#### 1. Use mirror. Such as in China, please edit `skywalking\apm-webapp\pom.xml`     
-Find
+### 解決方案
+#### 1.  建议修改 `skywalking\apm-webapp\pom.xml`  采用npm私服
+默认
 ```
 <configuration>  
  <arguments>install --registry=https://registry.npmjs.org/</arguments>  
 </configuration>
 ```
-Replace it with
+替换后
 ```
 <configuration>  
  <arguments>install --registry=https://registry.npm.taobao.org/ --sass_binary_site=https://npm.taobao.org/mirrors/node-sass/</arguments>  
 </configuration>
 ```
-#### 2. Get an enough powerful VPN
+#### 2. 使用网络比较好的VPN通道连接
