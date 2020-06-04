@@ -1,22 +1,21 @@
-# Source and Scope extension for new metrics
-From [OAL scope introduction](../concepts-and-designs/oal.md#scope), you should already have understood what the scope is.
-At here, as you want to do more extension, you need understand deeper, which is the **Source**. 
+# 新度量指标的源和范围扩展
 
-**Source** and **Scope** are binding concepts. **Scope** declare the id(int) and name, **Source** declare the attributes.
-Please follow these steps to create a new Source and Scope.
+从 [OAL 域介绍](../concepts-and-designs/oal.md#scope), 中你应该已经了解到什么是域了.现在, 如果你想做更多扩展, 你需要深入了解什么是 **源**.
 
-1. In the OAP core module, it provide **SourceReceiver** internal service.
+**源** 和 **域** 是相互绑定的概念. **域** 声明了唯一标志(id)和名称(name), **源** 声明了属性.请按照以下步骤来新建源和域.
+
+1. 在 OAP 核心模块中, 提供了 **SourceReceiver** 内部服务.
+
 ```java
 public interface SourceReceiver extends Service {
     void receive(Source source);
 }
 ```
 
-2. All analysis data must be a **org.apache.skywalking.oap.server.core.source.Source** sub class,
-tagged by `@SourceType` annotation, and in `org.apache.skywalking` package.
-Then it could be supported by OAL script and OAP core.
+2. 所有分析数据必须是 **org.apache.skywalking.oap.server.core.source.Source** 的子类, 带有 `@SourceType` 注解且在 `org.apache.skywalking` 包下, 此时它就可以被 OAL 脚本和 OAP 内核支持了
 
-Such as existed source, **Service**.
+比如对于已经存在的源, **Service**.
+
 ```java
 @ScopeDeclaration(id = SERVICE_INSTANCE, name = "ServiceInstance", catalog = SERVICE_INSTANCE_CATALOG_NAME)
 @ScopeDefaultColumn.VirtualColumnDefinition(fieldName = "entityId", columnName = "entity_id", isID = true, type = String.class)
@@ -41,27 +40,21 @@ public class ServiceInstance extends Source {
 }
 ```
 
-3. The `scope()` method in Source, returns an ID, which is not a random number. This ID need to be declared through 
-`@ScopeDeclaration` annotation too. The ID in `@ScopeDeclaration` and ID in `scope()` method should be same for this Source.
+3. 源中的 `scope()` 方法返回了一个 ID, 这并非一个随意的值, 这个 ID 也必须在 `@ScopeDeclaration` 注解中声明. 对于同一个源, `@ScopeDeclaration` 和 `scope()` 方法中的 ID 必须一致
 
-4. The `String getEntityId()` method in Source, requests the return value representing unique entity which the scope related. 
-Such as,
-in this Service scope, the id is service id, representing a particular service, like `Order` service.
-This value is used in [OAL group mechanism](../concepts-and-designs/oal.md#group).
+4. 源中的 `String getEntityId()` 方法，请求返回代表和域相关的唯一实体的值. 比如说, 在这个 `Service` 域中, id 就是 Service id, 代表某个特定的服务, 如 `Order` 服务. 该值在 [OAL 分组机制](../concepts-and-designs/oal.md#group) 中使用。
 
-5. `@ScopeDefaultColumn.VirtualColumnDefinition` and `@ScopeDefaultColumn.DefinedByField` are required, all declared fields(virtual/byField)
-are going to be pushed into persistent entity, mapping to such as ElasticSearch index and Database table column.
-Such as, include entity id mostly, and service id for endpoint and service instance level scope. Take a reference to all existing scopes.
-All these fields are detected by OAL Runtime, and required in query stage.
+5. `@ScopeDefaultColumn.VirtualColumnDefinition` 和 `@ScopeDefaultColumn.DefinedByField` 是必须的, 所有声明的字段(virtual/byField)将被推入持久实体, 匹配例如 ElasticSearch 索引和数据库表的列。例如，主要包括实体 id，以及端点和服务实例级范围的服务 id。引用所有现有的作用域。
+所有这些字段都是由 OAL 运行时检测到的，以及在查询阶段是必需的。
 
-6. Add scope name as keyword to oal grammar definition file, `OALLexer.g4`, which is at `antlr4` folder of `generate-tool-grammar` module.
+6. 将域名称作为关键字, 添加到 `OALLexer.g4` 语法定义文件中. `OALLexer.g4` 文件位于 `generate-tool-grammar` 模块下的 `antlr4` 文件夹下。
 
-7. Add scope name keyword as source in parser definition file, `OALParser.g4`, which is at same fold of `OALLexer.g4`.
-
+7. 将域名称作为关键字, 添加到 `OALParser.g4` 解析器定义文件中, 该文件与 `OALLexer.g4` 位于同一级文件夹
 
 ___
-After you done all of these, you could build a receiver, which do
-1. Get the original data of the metrics,
-1. Build the source, send into `SourceReceiver`.
-1. Write your whole OAL scripts.
-1. Repackage the project.
+做完以上步骤之后, 你就可以构建一个接收器了, 通常你需要
+
+1. 获取指标的原始数据
+2. 构建源, 发送到 `SourceReceiver`
+3. 编写完整的 OAL 脚本
+4. 重新打包项目
