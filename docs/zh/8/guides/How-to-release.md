@@ -1,14 +1,13 @@
-Apache SkyWalking release guide
+Apache SkyWalking 发布指南
 --------------------
-This document guides every committer to release SkyWalking in Apache Way,
-and also help committers to check the release for vote.
+本文档指导每个提交者以 Apache 的方式来发布 SkyWalking, 
+并且还帮助提交者检查发布事项以及其他成员参与投票等.
 
+## 设置开发环境
+按照 [Apache maven 部署环境文档](http://www.apache.org/dev/publishing-maven-artifacts.html#dev-env)
+设置gpg工具和加密密码
 
-## Setup your development environment
-Follow [Apache maven deployment environment document](http://www.apache.org/dev/publishing-maven-artifacts.html#dev-env)
-to set gpg tool and encrypt passwords
-
-Use the following block as a template and place it in ~/.m2/settings.xml
+使用以下代码块作为模板并将其放入 `~/.m2/settings.xml` 文件中
 
 ```
 <settings>
@@ -31,78 +30,78 @@ Use the following block as a template and place it in ~/.m2/settings.xml
 </settings>
 ```
 
-## Add your GPG public key
-1. Add your GPG public key into [SkyWalking GPG KEYS](https://dist.apache.org/repos/dist/release/skywalking/KEYS) file,
-only if you are a committer, use your Apache id and password login this svn, and update file. **Don't override the existing file.**
-1. Upload your GPG public key to public GPG site. Such as [MIT's site](http://pgp.mit.edu:11371/). This site should be in 
-Apache maven staging repository check list.
+## 添加GPG公钥
+1. 将你的GPG公钥添加到 [SkyWalking GPG KEYS](https://dist.apache.org/repos/dist/release/skywalking/KEYS) 文件中,
+只有当你是一个提交者时才能修改, 使用你的 Apache id 和密码登录这个 svn, 并更新文件. **不要覆盖现有文件.**
+2. 将你的GPG公钥上传到公共GPG站点.  如 [MIT 的站点](http://pgp.mit.edu:11371/). 
+这个网站应该在 Apache maven staging repository 的检查列表中.
 
-## Test your settings
-This step is only for test, if your env is set right, don't need to check every time.
+## 测试你的配置
+此步骤仅用于测试, 如果您的环境设置正确, 则不需要每次都检查. 
 ```
 ./mvnw clean install -Pall (this will build artifacts, sources and sign)
 ```
 
-## Prepare the release
+## 准备发布
 ```
 ./mvnw release:clean
 ./mvnw release:prepare -DautoVersionSubmodules=true -Pall
 ```
 
-- Set version number as x.y.z, and tag as **v**x.y.z (version tag must start with **v**, you will find the purpose in next step.)
+- 将版本号设置为 x.y.z, 打上形如 **v**x.y.z 的 tag (版本 tag 必须以 **v** 开头, 您将在下一步中知道为什么必须这样.)
 
-_You could do a GPG sign before doing release, if you need input the password to sign, and the maven don't give the chance,
-but just failure. Run `gpg --sign xxx` to any file could remember the password for enough time to do release._ 
+**你可以在发布之前做 GPG 签名. 如果你需要输入密码以进行签名的话, 由于 maven 没有给你输入的机会, 这会导致发布失败。
+对任意文件运行 `gpg --sign xxx` 进行签名, 这可以记住密码一段时间, 应该可以在这段时间内发布完成.**
 
-## Stage the release 
+
+## 发布阶段
 ```
 ./mvnw release:perform -DskipTests -Pall
 ```
 
-- The release will automatically be inserted into a temporary staging repository for you.
+- 该版本将自动插入临时存储库中.
 
-## Build and sign the source code package
+## 构建并签署源代码包
 ```shell
 export RELEASE_VERSION=x.y.z (example: RELEASE_VERSION=5.0.0-alpha)
 cd tools/releasing
 sh create_source_release.sh
 ```
 
-**NOTICE**, `create_source_release.sh` is just suitable for MacOS. Welcome anyone to contribute Windows bat and Linux shell. 
+**注意**, `create_source_release.sh` 只适合 MacOS. 欢迎任何人贡献 Windows 和 Linux .
 
-This scripts should do following things
-1. Use `v` + `RELEASE_VERSION` as tag to clone the codes.
-1. Make `git submodule init/update` done.
-1. Exclude all unnecessary files in the target source tar, such as .git, .github, .gitmodules. See the script for the details.
-1. Do `gpg` and `shasum 512`. 
+这个脚本应该做以下事情
+1. 使用 `v` + `RELEASE_VERSION` 作为标记来克隆代码.
+2. 完成 `git submodule init/update` .
+3. 排除目标源 tar 中的所有不必要的文件, 例如 `.git`, `.github`, `.gitmodules`. 有关详细信息, 请参阅脚本.
+4. 执行 `gpg` 和 `shasum 512`.
 
+此时你应该可以在 `tools/releasing` 文件夹中找到 `apache-skywalking-apm-x.y.z-src.tgz` 和 .asc, .sha512 结尾的文件
 
-The `apache-skywalking-apm-x.y.z-src.tgz` should be found in `tools/releasing` folder,
-with .asc, .sha512.
-
-## Find and download distribution in Apache Nexus Staging repositories
-1. Use ApacheId to login `https://repository.apache.org/`
-1. Go to `https://repository.apache.org/#stagingRepositories`
-1. Search `skywalking` and find your staging repository
-1. Close the repository and wait for all checks pass. In this step, your GPG KEYS will be checked. See [set PGP document](#add-your-gpg-public-key),
-if you haven't done it before.
-1. Go to `{REPO_URL}/org/apache/skywalking/apache-skywalking-apm/x.y.z`
-1. Download `.tar.gz` and `.zip` with .asc and .sha1
+## 在 Apache Nexus Staging 存储库中查找和下载分发
+1. 使用 ApacheId 登录 `https://repository.apache.org/`.
+2. 跳转到 `https://repository.apache.org/#stagingRepositories`.
+3. 搜索 `skywalking` 并找到您的暂存存储库.
+4. 关闭存储库并等待所有检查通过. 在此步骤中, 将检查您的 GPG KEYS. 如果你以前没有这样做过, 请参考[设置 GPG 文档](#add-your-gpg-public-key).
+5. 跳转到 `{REPO_URL}/org/apache/skywalking/apache-skywalking-apm-/x.y.z`
+6. 下载 `.tar.gz` 和 `.zip` 且有 .asc 和 .sha1 结尾的文件
 
 
-## Upload to Apache svn
-1. Use ApacheId to login `https://dist.apache.org/repos/dist/dev/skywalking/`
-1. Create folder, named by release version and round, such as: x.y.z
-1. Upload Source code package to the folder with .asc, .sha512
-    * Package name: apache-skywalking-x.y.z-src.tar.gz
-    * See Section "Build and sign the source code package" for more details 
-1. Upload distribution package to the folder with .asc, .sha512
-    * Package name: apache-skywalking-bin-x.y.z.tar.gz, apache-skywalking-bin-x.y.z.zip
-    * See Section "Find and download distribution in Apache Nexus Staging repositories" for more details
-    * Create .sha512 package: `shasum -a 512 file > file.sha512`
+## 上传到 Apache svn
 
-## Make the internal announcements
-Send an announcement mail in dev mail list.
+1. 使用 ApacheId 登录 `https://dist.apache.org/repos/dist/dev/skywalking/`.
+2. 创建文件夹, 按发行版本和阶段命名, 例如: x.y.z
+3. 将源代码包上传到包含 .asc, .sha512 的文件夹
+  * 包名: apache-skywalking-x.y.z-src.tar.gz
+  * 有关详细信息, 请参见"构建和签署源代码包"一节 
+4. 将分发包上传到包含 .asc, .sha512 的文件夹
+  * 包名: apache-skywalking-bin-x.y.z.tar.gz, apache-skywalking-bin-x.y.z.zip
+  * 有关详细信息, 请参见“在Apache Nexus Staging存储库中查找和下载分发”一节
+  * 创建 .sha512 包: `shasum -a 512 file > file.sha512`    
+
+## 发表内部公告
+
+在开发邮件列表中发送公告邮件.
 
 ```
 Mail title: [ANNOUNCE] SkyWalking x.y.z test build available
@@ -153,12 +152,14 @@ A vote regarding the quality of this test build will be initiated
 within the next couple of days.
 ```
 
-## Wait at least 48 hours for test responses
-Any PMC, committer or contributor can test features for releasing, and feedback.
-Based on that, PMC will decide whether start a vote.
+## 为测试反馈等待至少 48 小时
 
-## Call a vote in dev
-Call a vote in `dev@skywalking.apache.org`
+任何 PMC, 提交者或贡献者都可以测试发布的功能并提供反馈.
+基于此, PMC 将决定是否开始投票.
+
+## 在 dev 群组中投票
+
+在 `dev@skywalking.apache.org` 中发起投票
 
 ```
 Mail title: [VOTE] Release Apache SkyWalking version x.y.z
@@ -209,26 +210,28 @@ Voting will start now (xxxx date) and will remain open for at least 72 hours, Re
 [ ] -1 Do not release this package because....
 ```
 
-## Vote Check
-All PMC members and committers should check these before vote +1.
+## 投票检查
 
-1. Features test.
-1. All artifacts in staging repository are published with .asc, .md5, *sha1 files
-1. Source code and distribution package (apache-skywalking-x.y.z-src.tar.gz, apache-skywalking-bin-x.y.z.tar.gz, apache-skywalking-bin-x.y.z.zip)
-are in `https://dist.apache.org/repos/dist/dev/skywalking/x.y.z` with .asc, .sha512
-1. `LICENSE` and `NOTICE` are in Source code and distribution package.
-1. Check `shasum -c apache-skywalking-apm-x.y.z-src.tgz.sha512`
-1. Build distribution from source code package (apache-skywalking-x.y.z-src.tar.gz) by following this [doc](https://github.com/apache/skywalking/blob/master/docs/en/guides/How-to-build.md#build-from-apache-source-code-release).
-1. Apache RAT check. Run `./mvnw apache-rat:check`. (No binary in source codes)
+所有 PMC 成员和提交者都应在投票 +1 之前检查这些.
 
-
-Vote result should follow these.
-1. PMC vote is +1 binding, all others is +1 no binding.
-1. In 72 hours, you get at least 3 (+1 binding), and have more +1 than -1. Vote pass. 
+1. 功能测试.
+2. staging repository 中的所有工件都附带 .asc, .md5, *sha1 文件发布
+3. 源代码和分发包 (apache-skywalking-x.y.z-src.tar.gz, apache-skywalking-bin-x.y.z.tar.gz, apache-skywalking-bin-x.y.z.zip)
+都应该在 `https://dist.apache.org/repos/dist/dev/skywalking/x.y.z` 且包含 .asc, .sha512
+4. `LICENSE` 和 `NOTICE` 文件在源代码和分发包中.
+5. 检查 `shasum -c apache-skywalking-apm-x.y.z-src.tgz.sha512`
+6. 遵循[文档](https://github.com/apache/skywalking/blob/master/docs/en/guides/How-to-build.md#build-from-apache-source-code-release)从源码包 (apache-skywalking-x.y.z-src.tar.gz) 构建分发包.
+7. Apache RAT 检查. 运行`./mvnw apache-rat:check`. (源代码中没有二进制文件)
+8. 需要有免责声明
 
 
-## Publish release
-1. Move source codes tar balls and distributions to `https://dist.apache.org/repos/dist/release/skywalking/`.
+投票结果应遵循这些.
+1. PMC 投票是 +1 绑定, 所有其他投票是 +1 没有约束力.
+2. 在 72 小时内, 你得到至少 3 个 (+1 绑定), 并且 +1 比 -1 更多. 投票通过.
+
+## 发版
+
+1. 将源代码 tar 包和分发包移动到 `https://dist.apache.org/repos/dist/release/skywalking/`.
 ```
 > export SVN_EDITOR=vim
 > svn mv https://dist.apache.org/repos/dist/dev/skywalking/x.y.z https://dist.apache.org/repos/dist/release/skywalking
@@ -237,15 +240,16 @@ enter your apache password
 ....
 
 ```
-2. Do release in nexus staging repo.
-3. Public download source and distribution tar/zip locate in `http://www.apache.org/dyn/closer.cgi/skywalking/x.y.z/xxx`.
-We only publish Apache mirror path as release info.
-4. Public asc and sha512 locate in `https://www.apache.org/dist/skywalking/x.y.z/xxx`
-5. Public KEYS pointing to  `https://www.apache.org/dist/skywalking/KEYS`
-6. Update website download page. http://skywalking.apache.org/downloads/ . Include new download source, distribution, sha512, asc and document
-links. Links could be found by following above rules(3)-(6).
-7. Add a release event on website homepage and event page. Announce the public release with changelog or key features.
-8. Send ANNOUNCE email to `dev@skywalking.apache.org`, `announce@apache.org`, the sender should use Apache email account.
+
+1. 在 nexus staging repo 中发布.
+2. 公共下载源和分发 tar/zip 位于  `http://www.apache.org/dyn/closer.cgi/skywalking/x.y.z/xxx`.
+我们只发布 Apache 镜像路径作为发布信息.
+3. 公共 asc 和 sha512 位于  位于 `https://www.apache.org/dist/skywalking/x.y.z/xxx`
+4. 公共密钥指向  `https://www.apache.org/dist/skywalking/KEYS`
+5. 更新最新下载地址. http://skywalking.apache.org/downloads/ . 增加一个新的下载源、描述、distribution、 sha加密、文档链接等. 
+按照(3)-(6)的规则可以找到链接.
+6. 在网站首页和活动页面添加发布活动。发布带有变更日志或关键特性的公开版本.
+7. 使用Apache账号将完成的内容邮件发送到 `dev@skywalking.apache.org`, `announce@apache.org`.
 ```
 Mail title: [ANNOUNCE] Apache SkyWalking x.y.z released
 

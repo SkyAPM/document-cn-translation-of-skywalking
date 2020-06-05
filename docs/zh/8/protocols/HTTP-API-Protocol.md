@@ -1,13 +1,13 @@
-# HTTP API Protocol
+# HTTP API协议
 
-HTTP API Protocol defines the API data format, including api request and response data format.
-They use the HTTP1.1 wrapper of the official [SkyWalking Trace Data Protocol v3](Trace-Data-Protocol-v3.md). Read it for more details.
+HTTP API协议定义了API数据格式，包括API请求和响应数据格式。
+链路跟踪Trace数据采用 HTTP1.1格式，更详情内容请参见 [SkyWalking Trace Data Protocol v3](Trace-Data-Protocol-v3.md). 
 
-## Instance Management
+## 实例管理
 
-Detail information about data format can be found in [Instance Management](https://github.com/apache/skywalking-data-collect-protocol/blob/master/management/Management.proto).
+有关数据格式的详细信息参见 [Instance Management](https://github.com/apache/skywalking-data-collect-protocol/blob/master/management/Management.proto).
 
-- Report service instance properties
+- 报表服务实例属性
 
 > POST http://localhost:12800/v3/management/reportProperties
 
@@ -48,10 +48,10 @@ OutPut:
 {}
 ```
 
-## Trace Report
+## 跟踪报告
 
-Detail information about data format can be found in [Instance Management](https://github.com/apache/skywalking-data-collect-protocol/blob/master/language-agent/Tracing.proto).
-There are two ways to report segment data, one segment per request or segment array in the bulk mode.
+有关数据格式的详细信息参见 [Instance Management](https://github.com/apache/skywalking-data-collect-protocol/blob/master/language-agent/Tracing.proto).
+有两种方式报告段数据，每个请求一个段或批量模式下的段数组。
 
 ### POST http://localhost:12800/v3/segment
 
