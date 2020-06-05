@@ -1,26 +1,30 @@
-# Why doesn't SkyWalking involve MQ in the architecture?
-People usually ask about these questions when they know SkyWalking at the first time.
-They think MQ should be better in the performance and supporting high throughput, like the following
+# 为什么SkyWalking体系中没有使用MQ?
+大多数人在第一次接触SkyWalking时会有这样的疑问.
+他们认为MQ在性能和支持高吞吐量方面应该更好
 
-<img src="MQ-involved-architecture.png"/>
+SkyWalking基于以下几点原因考虑
 
-Here are the reasons the SkyWalking's opinions.
+### MQ是OAP后端通信的好方法还是正确方法?
+当人们思考当OAP集群不够强大或者宕机时，这个问题就产生了. 
+但在回答这个问题之前，我想先问几个问题。
 
-### Is MQ a good or right way to communicate with OAP backend?
-This question comes out when people think about what happens when the OAP cluster is not powerful enough or offline. 
-But I want to ask the questions before answer this.
-1. Why do you think OAP should be not powerful enough? As it is not, the speed of data analysis wouldn't catch up with producers(agents). Then what is the point of adding new deployment requirement?
-1. Maybe you will argue says, the payload is sometimes higher than usual as there is hot business time. But, my question is how much higher? 
-1. If less than 40%, how many resources will you use for the new MQ cluster? How about moving them to new OAP and ES nodes?
-1. If higher than 40%, such as 70%-2x times? Then, I could say, your MQ wastes more resources than it saves. 
-Your MQ would support 2x-3x payload, and with 10%-20% cost in general time. Furthermore, in this case, 
-if the payload/throughput are so high, how long the OAP cluster could catch up. I would say never before it catches up, the next hot time event is coming.
+1. 为什么你认为OAP不够强大?事实并非如此，数据分析的速度赶不上生产者(代理)。那么添加新的部署需求的意义是什么呢?
 
-Besides all this analysis, why do you want the traces still 100%, as you are costing so many resources? 
-Better than this, 
-we could consider adding a better dynamic trace sampling mechanism at the backend, 
-when throughput goes over the threshold, active the sampling rate to 100%->10% step by step, 
-which means you could get the OAP and ES 3 times more powerful than usual, just ignore the traces at hot time.
+2. 也许你会说，有效载荷有时会比平常高。但是，我的问题是，它会高多少?
 
-### How about MQ metrics data exporter?
-I would say, it is already available there. Exporter module with gRPC default mechanism is there. It is easy to provide a new implementor of that module.
+3. 如果不足40%，您将为新的MQ集群使用多少资源?将它们移动到新的OAP和ES节点怎么样?
+
+4. 如果高于40%，比如70%-2倍?然后，我可以说，MQ浪费的资源比节省的资源多。
+
+您的MQ将支持2 -3倍的有效负载，通常花费额外的10%-20%的时间。在这种情况下，
+
+如果有效负载/吞吐量如此之高，OAP集群能够及时处理么。我想说，在OAP集群处理完毕之前可能下一个高峰已经到来。
+
+除了这些分析，因为你花费了这么多的资源所以必须采集100%的数据?
+比这更好,
+我们可以考虑在后端添加更好的动态跟踪采样机制，
+当吞吐量超过阈值时，逐步将采样率激活到100%->10%，
+这意味着你可以让OAP和ES比平常强大3倍，只是忽略高峰时的部分数据而已。
+
+### MQ度量数据导出器怎么样?
+我想说，它已经在那里可用了。导出模块与gRPC默认机制是存在的。为该模块提供新的实现者是很容易的。

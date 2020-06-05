@@ -1,9 +1,9 @@
-### Problem
-- There is no abnormal log in Agent log and Collector log, 
-- The traces show, but no other info in UI.
+### 现象
+- Agent和Collector的日志中没有异常。
+- UI除Trace查询页面外，其它页面无数据。
 
-### Reason
-The operating system where the monitored system is located is not set as the current time zone, causing statistics collection time points to deviate.
+### 原因
+Collector和被监控应用的系统主机时间，没有同步。
 
-### Resolve
-Make sure the time is sync in collector servers and monitored application servers.
+### 解决方法
+确保各主机操作系统时间是保持同步的。
