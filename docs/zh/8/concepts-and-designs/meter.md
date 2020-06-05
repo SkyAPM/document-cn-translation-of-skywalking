@@ -1,24 +1,20 @@
-# Meter System
-Meter system is another streaming calculation mode, especially for metrics data. In the [OAL](oal.md), there are clear 
-[Scope Definitions](scope-definitions.md), including native objects. Meter system is focusing on the data type itself,
-and provides more flexible to the end user to define the scope entity.
+# 仪表系统
+仪表系统是另一种流计算模式，特别是对于度量标准数据。 在 [观测分析语言](oal.md)中, 有明确的 
+[范围 定义](scope-definitions.md), 包含原生对象。 仪表系统专注于数据类型本身，并为最终用户提供更大的灵活性来定义范围实体。
 
-The meter system is open to different receivers and fetchers in the backend, 
-follow the [backend setup document](../setup/backend/backend-setup.md) for more details.
+仪表系统对后端的不同接收器开放，请参阅[后端设置文档](../setup/backend/backend-setup.md) 以获取更多详细信息。
 
-Every metrics is declared in the meter system should include following attribute
-1. **Metrics Name**. An unique name globally, should avoid overlap the OAL variable names.
-1. **Function Name**. The function used for this metrics, distributed aggregation, value calculation and down sampling calculation
-based on the function implementation. Also, the data structure is determined by the function too, such as function Avg is for Long.
-1. **Scope Type**. Unlike inside the OAL, there are plenty of logic scope definitions, in meter system, only type is required. 
-Type values include service, instance, and endpoint, like we introduced in the Overview.
-The values of scope entity name, such as service name, are required when metrics data generated with the metrics data value.
+仪表系统中声明的每个指标应包括以下属性
+1. **指标名称**。 全局唯一名称，应避免与OAL变量名称重复。
+1. **函数名称**。 用于该指标的函数，基于该函数实现的分布式聚合，值计算和采样计算。同样，数据结构也由函数确定，例如Avg函数返回Long型。
+1. **范围类型**。 与 观测分析语言 中不同, 在仪表系统中存在很多逻辑范围定义, 只要求类型可以使用。
+类型值包括服务，实例和端点，就像我们在概述中介绍的那样。
+当使用指标数据值生成指标数据时，需要范围实体名称的值，例如服务名称。
 
-NOTICE, the metrics must be declared in the bootstrap stage, no runtime changed.
+注意，必须在引导阶段声明指标，而运行阶段无法更改。
 
-Meter System supports following binding functions
-- **avg**. Calculate the avg value for every entity in the same metrics name.
-- **histogram**. Aggregate the counts in the configurable buckets, buckets is configurable but must be assigned in the declaration stage.
-- **percentile**. Read [percentile in WIKI](https://en.wikipedia.org/wiki/Percentile). Unlike in the OAL, we provide
-50/75/90/95/99 in default, in the meter system function, percentile function accepts several ranks, which should be in
-the (0, 100) range.
+仪表系统支持以下绑定功能
+- **avg**。计算具有相同度量标准名称的每个实体的平均值。
+- **histogram**。 汇总可配置存储桶中的计数，存储桶是可配置的，但必须在声明阶段分配。
+- **percentile**.。阅读 [percentile的维基百科解释](https://en.wikipedia.org/wiki/Percentile). 与OAL不同，我们默认提供50/75/90/95/99；
+在仪表系统功能中，百分位数功能接受多个等级，其等级应在（0，100）范围内。
