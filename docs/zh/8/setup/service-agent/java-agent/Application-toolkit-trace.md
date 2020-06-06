@@ -1,4 +1,4 @@
-* Dependency the toolkit, such as using maven or gradle
+* 使用maven或gradle引入toolkit依赖。
 ```xml
    <dependency>
       <groupId>org.apache.skywalking</groupId>
@@ -7,27 +7,27 @@
    </dependency>
 ```
 
-* Use `TraceContext.traceId()` API to obtain traceId.
+* 使用 `TraceContext.traceId()` API得到traceId
 ```java
 import TraceContext;
 ...
 
 modelAndView.addObject("traceId", TraceContext.traceId());
 ```
-_Sample codes only_
+_仅为示例代码_
 
-* Add `@Trace` to any method you want to trace. After that, you can see the span in the Stack.
-* Methods annotated with `@Tag` will try to tag the **current active span** with the given key (`Tag#key()`) and (`Tag#value()`),
-if there is no active span at all, this annotation takes no effect. `@Tag` can be repeated, and can be used in companion with `@Trace`, see examples below.
-The `value` of `Tag` is the same as what are supported in [Customize Enhance Trace](Customize-enhance-trace.md).
-* Add custom tag in the context of traced method, `ActiveSpan.tag("key", "val")`.
+* 在你想追踪的方法上添加`@Trace`注解。添加后，你就可以在方法调用栈中查看到span的信息。
+* 如果标签处没有有效跨度，则用@Tag注释的方法将尝试使用给定键(`Tag＃key()`)和(`Tag#value()`)标记**当前有效跨度**。
+若有，此注释不起作用。可以重复使用@Tag，并且可以与@Trace结合使用，请参见下面的示例。
+ “标签”的“值”与[自定义增强跟踪](Customize-enhance-trace.md)中支持的值相同。
+* 在跟踪方法的上下文中添加自定义标签, `ActiveSpan.tag("key", "val")`.
 
-* `ActiveSpan.error()` Mark the current span as error status.
-* `ActiveSpan.error(String errorMsg)` Mark the current span as error status with a message.
-* `ActiveSpan.error(Throwable throwable)` Mark the current span as error status with a Throwable.
-* `ActiveSpan.debug(String debugMsg)` Add a debug level log message in the current span.
-* `ActiveSpan.info(String infoMsg)` Add an info level log message in the current span.
-* `ActiveSpan.setOperationName(String operationName)` Customize an operation name. 
+* `ActiveSpan.error()` 将当前跨度标记为错误状态。
+* `ActiveSpan.error(String errorMsg)` 将当前跨度标记为错误状态,并设置错误消息提示。
+* `ActiveSpan.error(Throwable throwable)` 将当前跨度标记为错误状态,并抛出Throwable异常。
+* `ActiveSpan.debug(String debugMsg)` 在当前范围中添加调试级别日志消息。
+* `ActiveSpan.info(String infoMsg)` 在当前范围中添加信息级别日志消息。
+* `ActiveSpan.setOperationName(String operationName)` 自定义操作名称。
 
 ```java
 ActiveSpan.tag("my_tag", "my_value");
@@ -55,14 +55,14 @@ public User methodYouWantToTrace(String param1, String param2) {
 }
 ```
 
-* Use `TraceContext.putCorrelation()` API to put custom data in tracing context. 
+* 使用 `TraceContext.putCorrelation()` API将自定义数据放入跟踪上下文。
 ```java
 Optional<String> previous = TraceContext.putCorrelation("customKey", "customValue");
 ```
-CorrelationContext will remove the item when the value is `null` or empty.
+当值为`null`或为空时，CorrelationContext将删除该项目。
 
-* Use `TraceContext.getCorrelation()` API to get custom data.
+* 使用 `TraceContext.getCorrelation()` 获取自定义数据的API。
 ```java
 Optional<String> value = TraceContext.getCorrelation("customKey");
 ```
-CorrelationContext configuration descriptions could be found in [the agent configuration](README.md#table-of-agent-configuration-properties) documentation, with `correlation.` as the prefix.
+可以在[代理配置](README.md#table-of-agent-configuration-properties)文件中找到CorrelationContext配置描述，前缀为`correlation.`。

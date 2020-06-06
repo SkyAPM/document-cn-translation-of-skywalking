@@ -1,47 +1,43 @@
-# SkyWalking Cross Process Propagation Headers Protocol
-* Version 3.0
+# SkyWalking 跨进程传播的头部协议
+* 版本 3.0
 
-SkyWalking is more likely an APM system, rather than the common distributed tracing system. 
-The Headers are much more complex than them in order to improving analysis performance of OAP. 
-You can find many similar mechanism in other commercial APM systems. (Some are even much more complex than our's)
+SkyWalking 更像是一个 APM 系统, 而不是通用的分布式跟踪系统. 
+为了提高OAP的分析性能，头文件要比它们复杂得多. 
+您可以在其他商业APM系统中找到许多类似的机制。(有些甚至比我们的更复杂)
 
-## Abstract
-SkyWalking Cross Process Propagation Headers Protocol v3 is also named as sw8 protocol, which is for context propagation.
+## 摘要
+SkyWalking 跨进程传播的头部协议版本 3.0 也被命名为sw8协议，用于上下文传播.
 
-### Standard Header Item
-The standard header should be the minimal requirement for the context propagation.
-* Header Name: `sw8`.
-* Header Value: 8 fields split by `-`. The length of header value should be less than 2k(default).
+### 标准头部项
+标准标头应该是上下文传播的最低要求。
+* 头部名称: `sw8`.
+*  头部值: 8 个字段，由`-`分割. 头部值的最大长度(默认)应该小于 2k。
 
-Value format example, `XXXXX-XXXXX-XXXX-XXXX`
+值格式示例, `XXXXX-XXXXX-XXXX-XXXX`
 
-#### Values
-Values include the following segments, all String type values are in BASE64 encoding.
+#### 值
+头部值包含以下段, 所有字符串类型的值都是 BASE64 编码的.
 
-- Required(s)
-1. Sample. 0 or 1. 0 means context exists, but could(most likely will) ignore. 1 means this trace need to be sampled and send to backend. 
-1. Trace Id. **String(BASE64 encoded)**. Literal String and unique globally.
-1. Parent trace segment Id. **String(BASE64 encoded)**. Literal String and unique globally.
-1. Parent span Id. Integer. Begin with 0. This span id points to the parent span in parent trace segment.
-1. Parent service.  **String(BASE64 encoded)**. The length should not be less or equal than 50 UTF-8 characters.
-1. Parent service instance.  **String(BASE64 encoded)**.  The length should be less or equal than 50 UTF-8 characters.
-1. Parent endpoint. **String(BASE64 encoded)**. Operation Name of the first entry span in the parent segment. The length should be less than 150 UTF-8 characters.
-1. Target address used at client side of this request. **String(BASE64 encoded)**. The network address(not must be IP + port) used at client side to access this target
-service.
+- 必须项(s)
+1. 采样(Sample)。 0 或 1. 0 表示上下文存在, 但是可以(也很可能)忽略。 1 表示此追踪需要采样并发送到后端。
+2. 追踪标识(Trace Id)。 字符串(BASE64 编码)。 由 . 分割的三个 long 类型值, 表示此追踪的唯一标识。
+3. 父追踪段 ID(Parent trace segment Id)。 字符串(BASE64 编码)。 字符串且全局唯一。
+4. 父 Span 标识。 整数。 从 0 开始。 此 Span ID 指向了父追踪段中的 Span。
+5. 父服务。 字符串(BASE64 编码)。 长度不应小于或等于50个UTF-8编码的字符。
+6. 父服务实例标识。  字符串(BASE64 编码)。 长度不应小于或等于50个UTF-8编码的字符。
+7. 父服务的端点。 字符串(BASE64 编码)。 父追踪段中第一个入口span的操作名。 长度不应小于或等于50个UTF-8编码的字符。
+8. 本请求的目标地址。 字符串(BASE64 编码)。 客户端用于访问目标服务的网络地址(不一定是 IP + 端口)。
 
-- Sample values, 
+- 示例, 
 `1-TRACEID-SEGMENTID-3-PARENT_SERVICE-PARENT_INSTANCE-PARENT_ENDPOINT-IPPORT`
 
-### Extension Header Item
-Extension header item is designed for the advanced features. It provides the interaction capabilities between the agents
-deployed in upstream and downstream services.
-* Header Name: `sw8-x`
-* Header Value: Split by `-`. The fields are extendable.
+### 扩展头部项
+扩展头部项是为高级特性设计的. 它提供了部署在上游和下游服务中的代理之间的交互功能。
+* 头部名称: `sw8-x`
+* 头部值: 由`-`分割. 字段可扩展.
 
-#### Values
-The current value includes fields.
-1. Tracing Mode. empty, 0 or 1. empty or 0 is default. 1 represents all spans generated in this context should skip analysis,
-`spanObject#skipAnalysis=true`. This context should be propagated to upstream in the default, unless it is changed in the 
-tracing process.
-
+#### 值
+当前值包括的字段。
+1. 追踪模式。 空，0或1。默认为空或0。表示在这个上下文中生成的所有span应该跳过分析，`spanObject#skipAnalysis=true`。
+这个上下文应该在默认情况下传播到上游，除非它在跟踪过程中被更改.
 

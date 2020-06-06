@@ -1,16 +1,16 @@
-# SkyWalking Cross Process Correlation Headers Protocol
-* Version 1.0
+# SkyWalking跨进程传播的头部协议
+* 版本 1.0
 
-The Cross Process Correlation Headers Protocol is used to transport custom data by leveraging the capability of [Cross Process Propagation Headers Protocol](Skywalking-Cross-Process-Propagation-Headers-Protocol-v3.md). 
+跨进程传播的头部协议用于通过利用以下功能来传输自定义数据：[跨进程传播的头部协议](Skywalking-Cross-Process-Propagation-Headers-Protocol-v3.md). 
 
-This is an optional and additional protocol for language tracer implementation. All tracer implementation could consider to implement this.
-Cross Process Correlation Header key is `sw8-correlation`. The value is the `encoded(key):encoded(value)` list with elements splitted by `,` such as `base64(string key):base64(string value),base64(string key2):base64(string value2)`.
+这是用于语言跟踪程序实现的可选和附加协议。所有跟踪器实现都可以考虑实现此目的。
+跨进程相关标头密钥为 `sw8-correlation`。该值是 `encoded(key):encoded(value)` 列表，其中元素由 `,` 分割, 例如 `base64(string key):base64(string value),base64(string key2):base64(string value2)`.
 
-## Recommendations of language APIs
-Recommended implementation in different language API.
+## 语言API的建议
+推荐的不同语言API实现。
 
-1. `TraceContext#putCorrelation` and `TraceContext#getCorrelation` are recommended to write and read the correlation context, with key/value string.
-1. The key should be added if it is absent.
-1. The later writes should override the previous value.
-1. The total number of all keys should be less than 3, and the length of each value should be less than 128 bytes.
-1. The context should be propagated as well when tracing context is propagated across threads and processes.
+1. `TraceContext#putCorrelation` 和 `TraceContext#getCorrelation` 建议使用键/值字符串编写和读取关联上下文。
+1. 如果不存在，则应添加密钥。
+1. 以后的写入应覆盖先前的值。
+1. 所有键的总数应小于3，每个值的长度应小于128字节。
+1. 当跟踪上下文跨线程和进程传播时，上下文也应传播。

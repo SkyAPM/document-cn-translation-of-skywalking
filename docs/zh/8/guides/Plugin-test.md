@@ -337,9 +337,9 @@ java -jar ${agent_opts} "-Dskywalking.agent.service_name=jettyclient-scenario"  
 
 ```xml
     <properties>
-        <!-- Provide and use this property in the pom. -->
-        <!-- This version should match the library version, -->
-        <!-- in this case, http components lib version 4.3. -->
+        <!-- 在pom中提供和使用此属性. -->
+        <!-- 此版本应与库版本匹配, -->
+        <!-- 在这种情况下，http组件库版本为4.3. -->
         <test.framework.version>4.3</test.framework.version>
     </properties>
     <dependencies>
@@ -352,7 +352,7 @@ java -jar ${agent_opts} "-Dskywalking.agent.service_name=jettyclient-scenario"  
     </dependencies>
 
     <build>
-        <!-- Set the package final name as same as the test case folder case. -->
+        <!-- 将程序包的最终名称设置为与测试用例文件夹的大小写相同. -->
         <finalName>httpclient-4.3.x-scenario</finalName>
         ....
     </build>
@@ -508,6 +508,6 @@ jobs:
       matrix:
         case:
           # ...
-          - { name: '<your case name>', title: '<PluginName, i.e. Spring> (<Supported Version Count, i.e 12>)' } # <<== insert one line by alphabetical orders
+          - { name: '<your case name>', title: '<PluginName, i.e. Spring> (<Supported Version Count, i.e 12>)' } # <<== 按字母顺序插入一行
           # ...
 ```

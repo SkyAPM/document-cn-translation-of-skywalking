@@ -1,4 +1,4 @@
-* Dependency the toolkit, such as using maven or gradle
+* 通过maven或gradle引入toolkit依赖。
 ```xml
    <dependency>
       <groupId>org.apache.skywalking</groupId>
@@ -7,14 +7,14 @@
    </dependency>
 ```
 
-* Config a layout
+* 配置layout
 ```properties
 log4j.appender.CONSOLE.layout=TraceIdPatternLayout
 ```
 
-* set `%T` in `layout.ConversionPattern` ( In 2.0-2016, you should use %x, [Why change?](https://github.com/wu-sheng/sky-walking/issues/77) )
+* 在`layout.ConversionPattern`中设置`%T` (在2.0-2016中，你应该使用%x，[为什么做了修改?](https://github.com/wu-sheng/sky-walking/issues/77) )
 ```properties
 log4j.appender.CONSOLE.layout.ConversionPattern=%d [%T] %-5p %c{1}:%L - %m%n
 ```
 
-* When you use `-javaagent` to active the sky-walking tracer, log4j will output **traceId**, if it existed. If the tracer is inactive, the output will be `TID: N/A`.
+* 当你使用`-javaagent`激活skywalking tracer后，log4j将会输出**traceId**（如果存在的话）。如果tracer未激活，输出将是`TID: N/A`。

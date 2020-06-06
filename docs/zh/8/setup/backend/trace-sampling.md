@@ -1,36 +1,32 @@
-# Trace Sampling at server side
-When we run a distributed tracing system, the trace bring us detailed info, but cost a lot at storage.
-Open server side trace sampling mechanism, the metrics of service, service instance, endpoint and topology are all accurate
-as before, but only don't save all the traces into storage.
+# 服务器端的跟踪采样
+当我们运行一个分布式跟踪系统时，跟踪会给我们带来详细的信息，但在存储消耗很大。开放服务器端跟踪采样机制，
+服务度量、服务实例、端点和拓扑和以前一样，都是准确的，只是不把所有的跟踪数据存起来。
 
-Of course, even you open sampling, the traces will be kept as consistent as possible. **Consistent** means, once the trace
-segments have been collected and reported by agents, the backend would do their best to don't break the trace. See [Recommendation](#recommendation)
-to understand why we called it `as consistent as possible` and `do their best to don't break the trace`.
+当然，即使您打开采样，跟踪也会尽可能保持一致。**一致**意味着，一旦跟踪段已被agent收集并报告，
+后端将尽力不破坏跟踪。查看[推荐](#推荐)来了解我们称它为`as consistent as possible`和`do their best to don't break the trace`的原因。
 
-## Set the sample rate
-In **receiver-trace** receiver, you will find `sampleRate` setting.
+## 设定采样率
+在**receiver-trace**接受者中，你可以找到`sampleRate`设置。
 
 ```yaml
 receiver-trace:
   default:
-    bufferPath: ../trace-buffer/  # Path to trace buffer files, suggest to use absolute path
-    bufferOffsetMaxFileSize: 100 # Unit is MB
-    bufferDataMaxFileSize: 500 # Unit is MB
+    bufferPath: ../trace-buffer/  # 跟踪缓冲区文件的路径，建议使用绝对路径
+    bufferOffsetMaxFileSize: 100 # 单位为MB
+    bufferDataMaxFileSize: 500 # 单位为MB
     bufferFileCleanWhenRestart: false
-    sampleRate: ${SW_TRACE_SAMPLE_RATE:1000} # The sample rate precision is 1/10000. 10000 means 100% sample in default.
+    sampleRate: ${SW_TRACE_SAMPLE_RATE:1000} # 采样率精度为1/10000。 10000表示默认为100％采样。
 ```
 
-`sampleRate` is for you to set sample rate to this backend. 
-The sample rate precision is 1/10000. 10000 means 100% sample in default. 
+`sampleRate` 可让你设置Backend的采样率。
+采样率精度为1/10000。10000表示默认为100%样本。 
 
-# Recommendation
-You could set different backend instances with different `sampleRate` values, but we recommend you to set the same.
+# 推荐
+您可以给的不同的后端实例设置不同的'sampleRate'值，但我们建议你设置成一样。
 
-When you set the rate different, let's say
+当你设置不同的值时，
 * Backend-Instance**A**.sampleRate = 35
 * Backend-Instance**B**.sampleRate = 55
 
-And we assume the agents reported all trace segments to backend,
-Then the 35% traces in the global will be collected and saved in storage consistent/complete, with all spans.
-20% trace segments, which reported to Backend-Instance**B**, will saved in storage, maybe miss some trace segments,
-because they are reported to Backend-Instance**A** and ignored.
+我们假设agent向Backend报告了所有跟踪段，然后，全局35%的跟踪将被收集并保存在一致/完整的存储中，所有跨度都是如此。
+报告给后端实例**B**的20%跟踪段也将保存在存储器中，但可能会遗漏一些跟踪段， 因为它们被报告给后端实例**A**并被忽略。

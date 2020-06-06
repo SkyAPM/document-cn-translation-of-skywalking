@@ -1,5 +1,5 @@
-# logback plugin
-* Dependency the toolkit, such as using maven or gradle
+# logback 插件
+* 使用maven或gradle引入toolkit依赖。
 ```xml
     <dependency>
          <groupId>org.apache.skywalking</groupId>
@@ -8,7 +8,7 @@
      </dependency>
 ```
 
-* set `%tid` in `Pattern` section of logback.xml
+* 在logback.xml的`Pattern`部分中设置`%tid`
 ```xml
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
@@ -19,7 +19,7 @@
     </appender>
 ```
 
-* with the MDC, set `%X{tid}` in `Pattern` section of logback.xml
+* 使用MDC，在logback.xml的`Pattern`部分中设置`%tid`
 ```xml
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
@@ -31,7 +31,8 @@
 ```
 
 
-* Support logback AsyncAppender(MDC also support), No additional configuration is required. Refer to the demo of logback.xml below. For details: [Logback AsyncAppender](https://logback.qos.ch/manual/appenders.html#AsyncAppender)
+* 支持logback AsyncAppender（也支持MDC），不需要其他配置。请参阅下面的logback.xml演示。
+ 有关详细信息：[Logback AsyncAppender](https://logback.qos.ch/manual/appenders.html#AsyncAppender)
 ```xml
     <configuration scan="true" scanPeriod=" 5 seconds">
         <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -55,11 +56,11 @@
     </configuration>
 ```
 
-* When you use `-javaagent` to active the sky-walking tracer, logback will output **traceId**, if it existed. If the tracer is inactive, the output will be `TID: N/A`.
+* 当你使用`-javaagent`激活skywalking tracer后，logback将会输出**traceId**（如果存在的话）。如果tracer未激活，输出将是`TID: N/A`
 
-# logstash logback plugin
+# logstash logback 插件
 
-* Dependency the toolkit, such as using maven or gradle
+* 使用maven或gradle引入toolkit依赖。
 
 ```xml
 <dependency>
@@ -69,7 +70,7 @@
 </dependency>
 ```
 
-* set `LogstashEncoder` of logback.xml
+* 设置logback.xml的`LogstashEncoder`
 
 ```xml
 <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
@@ -78,14 +79,14 @@
 </encoder>
 ```
 
-* set `LoggingEventCompositeJsonEncoder` of logstash in logback-spring.xml for custom json format
+* 在logback-spring.xml中将Logstash的 `LoggingEventCompositeJsonEncoder` 设置为自定义json格式
 
-1.add converter for %tid as child of <configuration> node
+1.将%tid的转换器添加为<configuration>的子节点
 ```xml
 <!--add converter for %tid -->
     <conversionRule conversionWord="tid" converterClass="org.apache.skywalking.apm.toolkit.log.logback.v1.x.LogbackPatternConverter"/>
 ```
-2.add json encoder for custom json format
+2.为自定义json格式添加json编码器
 
 ```xml
 <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">

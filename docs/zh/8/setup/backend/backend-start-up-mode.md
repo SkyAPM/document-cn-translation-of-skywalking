@@ -1,23 +1,20 @@
-# Start up mode
-In different deployment tool, such as k8s, you may need different startup mode.
-We provide another two optional startup modes.
+# 启动模式
+在不同的部署工具（如K8S）中，可能需要不同的启动模式。
+我们还提供另外两种可选的启动模式。
 
-## Default mode
-Default mode. Do initialization works if necessary, start listen and provide service. 
+## 默认模式
+默认模式。如果需要，进行初始化工作，启动监听并提供服务。 
 
-Run `/bin/oapService.sh`(.bat) to start in this mode. Also when use `startup.sh`(.bat) to start.
+运行 `/bin/oapService.sh`(.bat) 来启动这个模式。也可以在使用 `startup.sh`(.bat)来启动。
 
-## Init mode
-In this mode, oap server starts up to do initialization works, then exit.
-You could use this mode to init your storage, such as ElasticSearch indexes, MySQL and TiDB tables,
-and init data.
+## 初始化模式
+在此模式下，OAP服务器启动以执行初始化工作，然后退出。
+您可以使用此模式初始化存储，例如ElasticSearch索引、MySQL和TIDB表，和init数据。
 
-Run `/bin/oapServiceInit.sh`(.bat) to start in this mode.
+运行 `/bin/oapServiceInit.sh`(.bat) 来启动这个模式。
 
-## No-init mode
-In this mode, oap server starts up without initialization works,
-but it waits for ElasticSearch indexes, MySQL and TiDB tables existed,
-start listen and provide service. Meaning,
-this oap server expect another oap server to do the initialization.
+## 非初始化模式
+在此模式下，OAP服务器不进行初始化。
+但它等待存在弹性搜索索引、mysql和tidb表，开始倾听并提供服务。意味着此OAP服务希望别的OAP服务器进行初始化。
 
-Run `/bin/oapServiceNoInit.sh`(.bat) to start in this mode.
+运行 `/bin/oapServiceNoInit.sh`(.bat) 来启动这个模式。

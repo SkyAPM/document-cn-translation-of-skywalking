@@ -1,4 +1,4 @@
-* Dependency the toolkit, such as using maven or gradle
+* 使用maven或gradle引入toolkit依赖。
 ```xml
    <dependency>
       <groupId>org.apache.skywalking</groupId>
@@ -7,7 +7,7 @@
    </dependency>
 ```
 
-* Config the `[%traceId]` pattern in your log4j2.xml
+* 在log4j2.xml的pattern中配置`[%traceId]`
 ```xml
    <Appenders>
       <Console name="Console" target="SYSTEM_OUT">
@@ -16,7 +16,7 @@
    </Appenders>
 ```
 
-* Support log4j2 AsyncRoot , No additional configuration is required. Refer to the demo of log4j2.xml below. For details: [Log4j2 Async Loggers](https://logging.apache.org/log4j/2.x/manual/async.html)
+* 支持log4j2 AsyncRoot，无需其他配置。请参阅下面的log4j2.xml演示。有关详细信息：[Log4j2异步记录器](https://logging.apache.org/log4j/2.x/manual/async.html)
 ```xml
     <Configuration>
         <Appenders>
@@ -31,13 +31,13 @@
         </Loggers>
     </Configuration>
 ```
-* Support log4j2 AsyncAppender , No additional configuration is required. Refer to the demo of log4j2.xml below. 
+* 支持log4j2 AsyncAppender，不需要其他配置。请参阅下面的log4j2.xml演示。 
 
-    For details: [All Loggers Async](https://logging.apache.org/log4j/2.x/manual/async.html#AllAsync) 
+   有关详细信息： [All Loggers Async](https://logging.apache.org/log4j/2.x/manual/async.html#AllAsync) 
 
-    Log4j-2.9 and higher require disruptor-3.3.4.jar or higher on the classpath. Prior to Log4j-2.9, disruptor-3.0.0.jar or higher was required.
-    This is simplest to configure and gives the best performance. To make all loggers asynchronous, add the disruptor jar to the classpath and 
-    set the system property `log4j2.contextSelector` to `org.apache.logging.log4j.core.async.AsyncLoggerContextSelector`.
+    Log4j-2.9和更高版本要求在类路径上使用disruptor-3.3.4.jar或更高版本。在Log4j-2.9之前，需要使用interrupter-3.0.0.jar或更高版本。
+    这是最简单的配置，并提供最佳性能。要使所有记录器异步，请将disruptor jar添加到类路径中并且 
+    设置系统属性 `log4j2.contextSelector`为 `org.apache.logging.log4j.core.async.AsyncLoggerContextSelector`.
     ```xml
     <Configuration status="WARN">
       <Appenders>
@@ -82,7 +82,7 @@
       </Loggers>
     </Configuration>
     ```
-* Support log4j2 AsyncAppender, For details: [Log4j2 AsyncAppender](https://logging.apache.org/log4j/2.x/manual/appenders.html)
+* 支持log4j2 AsyncAppender，有关详细信息： [Log4j2 AsyncAppender](https://logging.apache.org/log4j/2.x/manual/appenders.html)
 ```xml
     <Configuration>
         <Appenders>
@@ -100,4 +100,4 @@
         </Loggers>
     </Configuration>
 ```
-* When you use `-javaagent` to active the sky-walking tracer, log4j2 will output **traceId**, if it existed. If the tracer is inactive, the output will be `TID: N/A`.
+* 当你使用`-javaagent`激活skywalking tracer后，log4j2将会输出**traceId**（如果存在的话）。如果tracer未激活，输出将是`TID: N/A`。
