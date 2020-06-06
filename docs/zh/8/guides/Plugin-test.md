@@ -1,49 +1,44 @@
-# Plugin automatic test framework
+# 插件自动测试框架
 
-Plugin test framework is designed for verifying the plugins' function and compatible status. As there are dozens of plugins and
-hundreds of versions need to be verified, it is impossible to do manually.
-The test framework uses container based tech stack, requires a set of real services with agent installed, then the test mock
-OAP backend is running to check the segments data sent from agents.
+插件测试框架旨在验证插件的功能和兼容状态。由于有数十个插件和数百个版本需要验证，因此无法手动进行。
+测试框架使用基于容器的技术堆栈，需要一组安装了代理程序的真实服务，然后运行测试模拟OAP后端以检查从代理程序发送的分段数据。
+主仓库中维护的每个插件都需要相应的测试用例，并且还与受支持的列表文档中的版本匹配。
 
-Every plugin maintained in the main repo requires corresponding test cases, also matching the versions in the supported list doc.
-
-## Environment Requirements
+## 环境要求
 
 1. MacOS/Linux
 2. jdk 8+
 3. Docker
 4. Docker Compose
 
-## Case Base Image Introduction
+## 用例库镜像简介
 
-The test framework provides `JVM-container` and `Tomcat-container` base images. You could choose the suitable one for your test case, if either is suitable, **recommend choose `JVM-container`**.
+该测试框架提供了`JVM-container`和` Tomcat-container`基础镜像。您可以为您的测试用例选择合适的一个，如果其中一个合适，建议选择`JVM-container` 。
 
-### JVM-container Image Introduction
+### JVM容器镜像简介
 
-[JVM-container](../../../test/plugin/containers/jvm-container) uses `openjdk:8` as the base image.
-The test case project is required to be packaged as `project-name.zip`, including `startup.sh` and uber jar, by using `mvn clean package`.
+[JVM-container](../../../test/plugin/containers/jvm-container) 使用 `openjdk:8` 作为基础镜像。
+必须使用“ mvn clean package”将测试用例项目打包为“ project-name.zip”，包括“ startup.sh”和uber jar。
 
-Take the following test projects as good examples
-* [sofarpc-scenario](../../../test/plugin/scenarios/sofarpc-scenario) as a single project case.
-* [webflux-scenario](../../../test/plugin/scenarios/webflux-scenario) as a case including multiple projects.
+以以下测试项目为例
+* [sofarpc-scenario](../../../test/plugin/scenarios/sofarpc-scenario)作为单个项目用例。
+* [webflux-scenario](../../../test/plugin/scenarios/webflux-scenario) 作为包括多个项目的用例。
 
-### Tomcat-container Image Introduction
+### Tomcat容器镜像简介
 
-[Tomcat-container](../../../test/plugin/containers/tomcat-container) uses `tomcat:8.5.42-jdk8-openjdk` as the base image.
-The test case project is required to be packaged as `project-name.war` by using `mvn package`.
+[Tomcat-container](../../../test/plugin/containers/tomcat-container) 使用 `tomcat:8.5.42-jdk8-openjdk` 作为基础镜像。
+必须使用` mvn package`将测试用例项目打包为` project-name.war`。
 
 Take the following test project as a good example
 * [spring-4.3.x-scenario](https://github.com/apache/skywalking/tree/master/test/plugin/scenarios/spring-4.3.x-scenario)
 
 
-## Test project hierarchical structure
-The test case is an independent maven project, and it is required to be packaged as a war tar ball or zip file, depends 
-on the chosen base image. Also, two external accessible endpoints, mostly two URLs, are required.
+## 测试项目层次结构
+该测试用例是一个独立的Maven项目，需要将其打包为war tar 文件或zip文件，具体取决于所选的基本镜像。此外，还需要两个外部可访问端点，主要是两个URL。
 
-All test case codes should be in `org.apache.skywalking.apm.testcase.*` package, unless there are some codes expected being instrumented,
-then the classes could be in `test.org.apache.skywalking.apm.testcase.*` package.
+所有的测试用例代码都应该在`org.apache.skywalking.apm.testcase`包中，除非期望使用某些代码，否则这些类可以在`test.org.apache.skywalking.apm.testcase`包中。
 
-**JVM-container test project hierarchical structure**
+**JVM容器测试项目层次结构**
 
 ```
 [plugin-scenario]
@@ -63,7 +58,7 @@ then the classes could be in `test.org.apache.skywalking.apm.testcase.*` package
 [] = directory
 ```
 
-**Tomcat-container test project hierarchical structure**
+**Tomcat容器测试项目层次结构**
 
 ```
 [plugin-scenario]
@@ -84,46 +79,46 @@ then the classes could be in `test.org.apache.skywalking.apm.testcase.*` package
 [] = directory
 ```
 
-## Test case configuration files
-The following files are required in every test case.
+## 测试用例配置文件
+每个测试用例都需要以下文件。
 
-File Name | Descriptions
+文件名| 内容描述
 ---|---
-`configuration.yml` | Declare the basic case inform, including, case name, entrance endpoints, mode, dependencies.
-`expectedData.yaml` | Describe the expected segmentItems.
-`support-version.list` | List the target versions for this case
-`startup.sh` |`JVM-container` only, don't need this when use`Tomcat-container`
+`configuration.yml` | 声明基本的测试用例介绍, 包括, 用例名称, 入口端点，模式，依赖项。
+`expectedData.yaml` | 描述预期的追踪段数据。
+`support-version.list` | 列出此用例的目标版本。
+`startup.sh` | 仅仅在`JVM-container` 中需要, 当使用`Tomcat-container`时不需要。
 
-`*` support-version.list format requires every line for a single version. Could use `#` to comment out this version.
+`*` `support-version.list` 格式要求每一行是个单独版本。可以使用`＃`来注释该版本。
 
 ### configuration.yml
 
-| Field | description
+| 参数 | 描述
 | --- | ---
-| type | Image type, options, `jvm` or `tomcat`. Required.
-| entryService | The entrance endpoint(URL) for test case access. Required. (HTTP Method: GET)
-| healthCheck | The health check endpoint(URL) for test case access. Required. (HTTP Method: HEAD)
-| startScript | Path of start up script. Required in `type: jvm` only.
-| framework | Case name.
-| runningMode | Running mode whether with the optional plugin, options, `default`(default), `with_optional`, `with_bootstrap`
-| withPlugins | Plugin selector rule. eg:`apm-spring-annotation-plugin-*.jar`. Required when `runningMode=with_optional` or `runningMode=with_bootstrap`.
-| environment | Same as `docker-compose#environment`.
-| depends_on | Same as `docker-compose#depends_on`.
-| dependencies | Same as `docker-compose#services`, `image、links、hostname、environment、depends_on` are supported.
+| type | 镜像类型, 可选 `jvm` 或者 `tomcat`。必填。
+| entryService | 用于测试用例访问的入口端点(URL)。必填。 (HTTP Method: GET)
+| healthCheck | 用于测试用例健康检查的端点(URL)。必填。 (HTTP Method: HEAD)
+| startScript | 启动脚本的路径。仅在镜像类型为jvm(`type: jvm`)时必填。
+| framework | 用例名称.
+| runningMode | 运行模式是否带有可选插件,可选, 默认`default`, `with_optional`, `with_bootstrap`
+| withPlugins | 插件选择规则。例:`apm-spring-annotation-plugin-*.jar`。当 `runningMode=with_optional` 或 `runningMode=with_bootstrap`必填。
+| environment | 例如`docker-compose#environment`.
+| depends_on | 例如`docker-compose#depends_on`.
+| dependencies | 例如`docker-compose#services`, 支持`image、links、hostname、environment、depends_on`。
 
-**Notice:, `docker-compose` active only when `dependencies` is only blank.**
+**注意：仅当`dependencies`为空时，`docker-compose`才有效。**
 
-**runningMode** option description.
+**runningMode**选项说明。
 
-| Option | description
+| 选项 | 描述
 | --- | ---
-| default | Active all plugins in `plugin` folder like the official distribution agent. 
-| with_optional | Active `default` and plugins in `optional-plugin` by the give selector.
-| with_bootstrap | Active `default` and plugins in `bootstrap-plugin` by the give selector.
+| default | 激活`plugin`文件夹中的所有插件，例如官方发行的插件。 
+| with_optional | 激活`default`模式和`optional-plugin`文件夹里面的通过指定选择器指定的插件。
+| with_bootstrap |激活`default`模式和`bootstrap-plugin`文件夹里面的通过指定选择器指定的插件。
 
-with_optional/with_bootstrap supports multiple selectors, separated by `;`.
+with_optional/with_bootstrap 支持多个选择器,以`;`分割.
 
-**File Format**
+**文件格式**
 
 ```
 type:
@@ -155,10 +150,9 @@ dependencies:
       ...
 ```
 
-* dependencies supports docker compose `healthcheck`. But the format is a little difference. We need `-` as the start of every config item,
-and describe it as a string line.
+* 依赖项支持docker撰写`healthcheck`。但是格式略有不同。我们需要将-作为每个配置项的开头，并将其描述为字符串行。
 
-Such as in official doc, the health check is
+例如在官方文档中，健康检查是
 ```yaml
 healthcheck:
   test: ["CMD", "curl", "-f", "http://localhost"]
@@ -168,7 +162,7 @@ healthcheck:
   start_period: 40s
 ```
 
-The here, you should write as
+在这里，应该写成
 ```yaml
 healthcheck:
   - 'test: ["CMD", "curl", "-f", "http://localhost"]'
@@ -178,14 +172,13 @@ healthcheck:
   - "start_period: 40s"
 ```
 
-In some cases, the dependency service, mostly 3rd party server like SolrJ server, is required to keep the same version
-as client lib version, which defined as `${test.framework.version}` in pom. Could use `${CASE_SERVER_IMAGE_VERSION}`
-as the version number, it will be changed in the test for every version.
+在某些情况下，需要依赖服务（主要是第三方服务器，例如SolrJ服务器）来保持与客户端库版本相同的版本，该库在pom中定义为`$ {test.framework.version}`。
+可以将`${CASE_SERVER_IMAGE_VERSION}`用作版本号，它将在测试中针对每个版本进行更改。
 
-> Don't support resource related configurations, such as volumes, ports and ulimits. Because in test scenarios, 
-> don't need mapping any port to the host VM, or mount any folder.
+> 不支持与资源相关的配置，例如卷，端口和ulimit。因为在测试场景中 
+> 不需要将任何端口映射到主机VM，也无需安装任何文件夹。
 
-**Take following test cases as examples**
+**以以下测试用例可以作为参考**
 * [dubbo-2.7.x with JVM-container](../../../test/plugin/scenarios/dubbo-2.7.x-scenario/configuration.yml)
 * [jetty with JVM-container](../../../test/plugin/scenarios/jetty-scenario/configuration.yml)
 * [gateway with runningMode](../../../test/plugin/scenarios/gateway-scenario/configuration.yml)
@@ -193,24 +186,24 @@ as the version number, it will be changed in the test for every version.
 
 ### expectedData.yaml
 
-**Operator for number**
+**数字运算符**
 
-| Operator | Description |
+| 运算符 | 描述 |
 | :--- | :--- |
-| `nq` | Not equal |
-| `eq` | Equal(default) |
-| `ge` | Greater than or equal |
-| `gt` | Greater than |
+| `nq` | != |
+| `eq` | ==(默认情况下) |
+| `ge` | >= |
+| `gt` | > |
 
-**Operator for String**
+**字符串运算符**
 
-| Operator | Description |
+| 运算符 | 描述 |
 | :--- | :--- |
-| `not null` | Not null |
-| `null` | Null or empty String |
-| `eq` | Equal(default) |
+| `not null` | 不为空 |
+| `null` | 空或者空字符串 |
+| `eq` | 等于(默认情况下) |
 
-**Segment verify description format**
+**细分目标描述格式**
 ```yml
 segmentItems:
 -
@@ -223,16 +216,16 @@ segmentItems:
 ```
 
 
-| Field |  Description
+| 属性 |  描述
 | --- | ---  
-| serviceName | Service Name.
-| segmentSize | The number of segments is expected.
-| segmentId | trace ID.
-| spans | segment span list. Follow the next section to see how to describe every span.
+| serviceName | 服务名称。
+| segmentSize | 预期的目标数量。
+| segmentId | 链路ID。
+| spans | 追踪段跨度列表。遵循下一部分，以了解如何描述每个跨度。
 
-**Span verify description format**
+**跨度验证描述格式**
 
-**Notice**: The order of span list should follow the order of the span finish time.
+**注意**：跨度列表的顺序应遵循跨度完成时间的顺序。
 
 ```yml
     operationName: OPERATION_NAME(string)
@@ -265,55 +258,53 @@ segmentItems:
    ...
 ```
 
-| Field | Description 
+| 属性 | 描述 
 |--- |--- 
-| operationName | Span Operation Name.
-| parentSpanId | Parent span id. **Notice**: The parent span id of the first span should be -1. 
-| spanId | Span Id. **Notice**, start from 0. 
-| startTime | Span start time. It is impossible to get the accurate time, not 0 should be enough.
-| endTime | Span finish time. It is impossible to get the accurate time, not 0 should be enough.
-| isError | Span status, true or false. 
-| componentId | Component id for your plugin. 
-| tags | Span tag list. **Notice**, Keep in the same order as the plugin coded.
-| logs | Span log list. **Notice**, Keep in the same order as the plugin coded.
-| SpanLayer | Options, DB, RPC_FRAMEWORK, HTTP, MQ, CACHE.
-| SpanType | Span type, options, Exit, Entry or Local.
-| peer | Remote network address, IP + port mostly. For exit span, this should be required. 
+| operationName | 跨度操作名称。
+| parentSpanId | 父跨度ID。 **注意**: 第一个跨度的父跨度ID应该为-1。
+| spanId | 跨度ID. **注意**, 从0开始。 
+| startTime | 跨度开始时间。 无法获得准确的时间，非0。
+| endTime | 跨度结束时间。无法获得准确的时间，非0。
+| isError | 跨度状态, true 或者 false. 
+| componentId | 插件的组件ID。
+| tags | 跨度的标签列表。 **注意**,保持与插件编码相同的顺序。
+| logs | 跨度的日志列表。 **注意**,保持与插件编码相同的顺序。
+| SpanLayer | 可选项, DB, RPC_FRAMEWORK, HTTP, MQ, CACHE.
+| SpanType | 跨度类型, 可选项, Exit、Entry 或 Local.
+| peer | 远端网络地址, 大部分情况下是IP +端口。对于Exit跨度，这是必需的。 
 
-The verify description for SegmentRef
+SegmentRef的验证描述
 
-| Field | Description 
+| 属性 | 描述 
 |---- |---- 
-| traceId | 
-| parentTraceSegmentId | Parent SegmentId, pointing to the segment id in the parent segment.
-| parentSpanId | Parent SpanID, pointing to the span id in the parent segment.
-| parentService | The service of parent/downstream service name.
-| parentServiceInstance | The instance of parent/downstream service instance name.
-| parentEndpoint |  The endpoint of parent/downstream service.
-| networkAddress | The peer value of parent exit span.
-| refType | Ref type, options, CrossProcess or CrossThread.
+| traceId | 链路ID
+| parentTraceSegmentId | 父追踪段ID，指向父追踪段中的追踪段ID。
+| parentSpanId | 父跨度ID, 指向父追踪段中跨度的跨度ID。
+| parentService | 父/下游服务的名称。
+| parentServiceInstance | 父/下游服务实例的名称。
+| parentEndpoint |  父/下游服务的端点。
+| networkAddress |父出口跨度的远端网络地址。
+| refType |引用类型, 可选项, 跨进程 或 跨线程.
 
 ### startup.sh
 
-This script provide a start point to JVM based service, most of them starts by a `java -jar`, with some variables.
-The following system environment variables are available in the shell.
+该脚本提供了基于JVM的服务的起点，其中大多数以带有一些变量的`java -jar`开始。 Shell中提供了以下系统环境变量。
 
-| Variable   | Description    |
+| 变量   | 描述    |
 |:----     |:----        |
-| agent_opts               |     Agent plugin opts, check the detail in plugin doc or the same opt added in this PR.        |
-| SCENARIO_NAME       |  Service name. Default same as the case folder name    |
-| SCENARIO_VERSION           | Version |
-| SCENARIO_ENTRY_SERVICE             | Entrance URL to access this service |
-| SCENARIO_HEALTH_CHECK_URL          | Health check URL  |
+| agent_opts               |     选择代理插件，请检查插件文档中的详细信息或此PR中添加的相同选项。       |
+| SCENARIO_NAME       | 服务名称。默认与用例文件夹名称相同   |
+| SCENARIO_VERSION           | 版本 |
+| SCENARIO_ENTRY_SERVICE             | 进入此服务的入口URL|
+| SCENARIO_HEALTH_CHECK_URL          | 健康检查的URL  |
 
 
-> `${agent_opts}` is required to add into your `java -jar` command, which including the parameter injected by test framework, and
-> make agent installed. All other parameters should be added after `${agent_opts}`.
+> `${agent_opts}` 必须添加到你的 `java -jar` 命令行, 其中包括测试框架注入的参数, 和
+> 保证探针能被加载。 所有其他参数应在之后 `${agent_opts}`添加.
 
-The test framework will set the service name as the test case folder name by default, but in some cases, there are more 
-than one test projects are required to run in different service codes, could set it explicitly like the following example.
+测试框架默认情况下会将服务名称设置为测试用例文件夹名称，但是在某些情况下，需要多个测试项目才能以不同的服务代码运行，可以像以下示例一样显式设置它。
 
-Example
+示例
 ```bash
 home="$(cd "$(dirname $0)"; pwd)"
 
@@ -324,25 +315,25 @@ java -jar ${agent_opts} "-Dskywalking.agent.service_name=jettyclient-scenario"  
 
 ```
 
-> Only set this or use other skywalking options when it is really necessary.
+> 仅在确实需要时设置此选项或使用其他SkyWalking选项。
 
-**Take the following test cases as examples**
+**以以下测试用例为例**
 * [undertow](../../../test/plugin/scenarios/undertow-scenario/bin/startup.sh)
 * [webflux](../../../test/plugin/scenarios/webflux-scenario/webflux-dist/bin/startup.sh)
 
 
-## Best Practices
+## 最佳实践
 
-### How To Use The Archetype To Create A Test Case Project
-We provided archetypes and a script to make creating a project easier. It creates a completed project of a test case. So that we only need to focus on cases.
-First, we can use followed command to get usage about the script.
+### 如何使用原型创建测试用例项目
+我们提供了原型和脚本，使创建项目更加容易。它创建了一个完整的测试用例项目。
+这样我们只需要关注用例。首先，我们可以关注以下命令来获取有关脚本的用法。
 
 `bash ${SKYWALKING_HOME}/test/plugin/generator.sh`
 
-Then, runs and generates a project, named by `scenario_name`, in `./scenarios`.
+然后运行并在`./scenarios`中生成一个以`scenario_name`的项目。
 
 
-### Recommendations for pom
+### 推荐Pom
 
 ```xml
     <properties>
@@ -367,25 +358,23 @@ Then, runs and generates a project, named by `scenario_name`, in `./scenarios`.
     </build>
 ```
 
-### How To Implement Heartbeat Service
+### 如何实现心跳服务
 
-Heartbeat service is designed for checking the service available status. This service is a simple HTTP service, returning 200 means the
-target service is ready. Then the traffic generator will access the entry service and verify the expected data.
-User should consider to use this service to detect such as whether the dependent services are ready, especially when 
-dependent services are database or cluster.
+心跳服务旨在检查服务可用状态。该服务是一个简单的HTTP服务，返回200表示目标服务已准备就绪。
+然后，流量生成器将访问进入服务并验证预期数据。用户应考虑使用此服务来检测诸如相关服务是否已准备就绪，尤其是在相关服务是数据库或集群时。
 
-Notice, because heartbeat service could be traced fully or partially, so, segmentSize in `expectedData.yaml` should use `ge` as the operator,
-and don't include the segments of heartbeat service in the expected segment data.
+请注意，由于可以完整或部分跟踪心跳服务，因此, `expectedData.yaml`中的`segmentSize`(追踪段数量)应当使用 `ge`作为操作符,
+并且不要在预期的追踪段数据中包含心跳服务的追踪段。
 
-### The example Process of Writing Expected Data
+### 编写预期数据的示例过程
 
-Expected data file, `expectedData.yaml`, include `SegmentItems`.
+预期数据文件, `expectedData.yaml`, 包含 `SegmentItems`.
 
-We are using the HttpClient plugin to show how to write the expected data.
+我们正在使用HttpClient插件来展示如何写入期望的数据.
 
-There are two key points of testing
-1. Whether is HttpClient span created.
-1. Whether the ContextCarrier created correctly, and propagates across processes.
+测试有两个要点
+1. 是否创建HttpClient span。
+1. ContextCarrier是否正确创建，并在进程之间传播。
 
 ```
 +-------------+         +------------------+            +-------------------------+
@@ -411,9 +400,9 @@ There are two key points of testing
 ```
 #### segmentItems
 
-By following the flow of HttpClient case, there should be two segments created.
-1. Segment represents the CaseServlet access. Let's name it as `SegmentA`.
-1. Segment represents the ContextPropagateServlet access. Let's name it as `SegmentB`.
+通过遵循HttpClient用例的流程，应该创建两个追踪段。
+1. 一段代表 用例Servlet 访问。我们将其命名为`SegmentA`。
+1. 一段代表ContextPropagateServlet访问。我们将其命名为`SegmentB`。
 
 ```yml
 segmentItems:
@@ -421,11 +410,11 @@ segmentItems:
     segmentSize: ge 2 # Could have more than one health check segments, because, the dependency is not standby.
 ```
 
-Because Tomcat plugin is a default plugin of SkyWalking, so, in SegmentA, there are two spans
-1. Tomcat entry span
-1. HttpClient exit span
+由于Tomcat插件是SkyWalking的默认插件，因此在SegmentA中有两个跨度
+1. Tomcat 入口跨度(entry span)
+1. HttpClient 出口跨度(exit span)
 
-SegmentA span list should like following
+SegmentA跨度列表应如下
 ```yml
     - segmentId: not null
       spans:
@@ -459,9 +448,9 @@ SegmentA span list should like following
           peer: null
 ```
 
-SegmentB should only have one Tomcat entry span, but includes the Ref pointing to SegmentA.
+SegmentB应该只有一个Tomcat跨度，但应包含指向SegmentA的Ref。
 
-SegmentB span list should like following
+SegmentB跨度列表应如下
 ```yml
 - segmentId: not null
   spans:
@@ -484,30 +473,29 @@ SegmentB span list should like following
     - {parentEndpoint: /httpclient-case/case/httpclient, networkAddress: 'localhost:8080', refType: CrossProcess, parentSpanId: 1, parentTraceSegmentId: not null, parentServiceInstance: not null, parentService: not null, traceId: not null}
 ```
 
-## Local Test and Pull Request To The Upstream
+## 本地测试和提交
 
-First of all, the test case project could be compiled successfully, with right project structure and be able to deploy.
-The developer should test the start script could run in Linux/MacOS, and entryService/health services are able to provide
-the response.
+首先，测试用例项目可以成功编译，具有正确的项目结构并且可以部署。
+开发人员应该测试启动脚本是否可以在Linux / MacOS中运行，并且 入口服务/健康检查服务 能够提供响应。
 
-You could run test by using following commands
+您可以使用以下命令运行测试
 
 ```bash
 cd ${SKYWALKING_HOME}
 bash ./test/plugin/run.sh -f ${scenario_name}
 ```
 
-**Notice**，if codes in `./apm-sniffer` have been changed, no matter because your change or git update，
-please recompile the `skywalking-agent`. Because the test framework will use the existing `skywalking-agent` folder,
-rather than recompiling it every time.
+**注意**，如果 `./apm-sniffer` 中的代码被改变, 不管是因为您的更改还是git更新，
+请重新编译 `skywalking-agent`模块。因为测试框架将使用现有的 `skywalking-agent` 文件夹,
+而不是每次都重新编译它。
 
-Use `${SKYWALKING_HOME}/test/plugin/run.sh -h` to know more command options.
+使用 `${SKYWALKING_HOME}/test/plugin/run.sh -h` 了解更多命令选项。
 
-If the local test passed, then you could add it to `.github/workflows/plugins-test.<n>.yaml` file, which will drive the tests running on the Github Actions of official SkyWalking repository.
-Based on your plugin's name, please add the test case into file `.github/workflows/plugins-test.<n>.yaml`, by alphabetical orders.
+如果本地测试通过，则可以将其添加到 `.github/workflows/plugins-test.<n>.yaml` 文件, 它将驱动在官方SkyWalking存储库的Github Actions上运行的测试。
+根据您的插件名称, 请按字母顺序将测试用例添加到`.github/workflows/plugins-test.<n>.yaml` 文件中。
 
-Every test case is a Github Actions Job. Please use the `<scenario name> + <version range> + (<supported version count>)` as the Job `title`, and the scenario directory as the Job `name`,
-mostly you'll just need to decide which file (`plugins-test.<n>.yaml`) to add your test case, and simply put one line (as follows) in it, take the existed cases as examples.
+每个测试用例都是一个Github Actions作业(job)。请使用 `<scenario name> + <version range> + (<supported version count>)`作为作业(job)的 `title`, 并且方案目录作为作业的`name`,
+通常，您只需要确定要在文件（`plugins-test。<n> .yaml`）中添加测试用例，并简单地在其中添加一行（如下所示），以现有用例为示例。
 
 ```yaml
 jobs:
