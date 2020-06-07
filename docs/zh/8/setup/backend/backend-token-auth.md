@@ -31,7 +31,7 @@ receiver-sharing-server:
 ······
 ```
 
-## Authentication fails 认证失败
+## 认证失败
 
 Skywalking OAP 验证每个来自 agent 的请求，只允许令牌与 `application.yml` 中配置一致请求通过。
 
