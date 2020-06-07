@@ -1,14 +1,11 @@
-# Slow Database Statement
-Slow Database statements are significant important to find out the bottleneck of the system, which relied on Database.
+# 慢SQL语句设置
+慢SQL语句对于找出依赖数据库的系统瓶颈具有重要意义。
 
-Slow DB statements are based on sampling, right now, the core samples top 50 slowest in every 10 minutes.
-But duration of those statements must be slower than threshold.
+慢SQL语句基于采样，现在，核心样本是每10分钟最慢的前50个。但这些语句的持续时间必须比阈值慢。
 
-The setting format is following, unit is millisecond.
+设置格式如下，单位为毫秒。
 > database-type:thresholdValue,database-type2:thresholdValue2
 
-Default setting is `default:200,mongodb:100`. `Reserved DB type` is **default**, which be as default threshold for all
-database types, except set explicitly.
+默认设置是`default:200,mongodb:100`。`Reserved DB type`是**默认的**，作为所有数据库类型的默认阈值，明确设置了的除外。
 
-**Notice**, the threshold should not be too small, like `1ms`. Functionally, it works, but would cost OAP performance issue,
-if your system statement access time are mostly more than 1ms.
+**注意**，阈值不应该太小，比如`1ms`。从功能上讲，它是有效的，但如果你系统的大多数访问时间都小于1ms，会导致OAP性能问题，

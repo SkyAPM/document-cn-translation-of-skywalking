@@ -1,14 +1,14 @@
 # UI
-SkyWalking UI distribution is already included in our Apache official release. 
+Skywalking UI的发行版已经包含在我们的Apache官方版本中。
 
-## Startup
-Startup script is also in `/bin/webappService.sh`(.bat). UI runs as an OS Java process, powered-by Zuul.
+## 启动
+启动脚本也在`/bin/webappService.sh`(.bat). UI 运行一个java进程，用的zuul框架。
 
-## Settings
-Setting file of UI is  `webapp/webapp.yml` in distribution package. It is constituted by three parts.
+## 设置
+UI的设置文件是发行包里的`webapp/webapp.yml`。它由三个部分组成。
 
-1. Listening port.
-1. Backend connect info.
+1. 监听端口
+2. 配置转发连接信息
 
 ```yaml
 server:

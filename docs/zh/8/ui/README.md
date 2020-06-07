@@ -1,93 +1,91 @@
-# UI Introduction
-SkyWalking official UI provides the default and powerful visualization capabilities for SkyWalking observing distributed
-cluster.
+# UI介绍
+SkyWalking官方UI为分布式的SkyWalking观测提供了默认的、强大的可视化功能集群.
 
-SkyWalking dashboard includes the following part.
+SkyWalking仪表板包括以下部分.
+
 
 <img src="http://skywalking.apache.org/ui-doc/7.0.0/dashboard.png"/>
 
-1. **Feature Tab Selector Zone**. The key features are list there. The more details will be introduced below.
-1. **Reload Zone**. Control the reload mechanism, including reload periodically or manually.
-1. **Time Selector Zone**. Control the timezone and time range. And a Chinese/English switch button here, default, the UI
-uses the browser language setting. We also welcome to contribute more languages.
 
-## Dashboard
-Dashboard provide metrics of service, service instance and endpoint. There are a few metrics terms you need to understand
-* Throughput CPM , represents calls per minute.
-* Apdex score, Read [Apdex in WIKI](https://en.wikipedia.org/wiki/Apdex)
-* Response Time Percentile, including `p99`, `p95`, `p90`, `p75`, `p50`. Read [percentile in WIKI](https://en.wikipedia.org/wiki/Percentile)
-* SLA, represents the successful rate. For HTTP, it means the rate of 200 response code.
+1. **功能选项卡选择区**. 这里列出了主要特性。更多细节将在下面介绍.
+2. **重载区**. 控制重新加载机制，包括定期重新加载或手动重新加载.
+3. **时间选择器**. 控制时区和时间范围。这里有一个中文/英文切换按钮，默认，UI使用浏览器语言设置。我们也欢迎贡献更多的语言。
 
-Service, Instance and Dashboard selector could reload manually rather than reload the whole page. NOTICE, the **Reload Zone**
-wouldn't reload these selectors.
+## 仪表板
+指示板提供服务、服务实例和端点的指标。您需要了解一些度量术语
+* 吞吐量CPM，表示每分钟的调用.
+* Apdex分数,参考[Apdex in WIKI](https://en.wikipedia.org/wiki/Apdex)
+* 响应时间百分比，包括 `p99`, `p95`, `p90`, `p75`, `p50`.参考[percentile in WIKI](https://en.wikipedia.org/wiki/Percentile)
+* SLA表示成功率。对于HTTP，表示响应为200的请求.
+
+服务、实例和仪表板选择器可以手动重新加载，而不是重新加载整个页面。注意，重载区域**
+不会重载这些选择器。
 
 <img src="http://skywalking.apache.org/ui-doc/7.0.0/dashboard-reload.png"/>
 
-Two default dashboards are provided to visualize the metrics of service and database.
+提供了两个默认指示板来可视化服务和数据库的指标.
 
 <img src="http://skywalking.apache.org/ui-doc/7.0.0/dashboard-default.png"/>
 
-User could click the `lock` button left aside the `Service/Instance/Endpoint Reload` button to custom your own dashboard.
+用户可以点击“锁定”按钮，而不是“服务/实例/端点重载”按钮来定制自己的仪表板.
 
-## Topology
-Topology map shows the relationship among the services and instances with metrics.
+## 拓扑结构
+拓扑图用指标显示服务和实例之间的关系.
 
 <img src="http://skywalking.apache.org/ui-doc/7.0.0/topology.png"/>
 
-* Topology shows the default global topology including all services.
-* **Service Selector** supports to show direct relationships including upstream and downstream.
-* **Custom Group** provides the any sub topology capability of service group.
-* **Service Deep Dive** opens when you click any service. The honeycomb could do metrics, trace and alarm query of the selected service.
-* **Service Relationship Metrics** gives the metrics of service RPC interactions and instances of these two services.
+* 拓扑显示包含所有服务的默认全局拓扑.
+* **服务选择器** 支持显示直接关系，包括上游和下游.
+* **自定义组** 提供服务组的任意子拓扑功能.
+* **服务下钻** 当您单击任何服务时打开。该图形可以对所选择的服务进行度量、跟踪和告警查询.
+* **服务指标的关系** 提供服务RPC交互的度量以及这两个服务的实例.
 
-## Trace Query
-Trace query is a typical feature as SkyWalking provided distributed agents.
+## 跟踪查询
+跟踪查询是与skywalk提供的分布式代理一样的典型特性.
 
 <img src="http://skywalking.apache.org/ui-doc/7.0.0/trace.png"/>
 
-* **Trace Segment List** is not the trace list. Every trace has several segments belonging to different services. If  
-query by all services or by trace id, different segments with same trace id could be list there.
-* **Span** is clickable, the detail of each span will pop up at the left side.
-* **Trace Views** provides 3 typical and different usage views to visualize the trace. 
+* **跟踪部分列表** 不是跟踪列表。每个跟踪都有几个属于不同服务的段。
+如果通过所有服务或通过跟踪id进行查询，可以在其中列出具有相同跟踪id的不同段.
+* **跨度** 是否可单击，每个跨度的细节将在左侧弹出.
+* **跟踪视图** 提供3个典型的和不同的使用视图来可视化跟踪. 
 
-## Profile
-Profile is an interaction feature. It provides the method level performance diagnosis. 
+## 配置文件
+Profile是一个交互特性。提供了方法级的性能诊断. 
 
-To start the profile analysis, user need to create the profile task
+要开始概要分析，用户需要创建概要任务
 
 <img src="http://skywalking.apache.org/ui-doc/7.0.0/profile-create.png" width="440px"/>
 
-1. Select the specific service. 
-1. Set the endpoint name. This endpoint name typically is the operation name of the first span. Find this on the trace 
-segment list view.
-1. Monitor time could start right now or from any given future time.
-1. Monitor duration defines the observation time window to find the suitable request to do performance analysis.
-Even the profile add a very limited performance impact to the target system, but it is still an additional load. This duration
-make the impact controllable.
-1. Min duration threshold provides a filter mechanism, if a request of the given endpoint response quickly, it wouldn't be 
-profiled. This could make sure, the profiled data is the expected one.
-1. Max sampling count gives the max dataset of agent will collect. It helps to reduce the memory and network load.
-1. One implicit condition, **in any moment, SkyWalking only accept one profile task for each service**.
-1. Agent could have different settings to control or limit this feature, read document setup for more details.
-1. Not all SkyWalking ecosystem agent supports this feature, java agent from 7.0.0 supports this in default.
+1. 选择特定的服务。
+2. 设置端点名称。这个端点名通常是第一个span的操作名。在追踪器上找到这个
+段列表视图。
+3. 监控时间可以从现在开始，也可以从未来的任何时间开始。
+4. 监视持续时间定义了观察时间窗口，以查找合适的请求进行性能分析。
+即使概要文件对目标系统的性能影响非常有限，但它仍然是一个额外的负载。这个时间
+使冲击可控。
+5. 最小持续时间阈值提供了一个过滤器机制，如果给定端点响应的请求很快，它就不会
+异形。这可以确保配置的数据是预期的数据。
+6. 最大抽样计数表示agent将收集的最大数据集。它有助于减少内存和网络负载。
+7. 一个隐式条件，**在任何时候，skywalk只接受一个配置文件任务的每个服务**。
+8. 代理可以有不同的设置来控制或限制此特性，请阅读文档设置以了解更多细节。
+9. 并不是所有的SkyWalking生态系统代理都支持此特性，7.0.0中的java代理默认支持此特性。
 
-Once the profile done, the profiled trace segments would show up. And you could request for analysis for any span.
-Typically, we analysis spans having long self duration, if the span and its children both have long duration, you could choose
-`include children` or `exclude childrend` to set the analysis boundaries.
+一旦配置文件完成，配置的跟踪段就会显示出来。你可以要求分析任意张成的空间。
+通常，我们分析跨度具有较长的自持续时间，如果跨度及其子跨度都具有较长的持续时间，则可以进行选择
+“包括子跨度”或“排除子跨度”来设定分析界限。
 
-After choose the right span, and click the `analysis` button, you will see the stack based analysis result. The slowest methods
-have been highlighted.
+选择正确的跨度后，单击“analysis”按钮，您将看到基于堆栈的分析结果。最慢的方法
+已被高亮显示。
 
 <img src="http://skywalking.apache.org/ui-doc/7.0.0/profile-result.png"/>
 
-### Advanced features
-1. Since 7.1.0, the profiled trace collects the HTTP request parameters for Tomcat and SpringMVC Controller automatically.
+### 先进的功能
+1. 从7.1.0开始，配置的跟踪会自动收集Tomcat和SpringMVC控制器的HTTP请求参数.
 
-## Alarm
-Alarm page lists all triggered alarm. Read the backend setup documentation to know how to set up the alarm rule or integrate
-with 3rd party system.
+## 告警
+告警页面列出了所有触发的告警。阅读后端设置文档，了解如何设置告警规则或集成使用第三方系统。
 
-## Metric Comparison
-Metric Comparison is an performance analysis tool. It provides the metrics comparison between different entities or different
-metrics without the dashboard visualization limits. If you suspect any relation performance impact, could use this tool
-to find out whether the metrics pattern matched.
+## 指标比较
+度量比较是一种性能分析工具。它提供不同实体或不同实体之间的度量比较没有仪表板可视化限制的度量。
+如果你怀疑任何关系性能影响，可以使用此工具以确定度量模式是否匹配。
