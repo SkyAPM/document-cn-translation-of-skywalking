@@ -1,32 +1,29 @@
-# Server Mesh Probe
-Service Mesh probes use the extendable mechanism provided in Service Mesh implementor, like Istio.
+# 服务网格探针
 
-## What is Service Mesh?
-The following explanation came from Istio documents.
-> The term service mesh is often used to describe the network of microservices that make up such applications and the interactions between them. 
-As a service mesh grows in size and complexity, it can become harder to understand and manage. 
-Its requirements can include discovery, load balancing, failure recovery, metrics, and monitoring, and often more complex operational requirements 
-such as A/B testing, canary releases, rate limiting, access control, and end-to-end authentication.
+服务网格探针使用了服务网格实现者中提供的可扩展机制，比如 Istio。
 
-## Where does the probe collect data from?
-Istio is a very typical Service Mesh design and implementor. It defines **Control Panel** and **Data Panel**,
-which are wide used. Here is Istio Architecture:
+## 什么是服务网格
 
-![Istio Architecture](https://istio.io/docs/ops/architecture/arch.svg)
+下面的解释来自Istio文档。
 
-Service Mesh probe can choose to collect data from **Control Panel** or **Data Panel**. In Istio, 
-it means collecting telemetry data from Mixer(Control Panel) or Envoy sidecar(Data Panel). Underlying
-they are same data, the probe collects two telemetry entities from client side and server side per request.
+> 服务网格通常用于描述组成此类应用程序的微服务网络以及它们之间的交互。随着服务网格的大小和复杂性的增长，它会变得更难理解和管理。它需要包括发现、负载平衡、故障恢复、度量和监视以及更复杂的操作需求A/B测试、金丝雀发布、限流、访问控制和端到端身份验证。
 
-## How does Service Mesh make backend work?
-From the probe, you can see there must have no trace related in this kind of probe, so why SkyWalking
-platform still works?
+## 探针从哪里采集数据
 
-Service Mesh probes collects telemetry data from each request, so it knows the source, destination, 
-endpoint, latency and status. By those, backend can tell the whole topology map by combining these call 
-as lines, and also the metrics of each nodes through their incoming request. Backend asked for the same
-metrics data from parsing tracing data. So, the right expression is: 
-**Service Mesh metrics are exact the metrics, what the traces parsers generate. They are same.**
+Istio 是一个非常典型的服务网格的设计和实现。它定义了 **控制平面** 和 **数据平面**，被广泛使用。下面是 Istio 的架构 :
 
-## What is Next?
-- If you want to use the service mesh probe, read [set SkyWalking on Service Mesh](../setup/README.md#on-service-mesh) document.
+![Istio 架构](https://istio.io/docs/ops/architecture/arch.svg)
+
+服务网格探针可以选择从 **控制平面** 和 **数据平面** 采集数据。在 Istio 中，指的是从 Mixer(Control Panel) 或者 Envoy sidecar(Data Panel) 中采集遥测数据。探针从客户端和服务器端收集每个请求的两个遥测实体，它们其实是相同的数据。
+
+## 服务网格如何使后端工作
+
+从探针中，您可以看到在这种探针中一定没有相关的跟踪，那么为什么 SkyWalking 平台仍然可以工作？
+
+服务网格探针从每个请求收集遥测数据，因此它知道源、目标、端点、延迟和状态。通过这些，后端可以通过将这些调用合并为行来描述整个拓扑图，以及每个节点通过传入请求的度量。后端解析跟踪数据，请求相同的度量数据。因此，正确的表述是：
+
+**服务网格度量就是跟踪解析器生成的度量。他们是相同的。**
+
+## 下一步
+
+- 如果你想使用服务网格探针，阅读 [SkyWalking 关于服务网格的设定](../setup/README.md#on-service-mesh) 文档.
