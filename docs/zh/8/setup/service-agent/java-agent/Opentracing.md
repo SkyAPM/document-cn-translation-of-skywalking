@@ -1,4 +1,5 @@
-* Dependency the toolkit, such as using maven or gradle
+* 使用 maven 或 gradle 引入 toolkit 依赖。
+
 ```xml
    <dependency>
       <groupId>org.apache.skywalking</groupId>
@@ -7,10 +8,9 @@
    </dependency>
 ```
 
+* 使用我们的 OpenTracing tracer 实现
 
-* Use our OpenTracing tracer implementation
 ```java
 Tracer tracer = new SkywalkingTracer();
 Tracer.SpanBuilder spanBuilder = tracer.buildSpan("/yourApplication/yourService");
-
 ```

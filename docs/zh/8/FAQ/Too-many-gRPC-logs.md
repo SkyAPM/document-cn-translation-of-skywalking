@@ -1,8 +1,11 @@
-### Problem
-Too many GRPC log in the console
+# 问题
 
-### Reason
-Skywalking uses the GRPC framework to send data, and the GRPC framework reads log configuration files for log output.
+控制台中太多 GRPC 日志
 
-### Resolve 
-Add filter to `org.apache.skywalking.apm.dependencies` package in log configuration file
+## 原因
+
+Skywalking 采用了 GRPC 框架发送数据，GRPC 框架读取日志配置文件进行日志输出。
+
+## 解决方法
+
+在日志配置文件中添加对 `org.apache.skywalking.apm.dependencies` 包的过滤
