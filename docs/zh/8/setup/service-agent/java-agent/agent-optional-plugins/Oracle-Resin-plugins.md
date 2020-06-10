@@ -1,6 +1,5 @@
-## Oracle and Resin plugins
-These plugins can't be provided in Apache release because of Oracle and Resin Licenses.
-If you want to know details, please read [Apache license legal document](https://www.apache.org/legal/resolved.html)
+## Oracle和Resin插件
+由于Oracle和Resin许可的原因，没有在Apache发行包中提供这些插件。
+如果你想了解细节，请阅读[Apache许可法律文件](https://www.apache.org/legal/resolved.html)
 
-Due to license incompatibilities/restrictions these plugins are hosted and released in 3rd part repository, 
-go to [OpenSkywalking java plugin extension repository](https://github.com/OpenSkywalking/java-plugin-extensions) to get these.
+由于许可的限制或不兼容，这些插件发布在第三方仓库中。可以到[SkyAPM java插件扩展仓库](https://github.com/SkyAPM/java-plugin-extensions)获得这些插件。

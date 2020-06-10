@@ -1,48 +1,48 @@
-# Backend, UI, and CLI setup
+#服务端、UI和CLI设置
 
+SkyWalking 后端发布包主要分以下几块内容;
 
-SkyWalking backend distribution package includes the following parts:
+1. **启动脚本**,  `/bin` 目录. 包含linux启动和Windows启动服务和UI的脚本.
 
-1. **bin/cmd scripts**, in `/bin` folder. Includes startup linux shell and Windows cmd scripts for Backend
-server and UI startup.
-
-2. **Backend config**, in `/config` folder. Includes settings files of the backend, which are:
+2. **配置文件**,  `/config` 目录. 包含以下配置文件.
    * `application.yml`
    * `log4j.xml`
    * `alarm-settings.yml`
 
-3. **Libraries of backend**, in `/oap-libs` folder. All the dependencies of the backend are in it.
+3. **引用Jar**, `/oap-libs` 目录. 包含服务端所有依赖的jar包.
 
-4. **Webapp env**, in `webapp` folder. UI frontend jar file is here, with its `webapp.yml` setting file. 
+4. **Webapp相关**,  `webapp` 目录.  包含UI界面的jar和 `webapp.yml`的配置文件. 
 
-## Quick start
+## 快速入门
 
-### Requirements and default settings
+### 默认环境
 
-Requirement: **JDK8 to JDK12 are tested**, other versions are not tested and may or may not work.
+需要: **JDK8到JDK12已测试**，其他版本未测试.
 
-Before you start, you should know that the quickstart aims to get you a basic configuration mostly for previews/demo, performance and long-term running are not our goals. 
+在看这个之前，希望你知道，快速入门只是是运行Skywalking的Backend和UI来进行预览或演示。在这儿，性能和长期运行不是本章节内容。
 
-For production/QA/tests environments, you should head to [Backend and UI deployment documents](#deploy-backend-and-ui).
+想部署到product或test等环境查看[部署服务端和界面UI](#部署Backend和UI)
 
-You can use `bin/startup.sh` (or cmd) to startup the backend and UI with their default settings, which are:
+你可以通过`bin/startup.sh`(或cmd) 在默认设置下启动Backend和UI,，同时希望你能了解：
 
-- Backend storage uses **H2 by default** (for an easier start)
-- Backend listens `0.0.0.0/11800` for gRPC APIs and `0.0.0.0/12800` for http rest APIs.
+- 默认使用H2存储，这样就不需要部署别的了。
+- Backend的gRPC相关的API可访问`0.0.0.0/11800`，rest相关的API可访问`0.0.0.0/12800`。
 
-In Java, .NetCore, Node.js, Istio agents/probe, you should set the gRPC service address to `ip/host:11800`, with ip/host where your backend is.
-- UI listens on `8080` port and request `127.0.0.1/12800` to do GraphQL query.  
+在Java，.NetCore，Node.js， Istio agents/probe中，设置gRPC服务地址为`ip/host:11800`。
+(ip/host填写Backend暴露的)
+- UI 监听`8080` 端口,同时请求`127.0.0.1/12800`来做GraphQL查询。  
 
-## Deploy Backend and UI
+## 部署服务端和界面UI
 
-Before deploying Skywalking in your distributed environment, you should know how agents/probes, backend, UI communicates with each other:
+快速入门后，您应该希望在分布式环境中部署后端和UI。
+在那之前， 你需要知道agent/probe, Backend和UI之间是怎么交互的。
 
 <img src="http://skywalking.apache.org/doc-graph/communication-net.png"/>
 
-- All native agents and probes, either language based or mesh probe, are using gRPC service (`core/default/gRPC*` in `application.yml`) to report data to the backend. Also, jetty service supported in JSON format. 
-- UI uses GraphQL (HTTP) query to access the backend also in Jetty service (`core/default/rest*` in `application.yml`).
+- 所有原生的agents和probes，不管基于何种语言或网格探针，都是使用gRPC服务(`core/default/gRPC*` in `application.yml`) 上报数据给服务端。另外，json格式支持Jetty服务。
+- UI 使用GraphQL(HTTP)查询来访问Backend，在Jetty服务中也是(`core/default/rest*` in `application.yml`)。
 
-Now, let's continue with the backend, UI and CLI setting documents.
-- [Backend setup document](backend-setup.md)
-- [UI setup document](ui-setup.md)
-- [CLI set up document](https://github.com/apache/skywalking-cli)
+现在，让我们继续来看进行Backend和UI的设置文档。
+- [服务端启动](backend-setup.md)
+- [界面UI启动](ui-setup.md)
+- [CLI设置](https://github.com/apache/skywalking-cli)

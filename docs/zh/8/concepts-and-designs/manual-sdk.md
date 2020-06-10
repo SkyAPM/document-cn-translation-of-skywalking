@@ -1,21 +1,22 @@
-# Manual instrument SDK
-We have manual instrument SDK contributed from the community.
-- [Go2Sky](https://github.com/SkyAPM/go2sky). Go SDK follows SkyWalking format.
+# 手动打点 SDK
 
-Welcome to consider contributing in following languages:
+我们尚未正式提供手动打点 SDK, 欢迎贡献以下语言的 SDK:
+- Go
 - Python
 - C++
 
-## What is SkyWalking formats and propagation protocols?
-See these protocols in [protocols document](../protocols/README.md).
+## SkyWalking 的数据格式和传播协议是什么
 
-## Can SkyWalking provide OpenCensus exporter in above languages?
-At the moment I am writing this document, **NO**. Because, OC(OpenCensus) don't support context extendable 
-mechanism, and no hook mechanism when manipulate spans. SkyWalking relied on those to propagate more things
-than trace id and span id.
+从[协议文档](../protocols/README.md)中了解这些协议的详情.
 
-We are already in the middle of discussion, see https://github.com/census-instrumentation/opencensus-specs/issues/70.
-After OC provides this officially, we can.
+## SkyWalking 能够提供以上语言的 OpenCensus 导出器吗
 
-## How about Zipkin instrument SDKs?
-See [Zipkin receiver](../setup/backend/backend-receivers.md) in backend **Choose receiver** section. 
+写作本文档的时候, **不能**. 因为 OpenCensus 没有提供上下文可扩展的机制, 在操作 span 的时候也没有钩子(hook)机制.
+而 SkyWalking 要依赖这些来传播除 trace id 和 span id 之外的更多内容.
+
+我们已经进行了讨论, 参考[Issue](https://github.com/census-instrumentation/opencensus-specs/issues/70),
+在 OpenCensus 官方提供了以上所缺的功能之后, 我们就可以提供相应的导出器了.
+
+## Zipkin 打点 SDK 怎么样
+
+参考[Zipkin 接收器](../setup/backend/backend-receivers.md)的**选择接收器**一节. 

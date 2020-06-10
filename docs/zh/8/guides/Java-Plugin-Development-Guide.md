@@ -1,44 +1,47 @@
-# Plugin Development Guide
-This document describe how to understand, develop and contribute plugin.
+# 插件开发指南
 
-## Concepts
+本文档描述了如何理解, 开发和贡献插件.
+
+## 概念
+
 ### Span
-Span is an important and common concept in distributed tracing system. Learn **Span** from 
-[Google Dapper Paper](https://research.google.com/pubs/pub36356.html)  and
-[OpenTracing](http://opentracing.io)
 
-SkyWalking supports OpenTracing and OpenTracing-Java API from 2017. Our Span concepts are similar with the paper and OpenTracing.
-Also we extend the Span.
+Span 是分布式追踪系统中一个重要且常用的概念. 
+可从 [Google Dapper Paper](https://research.google.com/pubs/pub36356.html) 和 [OpenTracing](http://opentracing.io) 学习更多与 **Span** 相关的知识.
 
-There are three types of Span
+SkyWalking 从 2017 年开始支持 OpenTracing 和 OpenTracing-Java API, 我们的 Span 在概念上与谷歌论文和 OpenTracing 里描述的类似. 我们也扩展了 Span.
+
+Span 有三种类型
 
 1.1 EntrySpan
-EntrySpan represents a service provider, also the endpoint of server side. As an APM system, we are targeting the 
-application servers. So almost all the services and MQ-consumer are EntrySpan(s).
+
+EntrySpan 代表服务提供者, 也是服务器端的端点. 作为一个 APM 系统, 我们的目标是应用服务器. 所以几乎所有的服务和 MQ-消费者 都是 EntrySpan.
 
 1.2 LocalSpan
-LocalSpan represents a normal Java method, which does not relate to remote service, neither a MQ producer/consumer
-nor a service(e.g. HTTP service) provider/consumer.
+
+LocalSpan 表示普通的 Java 方法, 它与远程服务无关, 不是 MQ 生产者/消费者, 也不是服务（例如 HTTP 服务）提供者/消费者.
 
 1.3 ExitSpan
-ExitSpan represents a client of service or MQ-producer, as named as `LeafSpan` at early age of SkyWalking.
-e.g. accessing DB by JDBC, reading Redis/Memcached are cataloged an ExitSpan. 
 
-### ContextCarrier
-In order to implement distributed tracing, the trace across process need to be bind, and the context should propagate 
-across the process. That is ContextCarrier's duty.
+ExitSpan 代表一个服务客户端或 MQ 的生产者, 在 SkyWalking 的早期命名为 `LeafSpan`. 例如 通过 JDBC 访问 DB, 读取 Redis/Memcached 被归类为 ExitSpan.
 
-Here are the steps about how to use **ContextCarrier** in a `A->B` distributed call.
-1. Create a new and empty `ContextCarrier` at client side.
-1. Create an ExitSpan by `ContextManager#createExitSpan` or use `ContextManager#inject` to init the `ContextCarrier`.
-1. Put all items of `ContextCarrier` into heads(e.g. HTTP HEAD), attachments(e.g. Dubbo RPC framework) or messages(e.g. Kafka)
-1. The `ContextCarrier` propagates to server side by the service call.
-1. At server side, get all items from heads, attachments or messages.
-1. Create an EntrySpan by `ContextManager#createEntrySpan` or use `ContextManager#extract` to bind the client and server.
+### 上下文载体 (ContextCarrier)
 
+为了实现分布式追踪, 需要绑定跨进程的追踪, 并且上下文应该在整个过程中随之传播. 这就是 ContextCarrier 的职责.
 
-Let's demonstrate the steps by Apache HTTPComponent client plugin and Tomcat 7 server plugin
-1. Client side steps by Apache HTTPComponent client plugin
+以下是有关如何在 `A -> B` 分布式调用中使用 **ContextCarrier** 的步骤.
+
+1. 在客户端, 创建一个新的空的 `ContextCarrier`.
+2. 通过 `ContextManager#createExitSpan` 创建一个 ExitSpan 或者使用 `ContextManager#inject` 来初始化 `ContextCarrier`.
+3. 将 `ContextCarrier` 所有信息放到请求头 (如 HTTP HEAD), 附件(如 Dubbo RPC 框架), 或者消息 (如 Kafka) 中
+4. 通过服务调用, 将 `ContextCarrier` 传递到服务端.
+5. 在服务端, 在对应组件的头部, 附件或消息中获取 `ContextCarrier` 所有内容.
+6. 通过 `ContestManager#createEntrySpan` 创建 EntrySpan 或者使用 `ContextManager#extract` 来绑定服务端和客户端.
+
+让我们通过 Apache HttpComponent client 插件和 Tomcat 7 服务器插件演示, 步骤如下:
+
+1. 客户端 Apache HttpComponent client 插件
+
 ```java
             span = ContextManager.createExitSpan("/span/operation/name", contextCarrier, "ip:port");
             CarrierItem next = contextCarrier.items();
@@ -48,7 +51,7 @@ Let's demonstrate the steps by Apache HTTPComponent client plugin and Tomcat 7 s
             }
 ```
 
-2. Server side steps by Tomcat 7 server plugin
+2. 服务端 Tomcat 7 服务器插件
 ```java
             ContextCarrier contextCarrier = new ContextCarrier();
             CarrierItem next = contextCarrier.items();
@@ -60,38 +63,39 @@ Let's demonstrate the steps by Apache HTTPComponent client plugin and Tomcat 7 s
             span = ContextManager.createEntrySpan(“/span/operation/name”, contextCarrier);
 ```
 
-### ContextSnapshot
-Besides across process, across thread but in a process need to be supported, because async process(In-memory MQ) 
-and batch process are common in Java. Across process and across thread are similar, because they are both about propagating
-context. The only difference is that, don't need to serialize for across thread.
+### 上下文快照 (ContextSnapshot)
 
-Here are the three steps about across thread propagation:
-1. Use `ContextManager#capture` to get the ContextSnapshot object.
-1. Let the sub-thread access the ContextSnapshot by any way, through method arguments or carried by an existed arguments
-1. Use `ContextManager#continued` in sub-thread.
+除了跨进程, 跨线程也是需要支持的, 例如异步线程（内存中的消息队列）和批处理在 Java 中很常见. 跨进程和跨线程十分相似, 因为都是需要传播上下文. 唯一的区别是, 跨线程不需要序列化.
 
-## Core APIs
-### ContextManager
-ContextManager provides all major and primary APIs.
+以下是有关跨线程传播的三个步骤：
+1. 使用 `ContextManager#capture` 方法获取 ContextSnapshot 对象.
+2. 让子线程以任何方式, 通过方法参数或由现有参数携带来访问 ContextSnapshot
+3. 在子线程中使用 `ContextManager#continued`.
 
-1. Create EntrySpan
+## 核心 API
+
+### 上下文管理器 (ContextManager)
+
+ContextManager 提供所有主要 API.
+
+1. 创建 EntrySpan
 ```java
 public static AbstractSpan createEntrySpan(String endpointName, ContextCarrier carrier)
 ```
-Create EntrySpan by operation name(e.g. service name, uri) and **ContextCarrier**.
+根据操作名称(例如服务名称, uri) 和 **上下文载体 (ContextCarrier)** 创建 EntrySpan.
 
-2. Create LocalSpan
+2. 创建 LocalSpan
 ```java
 public static AbstractSpan createLocalSpan(String endpointName)
 ```
-Create LocalSpan by operation name(e.g. full method signature)
+根据操作名称(例如完整的方法签名)创建 (e.g. full method signature)
 
-3. Create ExitSpan
+3. 创建 ExitSpan
 ```java
 public static AbstractSpan createExitSpan(String endpointName, ContextCarrier carrier, String remotePeer)
 ```
-Create ExitSpan by operation name(e.g. service name, uri) and new **ContextCarrier** and peer address
-(e.g. ip+port, hostname+port)
+根据操作名称(例如服务名称, uri), **上下文载体 (ContextCarrier)** 以及对等端 (peer) 地址
+(例如 ip + port 或 hostname + port) 创建 ExitSpan.
 
 ### AbstractSpan
 ```java
@@ -138,23 +142,26 @@ Create ExitSpan by operation name(e.g. service name, uri) and new **ContextCarri
      */
     AbstractSpan setOperationName(String endpointName);
 ```
-Besides set operation name, tags and logs, two attributes shoule be set, which are component and layer, 
-especially for EntrySpan and ExitSpan
 
-SpanLayer is the catalog of span. Here are 5 values:
-1. UNKNOWN (default)
-1. DB
-1. RPC_FRAMEWORK, for a RPC framework, not an ordinary HTTP
-1. HTTP
-1. MQ
+除了设置操作名称, 标签信息和日志外, 还要设置两个属性, 即 component（组件）和 layer（层）, 特别是对于 EntrySpan 和 ExitSpan.
 
-Component IDs are defined and reserved by SkyWalking project.
-For component name/ID extension, please follow [Component library definition and extension](Component-library-settings.md) document.
+SpanLayer 是 span 的类别. 有五个值:
 
-### Advanced APIs
-#### Async Span APIs
-There is a set of advanced APIs in Span, which work specific for async scenario. When tags, logs, attributes(including end time) of the span
-needs to set in another thread, you should use these APIs.
+1. UNKNOWN (默认值)
+2. DB
+3. RPC_FRAMEWORK,（针对 RPC 框架, 非普通的 HTTP 调用）
+4. HTTP
+5. MQ
+
+
+组件 ID 由 SkyWalking 项目定义和保留, 对于组件的名称或 ID 的扩展, 请遵循[组件库的定义与扩展](Component-library-settings.md).
+
+### 高级 API
+
+#### 异步 Span API
+
+关于 Span 有一系列高级 API, 他们都是在异步场景下使用的. 当 Span 的 tag, 
+日志和属性(包括结束时间)需要在另一个线程中设置时, 你就应该使用这些 API.
 
 ```java
     /**
@@ -182,48 +189,67 @@ needs to set in another thread, you should use these APIs.
      */
     AbstractSpan asyncFinish();
 ```
-1. Call `#prepareForAsync` in original context.
-1. Do `ContextManager#stopSpan` in original context when your job in current thread is done.
-1. Propagate the span to any other thread.
-1. After all set, call `#asyncFinish` in any thread.
-1. Tracing context will be finished and report to backend when all spans's `#prepareForAsync` finished(Judged by count of API execution).
 
-## Develop a plugin
-### Abstract
-The basic method to trace is intercepting a Java method, by using byte code manipulation tech and AOP concept.
-SkyWalking boxed the byte code manipulation tech and tracing context propagation,
-so you just need to define the intercept point(a.k.a. aspect pointcut in Spring)
+1. 在原始上下文中调用 `#prepareForAsync`.
+2. 将该 Span  传播到其他线程.
+3. 在全部操作就绪之后, 可在任意线程中调用 `#asyncFinish` 结束调用.
+4. 当所有 Span 的 `#prepareForAsync` 完成后, 追踪上下文会结束, 并一起被回传到后端服务(根据 API 执行次数判断).
 
-### Intercept
-SkyWalking provide two common defines to intercept Contructor, instance method and class method.
-* Extend `ClassInstanceMethodsEnhancePluginDefine` defines `Contructor` intercept points and `instance method` intercept points.
-* Extend `ClassStaticMethodsEnhancePluginDefine` definec `class method` intercept points.
 
-Of course, you can extend `ClassEnhancePluginDefine` to set all intercept points. But it is unusual. 
+## 开发插件
 
-### Implement plugin
-I will demonstrate about how to implement a plugin by extending `ClassInstanceMethodsEnhancePluginDefine`
+### 摘要
 
-1. Define the target class name
+追踪的基本方法是拦截 Java 方法, 使用字节码操作技术和 AOP 概念. SkyWalking 包装了字节码操作技术, 并追踪上下文的传播. 所以你只需要定义拦截点(换句话说就是 Spring 的切面).
+
+### 拦截
+
+SkyWalking 提供两类通用的定义去拦截构造方法, 实例方法和类方法.
+* `ClassInstanceMethodsEnhancePluginDefine` 定义了构造方法 `Contructor` 拦截点和 `instance method` 实例方法拦截点.
+* `ClassStaticMethodsEnhancePluginDefine` 定义了类方法 `class method` 拦截点.
+
+当然, 您也可以继承 `ClassEnhancePluginDefine` 去设置所有的拦截点, 但这不常用.
+
+### 实现插件
+
+下文, 我将通过扩展 `ClassInstanceMethodsEnhancePluginDefine` 来演示如何实现一个插件
+
+1. 定义目标类的名称
+
 ```java
 protected abstract ClassMatch enhanceClass();
 ```
 
-ClassMatch represents how to match the target classes, there are 4 ways:
-* byName, through the full class name(package name + `.` + class name)
-* byClassAnnotationMatch, through the class existed certain annotations.
-* byMethodAnnotationMatch, through the class's method existed certain annotations.
-* byHierarchyMatch, through the class's parent classes or interfaces
+ClassMatch 表示如何去匹配目标类, 这里有四种方法:
+* byName, 通过类的全限定名(Fully Qualified Class Name, 即 包名 + `.` + 类名).
+* byClassAnnotationMatch, 根据目标类是否存在某些注解.
+* byMethodAnnotationMatch, 根据目标类的方法是否存在某些注解.
+* byHierarchyMatch, 根据目标类的父类或接口
 
-**Attentions**:
-* Never use `ThirdPartyClass.class` in the instrumentation definitions, such as `takesArguments(ThirdPartyClass.class)`, or `byName(ThirdPartyClass.class.getName())`, because of the fact that `ThirdPartyClass` dose not necessarily exist in the target application and this will break the agent; we have `import` checks to help on checking this in CI, but it doesn't cover all scenarios of this limitation, so never try to work around this limitation by something like using full-qualified-class-name (FQCN), i.e. `takesArguments(full.qualified.ThirdPartyClass.class)` and `byName(full.qualified.ThirdPartyClass.class.getName())` will pass the CI check, but are still invalid in the agent codes, **Use Full Qualified Class Name String Literature Instead**.
-* Even you are perfectly sure that the class to be intercepted exists in the target application (such as JDK classes), still, don't use `*.class.getName()` to get the class String name. Recommend you to use literal String. This is for 
-avoiding ClassLoader issues.
-* `by*AnnotationMatch` doesn't support the inherited annotations.
-* Don't recommend to use `byHierarchyMatch`, unless it is really necessary. Because using it may trigger intercepting 
-many unexcepted methods, which causes performance issues and concerns.
+ **Use Full Qualified Class Name String Literature Instead**.
+ 
+**注意**:
+*在插件定义中禁止使用 `ThirdPartyClass.class`，例如`takesArguments(ThirdPartyClass.class)`或 `byName(ThirdPartyClass.class.getName())`,
+因为 `ThirdPartyClass` 不一定存在目标应用程序中，这样做导致探针异常；
+我们有“导入”检查来帮助在CI流程检查此限制，但它没有涵盖此限制的所有场景，
+所以永远不要试图通过使用完全限定类名(FQCN)之类的方法来绕过这个限制，`takesArguments(full.qualified.ThirdPartyClass.class)`
+和 `byName(full.qualified.ThirdPartyClass.class.getName())` 及时能通过CI检查，但是代理代码中仍然无效,
+使用完全限定的类名字符串文献代替
 
-Example：
+
+* 禁止使用 `*.class.getName()` 去获取类名, 建议你使用文本字符串, 这是为了避免 ClassLoader 的问题.
+* `by*AnnotationMatch` 不支持从父类继承来的注解.
+* 除非确实必要, 否则不建议使用 `byHierarchyMatch`, 因为使用它可能会触发拦截许多预期之外的方法, 会导致性能问题和不稳定.
+
+
+
+**注意事项**:
+* 禁止使用 `*.class.getName()` 去获取类名, 建议你使用文本字符串, 这是为了避免 ClassLoader 的问题.
+* `by*AnnotationMatch` 不支持从父类继承来的注解.
+* 除非确实必要, 否则不建议使用 `byHierarchyMatch`, 因为使用它可能会触发拦截许多预期之外的方法, 会导致性能问题和不稳定.
+
+实例：
+
 ```java
 @Override
 protected ClassMatch enhanceClassName() {
@@ -232,7 +258,7 @@ protected ClassMatch enhanceClassName() {
 
 ```
 
-2. Define an instance method intercept point
+2. 定义实例方法拦截点
 ```java
 public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints();
 
@@ -252,20 +278,20 @@ public interface InstanceMethodsInterceptPoint {
     boolean isOverrideArgs();
 }
 ```
-Also use `Matcher` to set the target methods. Return **true** in `isOverrideArgs`, if you want to change the argument
-ref in interceptor.
 
-The following sections will tell you how to implement the interceptor.
+也可以使用 `Matcher` 来设置目标方法. 如果要在拦截器中更改引用参数, 请在 `isOverrideArgs` 中返回 **true**.
 
-3. Add plugin define into skywalking-plugin.def file
+以下部分将告诉您如何实现拦截器.
+
+3. 在文件 `skywalking-plugin.def` 中添加插件定义
 ```properties
 tomcat-7.x/8.x=TomcatInstrumentation
 ```
 
+### 实现一个拦截器
 
-### Implement an interceptor
-As an interceptor for an instance method, the interceptor implements 
-`org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.InstanceMethodsAroundInterceptor`
+作为一个实例方法的拦截器, 需要实现 `org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.InstanceMethodsAroundInterceptor`
+
 ```java
 /**
  * A interceptor, which intercept method's invocation. The target methods will be defined in {@link
@@ -300,10 +326,11 @@ public interface InstanceMethodsAroundInterceptor {
         Throwable t);
 }
 ```
-Use the core APIs in before, after and exception handle stages.
 
-### Do bootstrap class instrumentation.
-SkyWalking has packaged the bootstrap instrumentation in the agent core. It is easy to open by declaring it in the Instrumentation definition.
+在方法调用前, 调用后以及异常处理阶段使用核心 API.
+
+### 引导类插件.
+skywalk已经将引导工具打包在代理核心中。通过在插装定义中声明它，可以很容易地继承实现它。
 
 Override the `public boolean isBootstrapInstrumentation()` and return **true**. Such as
 ```java
@@ -342,19 +369,29 @@ public class URLInstrumentation extends ClassEnhancePluginDefine {
 }
 ```
 
-**NOTICE**, doing bootstrap instrumentation should only happen in necessary, but mostly it effect the JRE core(rt.jar),
-and could make very unexpected result or side effect.
+**注意**, 引导类插件只拦截最主要的类定义,在实际运行时会影响JRE核心(rt.jar)，随便定义可能会产生意想不到的结果或副作用.
 
 
-### Contribute plugins into Apache SkyWalking repository
-We are welcome everyone to contribute plugins.
+在方法调用前, 调用后以及异常处理阶段使用核心 API.
 
-Please follow there steps:
-1. Submit an issue about which plugins you are going to contribute, including supported version.
-1. Create sub modules under `apm-sniffer/apm-sdk-plugin` or `apm-sniffer/optional-plugins`, and the name should include supported library name and versions
-1. Follow this guide to develop. Make sure comments and test cases are provided.
-1. Develop and test.
-1. Provide the automatic test cases. Learn `how to write the plugin test case` from this [doc](Plugin-test.md)
-1. Send the pull request and ask for review. 
-1. The plugin committers approve your plugins, plugin CI-with-IT, e2e and plugin tests passed.
-1. The plugin accepted by SkyWalking. 
+### 将插件贡献到 Apache SkyWalking 仓库中
+我们欢迎大家贡献插件.
+
+请按照以下步骤操作：
+1. 提交有关您要贡献哪些插件的问题, 包括支持的版本;
+2. 在 `apm-sniffer/apm-sdk-plugin` 或 `apm-sniffer/optional-plugins` 下创建子模块, 名称应包含支持的库名和版本;
+3. 按照本指南进行开发,确保提供注释和测试用例;
+4. 开发并测试;
+5. 提供自动测试用例,可以参考测试相关文档[探针测试文档](Plugin-test.md);
+6. 发送 Pull Request 并要求审核;
+7. 在提供自动测试用例并在 CI 通过测试后, 插件审批人员会批准您的插件.
+8. 新插件融入Skywalking版本中.
+
+
+
+
+
+
+
+
+

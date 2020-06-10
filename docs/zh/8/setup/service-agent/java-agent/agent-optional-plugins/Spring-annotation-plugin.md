@@ -1,8 +1,7 @@
-## Spring annotation plugin
-This plugin allows to trace all methods of beans in Spring context, which are annotated with
-`@Bean`, `@Service`, `@Component` and `@Repository`.
+## Spring注解插件
+这个插件可以实现对被`@Bean`, `@Service`, `@Component` and `@Repository`注解标注的bean的所有方法的追踪。
 
-- Why does this plugin optional?  
+- 为什么这个插件是可选的？  
 
-Tracing all methods in Spring context all creates a lot of spans, which also spend more CPU, memory and network.
-Of course you want to have spans as many as possible, but please make sure your system payload can support these.
+追踪bean的所有方法会创建大量的span，这会导致耗费更多的CPU、内存和网络带宽。
+当前如果你想追踪尽可能多的方法，请确保系统负载可以支撑更多的请求。
