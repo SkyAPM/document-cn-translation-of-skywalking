@@ -1,26 +1,26 @@
-# Support gRPC SSL transportation for OAP server
+# OAP server 支持 gPRC SSL 传输
 
-For OAP communication we are currently using gRPC, a multi-platform RPC framework that uses protocol buffers for
-message serialization. The nice part about gRPC is that it promotes the use of SSL/TLS to authenticate and encrypt
-exchanges. Now OAP supports to enable SSL transportation for gRPC receivers.
+OAP 通信我们当前使用 gRPC，一个使用协议缓冲区的消息序列化并支持多平台 RPC 框架。gRPC 的好处在于它促进了使用 SSL/TLS 进行身份验证和加密
+数据交换。现在 OAP 支持为 gRPC 接收器启用 SSL 传输。
 
-You can follow below steps to enable this feature
+您可以按照以下步骤来启用此特性
 
-## Creating SSL/TLS Certificates
+## Creating SSL/TLS Certificates 创建 SSL/TLS 证书
 
-It seems like step one is to generate certificates and key files for encrypting communication. I thought this would be
-fairly straightforward using `openssl` from the command line.
+似乎第一步加密生成证书和密钥文件是为通信。我认为在命令行中使用 `openssl` 会非常简单。
 
-Use this [script](../../../../tools/TLS/tls_key_generate.sh) if you are not familiar with how to generate key files.
+如果您不熟悉如何生成密钥文件使用这个 [脚本](https://github.com/apache/skywalking/blob/master/tools/TLS/tls_key_generate.sh)。
 
-We need below files:
- - `server.pem` a private RSA key to sign and authenticate the public key.
- - `server.crt` self-signed X.509 public keys for distribution.
- - `ca.crt` a certificate authority public key for a client to validate the server's certificate.
+我们需要一下文件：
 
-## Config OAP server 
+- `server.pem` 用于签名和验证公钥的私有 RSA 密钥.
+- `server.crt` 用于分发的自签名X.509公钥.
+- `ca.crt` 客户端验证服务端证书的证书中心公钥.
 
-You can enable gRPC SSL by add following lines to `application.yml/core/default`.
+## 配置 OAP 服务
+
+你可以向 `application.yml/core/default` 添加以下配置启用 gRPC SSL
+
 ```json
 gRPCSslEnabled: true
 gRPCSslKeyPath: /path/to/server.pem
@@ -28,10 +28,9 @@ gRPCSslCertChainPath: /path/to/server.crt
 gRPCSslTrustedCAPath: /path/to/ca.crt
 ```
 
-`gRPCSslKeyPath` and `gRPCSslCertChainPath` are loaded by OAP server to encrypt the communication. `gRPCSslTrustedCAPath`
-helps gRPC client to verify server certificates in cluster mode.
+OAP 服务加载 `gRPCSslKeyPath` 和 `gRPCSslCertChainPath` 来加密通信。 `gRPCSslTrustedCAPath` 帮助 gRPC 客户端在集群模式来验证服务端证书。
 
-If you enable `sharding-server` to ingest data from external, add following lines to `application.yml/receiver-sharing-server/default`:
+如果你启用 `sharding-server` 从外部摄取数据，在 `application.yml/receiver-sharing-server/default` 文件中添加如下内容：
 
 ```json
 gRPCSslEnabled: true
@@ -39,6 +38,6 @@ gRPCSslKeyPath: /path/to/server.pem
 gRPCSslCertChainPath: /path/to/server.crt
 ```
 
-Because `sharding-server` only receives data from external, so it doesn't need CA at all.
+因为  `sharding-server`  只从外部接收数据，所以根本不需要 CA 证书。
 
-If you port to java agent, refer to [TLS.md](../service-agent/java-agent/TLS.md) to config java agent to enable TLS.
+如果你对口 java agent，参考[TLS.md](../service-agent/java-agent/TLS.md)配置 java agent 启用 TLS。

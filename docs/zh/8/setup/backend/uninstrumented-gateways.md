@@ -1,13 +1,10 @@
-# Uninstrumented Gateways/Proxies
+# 无法打点的网关/代理
 
-The uninstrumented gateways are not instrumented by SkyWalking agent plugin when they are started,
-but they can be configured in `gateways.yml` file or via [Dynamic Configuration](dynamic-config.md). The reason why they can't register
-to backend automatically is that there're no suitable agent plugins, for example, there is no agent plugins for Nginx, haproxy, etc.
-So in order to visualize the real topology, we provide a way to configure the gateways/proxies manually.
+SkyWalking agent 插件启动时无法对网关进行打点，但它们是可以在 `gateways.yml` 或者通过[动态配置](dynamic-config.md)设置。他们不能自动在后端注册的原因是没有合适的代理插件，例如，没有代理插件的 Nginx, haproxy 等。因此，为了可视化真实的拓扑，我们提供了一种手动配置网关/代理的方法。
 
-## Configuration Format
+## 配置格式
 
-The configuration content includes the gateways' names and their instances:
+配置内容包括网关的名字和其他实例：
 
 ```yml
 gateways:
@@ -17,6 +14,4 @@ gateways:
        port: 9099 # the port of this gateway instance, defaults to 80
 ```
 
-**Note** that the `host` of the instance must be the one that is actually used in client side, for example,
-if the instance `proxyA` has 2 IPs, say `192.168.1.110` and `192.168.1.111`, both of which delegates the target service,
-and the client connects to `192.168.1.110`, then configuring `192.168.1.111` as the `host` won't work properly.
+**注意**  实例的`host`必须是客户端实际使用的，例如如果 `proxyA` 实例有两个 IP `192.168.1.110` 和 `192.168.1.111`，两个都代理目标服务，客户端连接 `192.168.1.110`，那么配置 `192.168.1.111` 作为 `host` 是无法工作的配置项。

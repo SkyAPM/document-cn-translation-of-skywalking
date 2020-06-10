@@ -1,6 +1,5 @@
-# Powered by Apache SkyWalking
-This page documents an **alphabetical list** of institutions that are using Apache SkyWalking for research and production,
-or providing commercial products including Apache SkyWalking.
+# 由 Apache SkyWalking 强力驱动的公司/组织
+本页面展示了使用 Apache SkyWalking 进行研究, 生产或提供包含 SkyWalking 的商业产品的公司/组织, 排名不分先后, **按公司/组织的字母表顺序**.
 
 1. 17173.com https://www.17173.com/
 1. 300.cn 中企动力科技股份有限公司 http://www.300.cn/
@@ -155,52 +154,54 @@ or providing commercial products including Apache SkyWalking.
 1. zhaopin.com 智联招聘 https://www.zhaopin.com/
 1. zjs.com.cn 北京宅急送快运股份有限公司 http://www.zjs.com.cn/
 
-# Use Cases
-## Alibaba and Alibaba Cloud
-Alibaba products including [Cloud DevOps product](https://cn.aliyun.com/product/yunxiao) are under SkyWalking monitoring.
+# 用户
+## 阿里云 (Alibaba Cloud)
+包括[Cloud DevOps产品](https://cn.aliyun.com/product/yunxiao)在内的阿里巴巴产品正在接受SkyWalking监控。
 
-Alibaba Cloud supports SkyWalking agents and formats in Tracing Analysis cloud service.
+阿里云在跟踪分析云服务中支持SkyWalking代理和格式。
 
-## China Eastern Airlines
-Integrated in the microservices architecture support platform.
+## 中国东方航空
+集成在微服务架构支持平台.
 
-## China Merchants Bank
-Use SkyWalking and [SkyAPM .net agent](https://github.com/SkyAPM/SkyAPM-dotnet) in the CMBChina Mall project.
+## 招商银行
+在 CMBChina 商城项目中使用 SkyWalking 和 [SkyAPM .net agent](https://github.com/SkyAPM/SkyAPM-dotnet)
 
-## China Mobile
-China Mobile Suzhou Research Center, CMSS, integrated SkyWalking as the APM component in China Mobile PAAS.
+## 中国移动
+中国移动苏州研究中心CMSS将SkyWalking集成为中国移动PAAS中的APM组件。
 
 ## ke.com
-Deploy SkyWalking in production environments.
-- Three CentOs Machines(32 CPUs, 64G RAM, 1.3T Disk) for Collector Server
-- Three ElasticSearch(Version 6.4.2, 40 CPUs, 96G RAM, 7T Disk) Nodes for Storage
+在生产环境中部署 SkyWalking。
+- 三台 CentOs 机器(32 CPU, 64G 内存, 1.3T 硬盘) 作为收集服务器
+- 三台 ElasticSearch(6.4.2 版本, 40 CPU, 96G 内存, 7T 硬盘) 节点作为存储
 
-Support 60+ Instances, Over 300k Calls Per Minute, Over 50k Spans Per Second
+支持 60+ 实例, 每分钟超过 300k 调用, 每秒钟超过 50k Span
 
 ## guazi.com
-Guazi.com uses SkyWalking monitoring 270+ services,
-including topology + metrics analysis, and collecting 1.1+ billion traces per day with 100% sampling.
+Guazi.com使用SkyWalking监控超过270多个服务，包括拓扑+指标分析,
+并且使用100%采样率每天采集1.1亿条链路追踪。
 
-Plan is 1k+ services and 5 billion traces per day.
+计划是监控1000多个服务和采集5亿条链路追踪。
 
 ## Oscart
-Use multiple language agents from SkyWalking and its ecosystem, including SkyWalking Javaagent and [SkyAPM nodejs agent](https://github.com/SkyAPM/SkyAPM-nodejs). SkyWalking OAP platform acts as backend and visualization.
+使用来自 SkyWalking 及其社区的多种语言代理, 包括 SkyWalking Javaagent 和 [SkyAPM nodejs agent](https://github.com/SkyAPM/SkyAPM-nodejs).
+SkyWalking OAP 平台作为后端和可视化平台.
 
 ## Primeton
-Integrated in Primeton EOS PLATFORM 8, which is a commercial micro-service platform.
+集成在 Primeton EOS PLATFORM 8 中, 一个商业化微服务平台。
 
-## Qiniu Cloud
-Provide a customized version SkyWalking agent. It could provide distributed tracing and integrated in its intelligence log management platform.
+## 七牛云
+提供了一个自定义版本的 SkyWalking Agent. 可以提供分布式追踪并集成到它的智能日志管理平台.
 
 ## Source++
-An open-source observant programming assistant which aims to bridge APM tools with the developer's IDE to enable tighter feedback loops. Source++ uses SkyWalking as the defacto APM for JVM-based applications.
+一个开源智能的编程助手, 旨在桥接 APM 工具和开发者 IDE 工具, 使得反馈循环更加紧凑. Source++ 使用 SkyWalking 作为基于 JVM 应用的 APM.
 
 ## Tetrate
-Tetrate provides enterprise level service mesh. SkyWalking acts as the core observability platform for hybrid
-enterprise service mesh environment.
+Tetrate 提供了商业水平的服务网格. SkyWalking 作为它的核心观测平台, 为多种商业服务网格环境提供服务。
 
 ## lagou.com
-Lagou.com use Skywalking for JVM-based applications, deployed in production. Custom and optimize muiti collector functions, such as alarm, sql metric, circle operation metric, thread monitor, detail mode. Support 200+ Instances, over 4500k Segments Per Minute.
+拉勾 Lagou.com 在基于 JVM 的生产环境应用程序中使用 SkyWalking. 自定义和优化了多个收集器 collector 的功能, 如告警, SQL 指标, 循环操作指标, 线程监控, 细节模式. 支持了超过 200 个实例, 每分钟超过 4500k 的 Segments。
 
-## Yonghui Superstores
-Yonghui Superstores Co., Ltd. use SkyWalking as primary APM system, to monitor 1k+ instances clusters, which supports 150k+ tps/qps payload. SkyWalking collect, analysis and save 10 billions trace segments(cost 3T disk) each day in 100% sampling strategy. SkyWalking backend cluster is built with 15 nodes OAP and 20 nodes ElasticSearch.
+## 永辉超市
+永辉超市使用 SkyWalking 作为主要的 APM 系统, 来监控 1 千多个实例集群, 支持了 150K+ tps/qps 的负载.
+SkyWalking 每天全量收集, 分析和保存 100 亿 Segment (消耗 3T 硬盘),
+SkyWalking 后端集群由 15 个 OAP 节点和 20 个 ElasticSearch 节点构成.
