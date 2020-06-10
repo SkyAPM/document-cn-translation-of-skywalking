@@ -1,5 +1,5 @@
-# Disable plugins
-Delete or remove the specific libraries / jars in `skywalking-agent/plugins/*.jar`
+# 禁用插件
+从`skywalking-agent/plugins/*.jar`中删除或移除指定插件的jar包即可。
 
 ```
 +-- skywalking-agent
