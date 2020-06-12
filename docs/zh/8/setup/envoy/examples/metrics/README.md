@@ -1,15 +1,14 @@
-# Sending Envoy Metrics to SkyWalking OAP Server Example
+# 发送 Envoy 度量指标至 SkyWalking OAP 服务样例
 
-This is an example of sending [Envoy Stats](https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/observability/statistics#arch-overview-statistics) to SkyWalking OAP server
-through [Metric Service](https://www.envoyproxy.io/docs/envoy/latest/api-v2/config/metrics/v2/metrics_service.proto).
+这是一个通过 [度量服务](https://www.envoyproxy.io/docs/envoy/latest/api-v2/config/metrics/v2/metrics_service.proto) 发送 [Envoy 状态](https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/observability/statistics#arch-overview-statistics) 至 SkyWalking OAP 服务的例子。
 
-## Running the example
+## 运行样例
 
-The example requires `docker` and `docker-compose` to be installed in your local. It fetches images from Docker Hub.
+样例需要本地安装 `docker` 和 `docker-compose`。它从 Docker Hub 获取镜像。
 
-Note that in ths setup, we override the [`log4j2.xml`](log4j2.xml) config to set the `org.apache.skywalking.oap.server.receiver.envoy` logger level to `DEBUG`. This enables us to see the messages sent by Envoy to SkyWalking OAP server.
+注意,在这个设置中，我们覆盖了 [`log4j2.xml`](log4j2.xml) 配置来设置 `org.apache.skywalking.oap.server.receiver.envoy` 日志级别为 `DEBUG`。这使我们能够看到 Envoy 发送到 SkyWalking OAP 服务的消息。
 
-```
+```shell
 $ make up
 $ docker-compose logs -f skywalking
 $ # Please wait for a moment until SkyWalking is ready and Envoy starts sending the stats. You will see similar messages like the following:

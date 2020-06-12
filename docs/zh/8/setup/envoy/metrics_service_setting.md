@@ -1,9 +1,9 @@
-# Configuring Envoy to send metrics to SkyWalking
+# 配置 Envoy 来向 SkyWalking 发送度量指标
 
-In order to let Envoy to send metrics to SkyWalking, we need to feed Envoy with a configuration which contains `stats_sinks` that includes `envoy.metrics_service`.
-This `envoy.metrics_service` should be configured as a [`config.grpc_service`](https://www.envoyproxy.io/docs/envoy/latest/api-v2/api/v2/core/grpc_service.proto#envoy-api-msg-core-grpcservice) entry.
+为了让 Envoy 发送度量指标到 SkyWalking，我们需要给予 Envoy 一些包含 `stats_sinks` 的配置，其中包括 `envoy.metrics_service`。
+`envoy.metrics_service` 此配置应该作为 [`config.grpc_service`](https://www.envoyproxy.io/docs/envoy/latest/api-v2/api/v2/core/grpc_service.proto#envoy-api-msg-core-grpcservice) 的一个配置项进行配置。
 
-The interesting parts of the config is shown in the config below:
+以下配置展示了其中比较有用的某些配置项：
 
 ```yaml
 stats_sinks:
@@ -35,10 +35,10 @@ static_resources:
                 port_value: 11800
 ```
 
-A more complete static configuration, can be observed [here](config.yaml).
+更完整的静态配置可以在 [此处](config.yaml) 查看。
 
-Note that Envoy can also be configured dynamically through [xDS Protocol](https://github.com/envoyproxy/data-plane-api/blob/master/XDS_PROTOCOL.md).
+需要注意的是 Envoy 还可以进行通过 [xDS Protocol](https://github.com/envoyproxy/data-plane-api/blob/master/XDS_PROTOCOL.md) 进行动态配置。
 
-# Metrics data
+## 度量指标数据
 
-Some of the Envoy statistics are listed in this [list](https://www.envoyproxy.io/docs/envoy/latest/configuration/statistics). A sample data that contains identifier can be found [here](identify.json), while the metrics only can be observed [here](metrics.json).
+Envoy 的一些统计数据列在这个 [列表](https://www.envoyproxy.io/docs/envoy/latest/configuration/statistics) 中，有一个示例数据包含了 identifier ，可以在 [此处](identify.json) 找到，只包含指标的示例数据可以在 [此处](metrics.json) 找到.
