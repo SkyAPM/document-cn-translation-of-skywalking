@@ -1,28 +1,28 @@
-# Work with Istio
+# 与 Istio 协作
 
-Instructions for transport Istio's metrics to SkyWalking OAP server.
+介绍如何将 Istio 的度量指标发送到 SkyWalking OAP 服务.
 
-## Prerequisites
+## 前提
 
-Istio should be installed in kubernetes cluster. Follow [Istio getting start](https://istio.io/docs/setup/getting-started/)
-to finish it.
+Istio 已经安装在 kubernetes 集群中. 参考 [Istio 快速启动](https://istio.io/docs/setup/kubernetes/quick-start/)
+完成安装.
 
-## Deploy Skywalking backend
+## 部署 SkyWalking 后台
 
-Follow the [deploying backend in kubernetes](../backend/backend-k8s.md) to install oap server in kubernetes cluster.
+参考 [K8S 中部署后端](../backend/backend-k8s.md) 一文在 K8S 中安装 OAP Server。
 
-## Setup Istio to send metrics to oap
+## 设置 Istio 向 OAP 发送度量指标
 
-Our scripts are wrote based on Istio 1.3.3.
+我们的脚本基于 Istio 1.3.3 编写
 
-1. Install Istio metric template
+### 1. 安装 Istio 指标模板
 
 `kubectl apply -f https://raw.githubusercontent.com/istio/istio/1.3.3/mixer/template/metric/template.yaml`
 
-2. Install SkyWalking adapter
+#### 2. 安装 SkyWalking 适配器
 
 `kubectl apply -f skywalkingadapter.yml`
 
-Find the `skywalkingadapter.yml` at [here](yaml/skywalkingadapter.yml).
+在 [此处](yaml/skywalkingadapter.yml) 查找 `skywalkingadapter.yml`
 
-NOTICE, due to Istio Mixer is default OFF, we recommend you to consider our [ALS solution](../envoy/als_setting.md)
+注意，由于 Istio Mixer 默认时关闭的，我们建议你考虑我们的 [ALS 方案](../envoy/als_setting.md)
