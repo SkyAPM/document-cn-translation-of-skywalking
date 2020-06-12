@@ -65,7 +65,7 @@ ___
       - [高级特性](setup/service-agent/java-agent/README.md#advanced-features).
       - [插件开发指南](setup/service-agent/java-agent/README.md#plugin-development-guide).
       - [代理插件测试和性能测试](setup/service-agent/java-agent/README.md#test).
-    - [其他语言代理](setup/README.md#language-agents-in-service) 包括 .NetCore, PHP, NodeJS, Go, 这些都有志愿者维护.
+    - [其他语言代理](setup/README.md#language-agents-in-service) 包括 Nginx LUA, Python, .NetCore, PHP, NodeJS, Go, 这些都有志愿者维护.
   - 服务网格
     - [SkyWalking on Istio](setup/istio/README.md). 介绍如何使用 Istio Mixer bypass Adapter 与 SkyWalking 一起工作。
     - 使用 [ALS (access log service)](https://www.envoyproxy.io/docs/envoy/latest/api-v2/service/accesslog/v2/als.proto) 观察服务网格, 无需 Mixer. 跟踪查看 [文档](setup/envoy/als_setting.md)。
@@ -77,7 +77,8 @@ ___
       - [Cluster management](setup/backend/backend-cluster.md). 指导你将 backend 服务器设置为群集模式。
       - [Deploy in kubernetes](setup/backend/backend-k8s.md). 指导你构建和使用 SkyWalking 镜像以及如何部署到 K8S 中。
       - [Choose storage](setup/backend/backend-storage.md). 如我们所知，在默认的快速启动中，backend 使用 h2 数据库运行。但显然，它不符合产品环境。在这里，你可以找到其他的选择。选择一个你想要的，我们也环境所有人新的存储实现方式。
-      - [Set receivers](setup/backend/backend-receivers.md). 你可以根据你的要求选择接收者，大多数接收者是无害的，至少我们的默认接收器是无害的。您可以设置并激活所有提供的接收器。
+      - [Set receivers](setup/backend/backend-receivers.md). 你可以根据你的要求选择接收器，大多数接收器是无害的，至少我们的默认接收器是无害的。您可以设置并激活所有提供的接收器。
+      - [Open fetchers](en/setup/backend/backend-fetcher.md). 你可以打开不同的 fetcher 从目标应用读取度量指标。这些像接收器一样工作，但是是拉模式，典型的例如 prometheus。
       - 在后台设置 [链路跟踪采样率](setup/backend/trace-sampling.md) . 链路采样允许你保持度量的准确性，同时仅根据速率在存储中保留一些跟踪。
       - 根据Follow [慢数据库状态临界值slow DB statement threshold](setup/backend/slow-db-statement.md) 配置文档，理解如何在你的系统中检测慢数据库状态（包括慢 SQL 状态）。
       - 官方 [OAL 脚本](guides/backend-oal-scripts.md). 正如您从我们的 [OAL 介绍](concepts-and-designs/oal.md)中所知, 大多数后台分析能力都基于脚本。这是对官方脚本的描述，这有助于你理解正在处理的度量数据，也可以用于报警。

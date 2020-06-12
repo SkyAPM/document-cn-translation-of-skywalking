@@ -7,7 +7,6 @@ SkyWalking 的后台提供了几种集群管理的方案。选择你需要或想
 - [Zookeeper 协调方式](#zookeeper-coordinator)。使用 ZooKeeper 让后端实例彼此之间检测和通信。
 - [Kubernetes](#kubernetes). 当后台集群部署在 kubernetes 中，你可以选择使用 k8s 原生的 APIs 来管理集群。
 - [Consul](#consul). 使用 Consul 作为集群管理的实现者，来协调的实例。
-- [Nacos](#nacos). 使用 Nacos 作为集群管理的实现者, 来协调后端的实例。
 - [Etcd](#etcd). 使用 Etcd 作为集群管理的实现者, 来协调后端的实例。
 
 在 `application.yml` 中, 在 `cluster` 部分有上述协调器的默认配置，你可以通过 `selector` 属性启用他们中的任意一个。
@@ -79,16 +78,6 @@ cluster:
 
 - internalComHost, 已注册的主机和其它 OAP 节点使用它与当前节点通信。
 - internalComPort, 已注册的端口和其它 OAP 节点使用它与当前节点通信。
-  
-## Nacos
-
-在 yml 文件中设置 **cluster/selector** 为 **nacos** 启用它。
-
-```yaml
-cluster:
-  selector: ${SW_CLUSTER:nacos}
-  # other configurations
-```
 
 ## Etcd
 

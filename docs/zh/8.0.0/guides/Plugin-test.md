@@ -13,7 +13,7 @@
 
 ## 用例库镜像简介
 
-该测试框架提供了`JVM-container`和` Tomcat-container`基础镜像。您可以为您的测试用例选择合适的一个，如果其中一个合适，建议选择`JVM-container` 。
+该测试框架提供了 `JVM-container` 和 `Tomcat-container` 基础镜像。您可以为您的测试用例选择合适的一个，如果其中一个合适，建议选择`JVM-container` 。
 
 ### JVM容器镜像简介
 
@@ -21,19 +21,21 @@
 必须使用“ mvn clean package”将测试用例项目打包为“ project-name.zip”，包括“ startup.sh”和uber jar。
 
 以以下测试项目为例
+
 * [sofarpc-scenario](../../../test/plugin/scenarios/sofarpc-scenario)作为单个项目用例。
 * [webflux-scenario](../../../test/plugin/scenarios/webflux-scenario) 作为包括多个项目的用例。
 
 ### Tomcat容器镜像简介
 
 [Tomcat-container](../../../test/plugin/containers/tomcat-container) 使用 `tomcat:8.5.42-jdk8-openjdk` 作为基础镜像。
-必须使用` mvn package`将测试用例项目打包为` project-name.war`。
+必须使用 `mvn package` 将测试用例项目打包为 `project-name.war`。
 
 Take the following test project as a good example
+
 * [spring-4.3.x-scenario](https://github.com/apache/skywalking/tree/master/test/plugin/scenarios/spring-4.3.x-scenario)
 
-
 ## 测试项目层次结构
+
 该测试用例是一个独立的Maven项目，需要将其打包为war tar 文件或zip文件，具体取决于所选的基本镜像。此外，还需要两个外部可访问端点，主要是两个URL。
 
 所有的测试用例代码都应该在`org.apache.skywalking.apm.testcase`包中，除非期望使用某些代码，否则这些类可以在`test.org.apache.skywalking.apm.testcase`包中。
@@ -80,6 +82,7 @@ Take the following test project as a good example
 ```
 
 ## 测试用例配置文件
+
 每个测试用例都需要以下文件。
 
 文件名| 内容描述
@@ -135,7 +138,7 @@ depends_on:
 dependencies:
   service1:
     image:
-    hostname: 
+    hostname:
     expose:
       ...
     environment:
@@ -153,6 +156,7 @@ dependencies:
 * 依赖项支持docker撰写`healthcheck`。但是格式略有不同。我们需要将-作为每个配置项的开头，并将其描述为字符串行。
 
 例如在官方文档中，健康检查是
+
 ```yaml
 healthcheck:
   test: ["CMD", "curl", "-f", "http://localhost"]
@@ -163,6 +167,7 @@ healthcheck:
 ```
 
 在这里，应该写成
+
 ```yaml
 healthcheck:
   - 'test: ["CMD", "curl", "-f", "http://localhost"]'
@@ -179,9 +184,10 @@ healthcheck:
 > 不需要将任何端口映射到主机VM，也无需安装任何文件夹。
 
 **以以下测试用例可以作为参考**
+
 * [dubbo-2.7.x with JVM-container](../../../test/plugin/scenarios/dubbo-2.7.x-scenario/configuration.yml)
 * [jetty with JVM-container](../../../test/plugin/scenarios/jetty-scenario/configuration.yml)
-* [gateway with runningMode](../../../test/plugin/scenarios/gateway-scenario/configuration.yml)
+* [gateway with runningMode](../../../test/plugin/scenarios/gateway-2.1.x-scenario/configuration.yml)
 * [canal with docker-compose](../../../test/plugin/scenarios/canal-scenario/configuration.yml)
 
 ### expectedData.yaml
@@ -204,6 +210,7 @@ healthcheck:
 | `eq` | 等于(默认情况下) |
 
 **细分目标描述格式**
+
 ```yml
 segmentItems:
 -
@@ -214,7 +221,6 @@ segmentItems:
     spans:
         ...
 ```
-
 
 | 属性 |  描述
 | --- | ---  
@@ -321,17 +327,16 @@ java -jar ${agent_opts} "-Dskywalking.agent.service_name=jettyclient-scenario"  
 * [undertow](../../../test/plugin/scenarios/undertow-scenario/bin/startup.sh)
 * [webflux](../../../test/plugin/scenarios/webflux-scenario/webflux-dist/bin/startup.sh)
 
-
 ## 最佳实践
 
 ### 如何使用原型创建测试用例项目
+
 我们提供了原型和脚本，使创建项目更加容易。它创建了一个完整的测试用例项目。
 这样我们只需要关注用例。首先，我们可以关注以下命令来获取有关脚本的用法。
 
 `bash ${SKYWALKING_HOME}/test/plugin/generator.sh`
 
 然后运行并在`./scenarios`中生成一个以`scenario_name`的项目。
-
 
 ### 推荐Pom
 
@@ -373,8 +378,9 @@ java -jar ${agent_opts} "-Dskywalking.agent.service_name=jettyclient-scenario"  
 我们正在使用HttpClient插件来展示如何写入期望的数据.
 
 测试有两个要点
+
 1. 是否创建HttpClient span。
-1. ContextCarrier是否正确创建，并在进程之间传播。
+2. ContextCarrier是否正确创建，并在进程之间传播。
 
 ```
 +-------------+         +------------------+            +-------------------------+
@@ -398,11 +404,13 @@ java -jar ${agent_opts} "-Dskywalking.agent.service_name=jettyclient-scenario"  
       |                           |                                  |
       +                           +                                  +
 ```
+
 #### segmentItems
 
 通过遵循HttpClient用例的流程，应该创建两个追踪段。
+
 1. 一段代表 用例Servlet 访问。我们将其命名为`SegmentA`。
-1. 一段代表ContextPropagateServlet访问。我们将其命名为`SegmentB`。
+2. 一段代表ContextPropagateServlet访问。我们将其命名为`SegmentB`。
 
 ```yml
 segmentItems:
@@ -411,10 +419,12 @@ segmentItems:
 ```
 
 由于Tomcat插件是SkyWalking的默认插件，因此在SegmentA中有两个跨度
+
 1. Tomcat 入口跨度(entry span)
-1. HttpClient 出口跨度(exit span)
+2. HttpClient 出口跨度(exit span)
 
 SegmentA跨度列表应如下
+
 ```yml
     - segmentId: not null
       spans:
@@ -451,6 +461,7 @@ SegmentA跨度列表应如下
 SegmentB应该只有一个Tomcat跨度，但应包含指向SegmentA的Ref。
 
 SegmentB跨度列表应如下
+
 ```yml
 - segmentId: not null
   spans:

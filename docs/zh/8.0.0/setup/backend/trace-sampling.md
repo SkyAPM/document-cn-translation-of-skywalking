@@ -1,4 +1,5 @@
 # 服务器端的跟踪采样
+
 当我们运行一个分布式跟踪系统时，跟踪会给我们带来详细的信息，但在存储消耗很大。开放服务器端跟踪采样机制，
 服务度量、服务实例、端点和拓扑和以前一样，都是准确的，只是不把所有的跟踪数据存起来。
 
@@ -6,25 +7,25 @@
 后端将尽力不破坏跟踪。查看[推荐](#推荐)来了解我们称它为`as consistent as possible`和`do their best to don't break the trace`的原因。
 
 ## 设定采样率
+
 在**receiver-trace**接受者中，你可以找到`sampleRate`设置。
 
 ```yaml
 receiver-trace:
   default:
-    bufferPath: ../trace-buffer/  # 跟踪缓冲区文件的路径，建议使用绝对路径
-    bufferOffsetMaxFileSize: 100 # 单位为MB
-    bufferDataMaxFileSize: 500 # 单位为MB
-    bufferFileCleanWhenRestart: false
+    ...
     sampleRate: ${SW_TRACE_SAMPLE_RATE:1000} # 采样率精度为1/10000。 10000表示默认为100％采样。
 ```
 
 `sampleRate` 可让你设置Backend的采样率。
 采样率精度为1/10000。10000表示默认为100%样本。 
 
-# 推荐
+## 推荐
+
 您可以给的不同的后端实例设置不同的'sampleRate'值，但我们建议你设置成一样。
 
 当你设置不同的值时，
+
 * Backend-Instance**A**.sampleRate = 35
 * Backend-Instance**B**.sampleRate = 55
 

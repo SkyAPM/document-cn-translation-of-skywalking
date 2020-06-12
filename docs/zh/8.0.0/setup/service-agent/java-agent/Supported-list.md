@@ -24,13 +24,13 @@
   * [Jetty Client](http://www.eclipse.org/jetty/) 9
   * [Apache httpcomponent AsyncClient](https://hc.apache.org/httpcomponents-asyncclient-dev/) 4.x
 * HTTP Gateway
-  * [Spring Cloud Gateway](https://spring.io/projects/spring-cloud-gateway) 2.1.x.RELEASE (Optional²)
+  * [Spring Cloud Gateway](https://spring.io/projects/spring-cloud-gateway) 2.0.2.RELEASE -> 2.2.x.RELEASE (Optional²)
 * JDBC
   * Mysql Driver 5.x, 6.x, 8.x
   * Oracle Driver (Optional¹)
   * H2 Driver 1.3.x -> 1.4.x
   * [Sharding-JDBC](https://github.com/shardingjdbc/sharding-jdbc) 1.5.x
-  * [ShardingSphere](https://github.com/apache/incubator-shardingsphere) 3.0.0, 4.0.0-RC1
+  * [ShardingSphere](https://github.com/apache/incubator-shardingsphere) 3.0.0, 4.0.0-RC1, 4.0.0 -> 4.1.1
   * PostgreSQL Driver 8.x, 9.x, 42.x
   * Mariadb Driver 2.x, 1.8
 * RPC Frameworks
@@ -93,8 +93,6 @@
 * Kotlin
   * [Coroutine](https://kotlinlang.org/docs/reference/coroutines-overview.html) 1.0.1 -> 1.3.x (Optional²)
 
-
-¹Due to license incompatibilities/restrictions these plugins are hosted and released in 3rd part repository, 
- go to [SkyAPM java plugin extension repository](https://github.com/SkyAPM/java-plugin-extensions) to get these.
+¹Due to license incompatibilities/restrictions these plugins are hosted and released in 3rd part repository, go to [SkyAPM java plugin extension repository](https://github.com/SkyAPM/java-plugin-extensions) to get these.
 
 ²These plugins affect the performance or must be used under some conditions, from experiences. So only released in `/optional-plugins`, copy to `/plugins` in order to make them work.

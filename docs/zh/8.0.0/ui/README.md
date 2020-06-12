@@ -1,18 +1,23 @@
 # UI介绍
+
 SkyWalking官方UI为分布式的SkyWalking观测提供了默认的、强大的可视化功能集群.
+
+最新的介绍视频可以在 Youtube 上找到
+
+[![RocketBot UI](http://img.youtube.com/vi/mfKaToAKl7k/0.jpg)](http://www.youtube.com/watch?v=mfKaToAKl7k)
 
 SkyWalking仪表板包括以下部分.
 
-
-<img src="http://skywalking.apache.org/ui-doc/7.0.0/dashboard.png"/>
-
+![img "dashboard"](http://skywalking.apache.org/ui-doc/7.0.0/dashboard.png)
 
 1. **功能选项卡选择区**. 这里列出了主要特性。更多细节将在下面介绍.
 2. **重载区**. 控制重新加载机制，包括定期重新加载或手动重新加载.
 3. **时间选择器**. 控制时区和时间范围。这里有一个中文/英文切换按钮，默认，UI使用浏览器语言设置。我们也欢迎贡献更多的语言。
 
 ## 仪表板
+
 指示板提供服务、服务实例和端点的指标。您需要了解一些度量术语
+
 * 吞吐量CPM，表示每分钟的调用.
 * Apdex分数,参考[Apdex in WIKI](https://en.wikipedia.org/wiki/Apdex)
 * 响应时间百分比，包括 `p99`, `p95`, `p90`, `p75`, `p50`.参考[percentile in WIKI](https://en.wikipedia.org/wiki/Percentile)
@@ -21,18 +26,19 @@ SkyWalking仪表板包括以下部分.
 服务、实例和仪表板选择器可以手动重新加载，而不是重新加载整个页面。注意，重载区域**
 不会重载这些选择器。
 
-<img src="http://skywalking.apache.org/ui-doc/7.0.0/dashboard-reload.png"/>
+![img](http://skywalking.apache.org/ui-doc/7.0.0/dashboard-reload.png)
 
 提供了两个默认指示板来可视化服务和数据库的指标.
 
-<img src="http://skywalking.apache.org/ui-doc/7.0.0/dashboard-default.png"/>
+![img](http://skywalking.apache.org/ui-doc/7.0.0/dashboard-default.png)
 
 用户可以点击“锁定”按钮，而不是“服务/实例/端点重载”按钮来定制自己的仪表板.
 
 ## 拓扑结构
+
 拓扑图用指标显示服务和实例之间的关系.
 
-<img src="http://skywalking.apache.org/ui-doc/7.0.0/topology.png"/>
+![img](http://skywalking.apache.org/ui-doc/7.0.0/topology.png)
 
 * 拓扑显示包含所有服务的默认全局拓扑.
 * **服务选择器** 支持显示直接关系，包括上游和下游.
@@ -41,9 +47,10 @@ SkyWalking仪表板包括以下部分.
 * **服务指标的关系** 提供服务RPC交互的度量以及这两个服务的实例.
 
 ## 跟踪查询
+
 跟踪查询是与skywalk提供的分布式代理一样的典型特性.
 
-<img src="http://skywalking.apache.org/ui-doc/7.0.0/trace.png"/>
+![img](http://skywalking.apache.org/ui-doc/7.0.0/trace.png)
 
 * **跟踪部分列表** 不是跟踪列表。每个跟踪都有几个属于不同服务的段。
 如果通过所有服务或通过跟踪id进行查询，可以在其中列出具有相同跟踪id的不同段.
@@ -51,11 +58,12 @@ SkyWalking仪表板包括以下部分.
 * **跟踪视图** 提供3个典型的和不同的使用视图来可视化跟踪. 
 
 ## 配置文件
+
 Profile是一个交互特性。提供了方法级的性能诊断. 
 
 要开始概要分析，用户需要创建概要任务
 
-<img src="http://skywalking.apache.org/ui-doc/7.0.0/profile-create.png" width="440px"/>
+![img](http://skywalking.apache.org/ui-doc/7.0.0/profile-create.png)
 
 1. 选择特定的服务。
 2. 设置端点名称。这个端点名通常是第一个span的操作名。在追踪器上找到这个
@@ -78,14 +86,12 @@ Profile是一个交互特性。提供了方法级的性能诊断.
 选择正确的跨度后，单击“analysis”按钮，您将看到基于堆栈的分析结果。最慢的方法
 已被高亮显示。
 
-<img src="http://skywalking.apache.org/ui-doc/7.0.0/profile-result.png"/>
+![img](http://skywalking.apache.org/ui-doc/7.0.0/profile-result.png)
 
 ### 先进的功能
+
 1. 从7.1.0开始，配置的跟踪会自动收集Tomcat和SpringMVC控制器的HTTP请求参数.
 
 ## 告警
-告警页面列出了所有触发的告警。阅读后端设置文档，了解如何设置告警规则或集成使用第三方系统。
 
-## 指标比较
-度量比较是一种性能分析工具。它提供不同实体或不同实体之间的度量比较没有仪表板可视化限制的度量。
-如果你怀疑任何关系性能影响，可以使用此工具以确定度量模式是否匹配。
+告警页面列出了所有触发的告警。阅读后端设置文档，了解如何设置告警规则或集成使用第三方系统。
