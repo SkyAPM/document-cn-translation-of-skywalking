@@ -1,104 +1,91 @@
-# Dynamic Configuration
-SkyWalking Configurations mostly are set through `application.yml` and OS system environment variables.
-At the same time, some of them are supporting dynamic settings from upstream management system.
+# 动态配置
 
-Right now, SkyWalking supports following dynamic configurations.
+SkyWalking 配置大部分通过 `application.yml` 和系统环境变量进行设置.
+但其中有一些支持从上游管理系统进行获取.
 
-| Config Key | Value Description | Value Format Example |
+到目前为止, SkyWalking 支持以下动态配置.
+
+| Config Key | Value 描述 | Value 格式示例 |
 |:----:|:----:|:----:|
-|receiver-trace.default.slowDBAccessThreshold| Thresholds of slow Database statement, override `receiver-trace/default/slowDBAccessThreshold` of `applciation.yml`. | default:200,mongodb:50|
-|receiver-trace.default.uninstrumentedGateways| The uninstrumented gateways, override `gateways.yml`. | same as [`gateways.yml`](uninstrumented-gateways.md#configuration-format) |
-|alarm.default.alarm-settings| The alarm settings, will override `alarm-settings.yml`. | same as [`alarm-settings.yml`](backend-alarm.md) |
-|core.default.apdexThreshold| The apdex threshold settings, will override `service-apdex-threshold.yml`. | same as [`service-apdex-threshold.yml`](apdex-threshold.md) |
-|core.default.endpoint-name-grouping| The endpoint name grouping setting, will override `endpoint_name_grouping.yml`. | same as [`endpoint_name_grouping.yml`](endpoint-grouping-rules.md) |
+|receiver-trace.default.slowDBAccessThreshold| 数据库慢语句阀值, 覆盖 `applciation.yml` 中的 `receiver-trace/default/slowDBAccessThreshold`. | default:200,mongodb:50|
+|receiver-trace.default.uninstrumentedGateways| 需要网关，则重写 gateways.yml 文件. | 与 gateways.yml 文件一致|
+|alarm.default.alarm-settings| 告警设置, 需要重写 alarm-settings.yml 文件. | 与 alarm-settings.yml 文件一致|
+|core.default.apdexThreshold| apdex 阈值设置, 需要重写 service-apdex-threshold.yml 文件.|与 service-apdex-threshold.yml 文件一致|
+|core.default.endpoint-name-grouping| 端点名称分组设置, 需要重写 endpoint_name_grouping.yml 文件.| 与 endpoint_name_grouping.yml 文件一致|
 
 
-This feature depends on upstream service, so it is **DISABLED** by default.
+此功能依赖上游服务, 因此默认是关闭的.
 
 ```yaml
 configuration:
-  selector: ${SW_CONFIGURATION:none}
   none:
+```
+
+## 动态配置服务 (Dynamic Configuration Service, DCS)
+[动态配置服务](../../../../oap-server/server-configuration/grpc-configuration-sync/src/main/proto/configuration-service.proto) 
+是一个 gRPC 服务, 需要上游系统进行实现.
+在你按照如下方式配置开启此功能之后, SkyWalking OAP 就可以从该服务的实现获取配置信息
+
+```yaml
+configuration:
   grpc:
-    host: ${SW_DCS_SERVER_HOST:""}
-    port: ${SW_DCS_SERVER_PORT:80}
-    clusterName: ${SW_DCS_CLUSTER_NAME:SkyWalking}
-    period: ${SW_DCS_PERIOD:20}
-  # ... other implementations
+    # 上游系统主机名
+    host: 127.0.0.1
+    # 上游系统端口
+    port: 9555
+    #period : 60 # 单位秒，同步周期。默认每60秒取回一次.
+    #clusterName: "default" # 当前群集的名称，如果想要上游系统的名称，请设置.  
 ```
 
-## Dynamic Configuration Service, DCS
-[Dynamic Configuration Service](../../../../oap-server/server-configuration/grpc-configuration-sync/src/main/proto/configuration-service.proto) 
-is a gRPC service, which requires the upstream system implemented.
-The SkyWalking OAP fetches the configuration from the implementation(any system), after you open this implementation like this.
+## 动态配置 Apollo 实现
+
+动态配置服务也支持 [Apollo](https://github.com/ctripcorp/apollo/), 只需按如下配置:
 
 ```yaml
 configuration:
-  selector: ${SW_CONFIGURATION:grpc}
-  grpc:
-    host: ${SW_DCS_SERVER_HOST:""}
-    port: ${SW_DCS_SERVER_PORT:80}
-    clusterName: ${SW_DCS_CLUSTER_NAME:SkyWalking}
-    period: ${SW_DCS_PERIOD:20}
-```
-
-## Dynamic Configuration Zookeeper Implementation
-
-[Zookeeper](https://github.com/apache/zookeeper) is also supported as DCC(Dynamic Configuration Center), to use it, please configure as follows:
-
-```yaml
-configuration:
-  selector: ${SW_CONFIGURATION:zookeeper}
-  zookeeper:
-    period: ${SW_CONFIG_ZK_PERIOD:60} # Unit seconds, sync period. Default fetch every 60 seconds.
-    nameSpace: ${SW_CONFIG_ZK_NAMESPACE:/default}
-    hostPort: ${SW_CONFIG_ZK_HOST_PORT:localhost:2181}
-    # Retry Policy
-    baseSleepTimeMs: ${SW_CONFIG_ZK_BASE_SLEEP_TIME_MS:1000} # initial amount of time to wait between retries
-    maxRetries: ${SW_CONFIG_ZK_MAX_RETRIES:3} # max number of times to retry
-```
-
-## Dynamic Configuration Etcd Implementation
-
-[Etcd](https://github.com/etcd-io/etcd) is also supported as DCC(Dynamic Configuration Center), to use it, please configure as follows:
-
-```yaml
-configuration:
-  selector: ${SW_CONFIGURATION:etcd}
-  etcd:
-    period: ${SW_CONFIG_ETCD_PERIOD:60} # Unit seconds, sync period. Default fetch every 60 seconds.
-    group: ${SW_CONFIG_ETCD_GROUP:skywalking}
-    serverAddr: ${SW_CONFIG_ETCD_SERVER_ADDR:localhost:2379}
-    clusterName: ${SW_CONFIG_ETCD_CLUSTER_NAME:default}
-```
-
-## Dynamic Configuration Consul Implementation
-
-[Consul](https://github.com/rickfast/consul-client) is also supported as DCC(Dynamic Configuration Center), to use it, please configure as follows:
-
-```yaml
-configuration:
-  selector: ${SW_CONFIGURATION:consul}
-  consul:
-    # Consul host and ports, separated by comma, e.g. 1.2.3.4:8500,2.3.4.5:8500
-    hostAndPorts: ${SW_CONFIG_CONSUL_HOST_AND_PORTS:1.2.3.4:8500}
-    # Sync period in seconds. Defaults to 60 seconds.
-    period: ${SW_CONFIG_CONSUL_PERIOD:1}
-    # Consul aclToken
-    aclToken: ${SW_CONFIG_CONSUL_ACL_TOKEN:""}
-```
-
-## Dynamic Configuration Apollo Implementation
-
-[Apollo](https://github.com/ctripcorp/apollo/) is also supported as DCC(Dynamic Configuration Center), to use it, just configured as follows:
-
-```yaml
-configuration:
-  selector: ${SW_CONFIGURATION:apollo}
   apollo:
-    apolloMeta: ${SW_CONFIG_APOLLO:http://106.12.25.204:8080}
-    apolloCluster: ${SW_CONFIG_APOLLO_CLUSTER:default}
-    apolloEnv: ${SW_CONFIG_APOLLO_ENV:""}
-    appId: ${SW_CONFIG_APOLLO_APP_ID:skywalking}
-    period: ${SW_CONFIG_APOLLO_PERIOD:5}
+    apolloMeta: <your apollo meta address>
+    apolloCluster: default
+    # apolloEnv: # 默认为null
+    appId: skywalking
+    period: 5
 ```
+
+## 动态配置 Nacos 实现
+
+动态配置服务也支持 [Nacos](https://github.com/alibaba/nacos), 只需按如下配置:
+
+```yaml
+configuration:
+  nacos:
+    # Nacos 服务器主机
+    serverAddr: 127.0.0.1
+    # Nacos 服务器端口
+    port: 8848
+    # Nacos 配置分组
+    group: 'skywalking'
+    # 单位秒，同步周期。默认每60秒提取一次。
+    period : 60
+    # 当前群集的名称，如果想要上游系统的名称，请设置。
+    clusterName: "default"
+```
+
+## 实现动态配置 Zookeeper
+
+动态配置也支持 [Zookeeper](https://github.com/apache/zookeeper) 作为配置中心, 如需启用, 只需按如下配置:
+
+```yaml
+configuration:
+  zookeeper:
+    period : 60 # 单位秒，同步周期。默认每60秒提取一次。
+    nameSpace: /default
+    hostPort: localhost:2181
+    #重试策略
+    baseSleepTimeMs: 1000 # 重试等待的初始时间
+    maxRetries: 3 # 重试的最大次数
+```
+
+## 第三方配置中心
+欢迎贡献此模块的实现来支持一些流行的配置中心, 如 etcd, Consul. 提交 issue 进行讨论。
+
+
