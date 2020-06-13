@@ -1,12 +1,10 @@
-# Local span and Exit span should not be register
+# 不注册本地span和退出span
 
-Since 6.6.0, SkyWalking cancelled the local span and exit span register. If old java agent(before 6.6.0) is still running,
-and do register to 6.6.0+ backend, you will face the following warning message.
+从6.6.0开始，SkyWalking取消了本地span和退出span寄存器。如果旧的java代理(6.6.0之前)仍然在运行，并且注册到6.6.0+后端，您将面临以下警告消息.
 ```
 class=RegisterServiceHandler, message = Unexpected endpoint register, endpoint isn't detected from server side.
 ```
 
-This will not harm the backend or cause any issue. This is a reminder that, your agent or other client should follow the new protocol
-requirements.
+这不会损害后端或导致任何问题。这提醒您，您的代理或其他客户端应该遵循新的协议要求.
 
-You could simply use `log4j2.xml` to filter this warning message out.
+您可以使用 `log4j2.xml` 轻松地过滤此警告消息.

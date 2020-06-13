@@ -1,31 +1,25 @@
-# Apache SkyWalking committer
-SkyWalking Project Management Committee(PMC) takes the responsibilities to assess the contributions of candidates.
+# Apache SkyWalking 代码提交者
+SkyWalking 项目管理委员会(PMC)负责评估候选人的贡献.
 
-In the SkyWalking, like many Apache projects, we treat contributions including, but not limited to, code contributions.
-Such as writing blog, guiding new users, give public speak, prompting project in various ways, are all treated as significant 
-contributions.
+在SkyWalking中，就像许多Apache项目一样，我们处理的贡献包括但不限于代码贡献.
+如写博客，引导新用户，发表演讲，以各种方式推动项目，都被视为重要的贡献.
 
-## Committer
-### New committer nomination
-In the SkyWalking, **new committer nomination** could only be started by existing PMC members officially. The new contributor
-could contact any existing PMC member if he/she feels he/she is qualified. Talk with the PMC member, if some members agree,
-they could start the process.
+## 代码提交者
+### 新的提交者提名
+在SkyWalking中，**新的提交者提名**只能由现有PMC成员正式启动. 
+新的贡献者可以联系任何现有的PMC成员，如果他/她认为他/她是合格的. 再与PMC成员交谈，如果一些成员同意，他们可以启动流程.
 
-The following steps are recommended, and could only be started by existing PMC member.
-1. Send the `[DISCUSS] Promote xxx as new committer` mail to `private@skywalking.a.o`. List the important contributions of the candidates,
-in order to help the PMC members supporting your proposal.
-2. Keep discussion open in more than 3 days, but not more than 1 week, unless there is any explicit objection or concern.
-3. Send the `[VOTE] Promote xxx as new committer` mail to `private@skywalking.a.o`, when the PMC seems to agree the proposal.
-4. Keep vote more than 3 days, but not more than 1 week. Consider the result as `Consensus Approval` if there 3 +1 votes and
-+1 votes > -1 votes
-5. Send the `[RESULT][VOTE] Promote xxx as new committer` mail to `private@skywalking.a.o`, and list the vote detail including
-the voters.
+建议执行以下步骤，并且只能由现有的PMC成员启动.
+1. 将 `[DISCUSS] Promote xxx as new committer` 邮件发送到 `private@skywalking.a.o`. 为了帮助PMC成员支持您的提案，请列出候选人的重要贡献.
+2. 讨论持续3天以上，但不超过一周， 除非有明确的反对或关注.
+3. 当PMC似乎同意这个提议后，将 `[VOTE] Promote xxx as new committer` 邮件发送到 `private@skywalking.a.o`.
+4. 投票持续3天以上, 但不超过一周. 如果有 3 个 +1 票，则将结果视为 `一致通过`   +1 票 > -1 票
+5. 将 `[RESULT][VOTE] Promote xxx as new committer` 邮件发送到 `private@skywalking.a.o`, 并列出投票的细节，包括选民.
 
-### Invite new committer
-The PMC member, who start the promotion, takes the responsibilities to send the invitation to new committer and guide him/her to set
-up the ASF env.
+### 邀请新提交者
+PMC成员负责向新提交者发出邀请，并指导新提交者建立ASF env.
 
-You should send the mail like the following template to new committer
+您应该按照以下的模板将邮件发送给新的提交者
 ```
 To: JoeBloggs@foo.net
 Cc: private@skywalking.apache.org
@@ -77,20 +71,20 @@ receive a follow-up message with the next steps for
 establishing you as a committer.
 ```
 
-### Invitation acceptance process
-And the new committer should reply the mail to `private@skywalking.apache.org`(Choose `reply all`), and express the will to accept the invitation explicitly.
-Then this invitation will be treated as accepted by project PMC. Of course, the new committer could just say NO, and reject the invitation.
+### 邀请验收流程
+新提交人应将邮件回复至 `private@skywalking.apache.org` (选择 `回复所有人`)，并明确表示愿意接受邀请。
+然后，此邀请将被视为已被项目PMC接受。当然，新的提交者可以直接说不，然后拒绝邀请.
 
-If they accepted, then they need to do the following things.
-1. Make sure they have subscribed the `dev@skywalking.apache.org`. Usually they already have.
-1. Sign the ICLA(Individual Contributor License Agreement), which could be found [here](http://www.apache.org/licenses/contributor-agreements.html#clas).
-1. If you are going to contribute to the project as day job, CCLA  is expected.
-1. About the ICLA sign, you need to print the ICLA, sign it manually(by hand), and scan it as an pdf. 
-1. Choose your Apache ID and fill it into the ICLA, all existing Apache IDs could be found [here](http://people.apache.org/committer-index.html)
-1. Sign the gpg to your icla.pdf.
-1. Send both `icla.pdf` and `icla.pdf.asc` to `secretary@apache.org` and `private@skywalking.apache.org`.
+如果他们接受了，那么他们需要做以下事情.
+1. 确保他们已经订阅了 `dev@skywalking.apache.org`.通常他们已订阅.
+1. 签署ICLA(个人贡献者许可协议)，可前往 [here](http://www.apache.org/licenses/contributor-agreements.html#clas).
+1. 如果你想在日常工作中为项目做出贡献，CCLA是你的不二选择.
+1. 关于ICLA标志，您需要打印ICLA，手动签名，并将其扫描为pdf. 
+1. 选择您的Apache ID并将其填入ICLA，可前往 [here](http://people.apache.org/committer-index.html) 找到所有现有的Apache ID
+1. 将gpg签署到您的icla.pdf.
+1. 将 `icla.pdf` 和 `icla.pdf.asc` 邮件发送到 `secretary@apache.org` 和 `private@skywalking.apache.org`.
 
-Then the PMC will wait the Apache secretary confirmed the ICLA filed. The new committer and PMC will receive the mail like following
+然后PMC将等待 Apache 确认ICLA的文件. 新的提交者和PMC将收到如下邮件
 ```
 Dear XXX,
 
@@ -103,53 +97,51 @@ Please refer to https://www.apache.org/foundation/how-it-works.html#developers
 for more information about roles at Apache.
 ```
 
-If in some case, the account has not be requested(rarely to see), the PMC member should contact the project V.P..
-The V.P. could request through the [Apache Account Submission Helper Form](https://whimsy.apache.org/officers/acreq).
+如果在某些情况下，帐户没有被请求(很少看到)，PMC成员应该联系项目V.P.
+V.P.可以请求通过 [Apache Account Submission Helper Form](https://whimsy.apache.org/officers/acreq).
 
-After several days, the new committer will receive the account created mail, as this title, `Welcome to the Apache Software Foundation (ASF)!`.
-At this point, congratulate! You have the official Apache ID.
+几天后，新的提交者将收到创建的帐户邮件，即这个标题, `Welcome to the Apache Software Foundation (ASF)!`.
+此时，祝贺你!您拥有正式的Apache ID.
 
-The PMC member should add the new committer to official committer list through [roster](https://whimsy.apache.org/roster/committee/skywalking). 
+PMC成员应该将新的提交者添加到正式提交者列表中 [roster](https://whimsy.apache.org/roster/committee/skywalking). 
 
-### Set up the Apache ID and dev env
-1. Go to [Apache Account Utility Platform](https://id.apache.org/), initial your password, set up your personal mailbox(`Forwarding email address`) 
-and GitHub account(`Your GitHub Username`).
-1. If you want to use `xxx@apache.org` to send mail, you need to use GMail, and following [this guide](https://reference.apache.org/committer/email).
+### 设置 Apache ID 和 dev env
+1. 前往 [Apache Account Utility Platform](https://id.apache.org/), 初始化你的密码，设置你的个人邮箱(`Forwarding email address`) 
+和 GitHub 账号(`Your GitHub Username`).
+1. 如果你想使用 `xxx@apache.org` 发送邮件，你需要使用GMail，并遵循[本指南](https://reference.apache.org/committer/email).
 1. Use [GitBox Account Linking Utility](https://gitbox.apache.org/setup/) to make your GitHub account to join Apache GitHub org.
-Notice, if never got your GitHub invitation? Visit github.com/apache to see if you have an invitation pending. Also, your GitHub MFA Status is required.
+注意，如果没有收到你的GitHub邀请?访问github.com/apache看看你是否有一个待定的邀请. 同样，你的GitHub MFA状态也是必须的.
 
-If you want others could see you are in the Apache GitHub org, you need to go to [Apache GitHub org people page](https://github.com/orgs/apache/people), 
-search for yourself, and choose `Organization visibility` to `Public`.
+如果你想让别人看到你在Apache GitHub org，你需要去 [Apache GitHub org people page](https://github.com/orgs/apache/people), 
+搜索你自己，然后选择 `Organization visibility` to `Public`.
 
-### Committer rights, duties and responsibilities
-SkyWalking project doesn't require the continue contributions after you become a committer, but we hope and truly want you could.
+### 提交者的权利、义务和责任
+SkyWalking项目在你成为提交者后不需要继续的贡献，但是我们希望你可以继续.
 
-Being a committer, you could
-1. Review and merge the pull request to the master branch in the Apache repo. A pull request often contains multiple commits. Those commits **must be squashed and merged** into a single commit **with explanatory comments**. For new committer, we hope you could request some senior committer to recheck the pull request.
-1. Create and push codes to new branch in the Apache repo.
-1. Follow the [Release process](../How-to-release.md) to process new release. Of course, you need to ask committer team
-to confirm it is the right time to release.
+作为一个提交者，你可以
+1. 在Apache repo中检查并将pull请求合并到主分支. 拉请求通常包含多次提交. 那些提交**必须被压缩并合并到一个带有注释**的提交**中. 对于新的提交者，我们希望您能要求一些资深提交者重新检查pull请求.
+1. 在Apache repo中创建代码并将其推送到新的分支.
+1. 遵循 [发布过程](../How-to-release.md) 发布新版本. 当然，您需要请求提交者团队确认现在是发布的正确时间.
 
-The PMC hope the new committer to take part in the release and release vote, even still be consider `+1 no binding`.
-But be familiar with the release is one of the key to be promoted as a PMC member.
+PMC希望新的提交者能够参与release和release的投票，甚至仍然考虑 `+1无约束力`.
+但是熟悉版本是晋升为PMC成员的关键之一.
 
-## Project Management Committee
-Project Management Committee(PMC) member has no special rights in code contributions. 
-They just cover and make sure the project following the Apache requirement, 
-including 
-1. Release binding vote and license check
-1. New committer and PMC member recognition
-1. Identify branding issue and do branding protection.
-1. Response the ASF board question, take necessary actions.
+## 项目管理委员会
+项目管理委员会(PMC)成员对代码贡献没有特殊权利。
+它们只是覆盖并确保项目符合Apache需求，
+包括 
+1. 发布有约束力的投票和许可检查
+1. 新的提交者和PMC成员的认可
+1. 识别品牌问题并进行品牌保护.
+1. 回答ASF董事会的问题，采取必要的行动.
 
-V.P. and chair of the PMC is the secretary, take responsibility of initializing the board report.
+副主席和PMC主席是秘书，负责整理董事会报告.
 
-In the normal case, the new PMC member should be nominated from committer team. But becoming a PMC member directly is not forbidden, if the PMC could
-agree and be confidence that the candidate is ready, such as he/she has been a PMC member of another project, Apache member
-or Apache officer.
+通常情况下，新的PMC成员应该从提交者团队中提名。
+但是，如果PMC能够同意并确信候选人已经准备好，比如他/她曾经是另一个项目的PMC成员，Apache成员或Apache官员，那么直接成为PMC成员是不被禁止的.
 
-The process of new PMC vote should also follow the same `[DISCUSS]`, `[VOTE]` and `[RESULT][VOTE]` in private mail list as [new committer vote](#new-committer-nomination).
-One more step before sending the invitation, the PMC [need to send NOTICE mail to Apache board](http://www.apache.org/dev/pmc.html#newpmc).
+新PMC的投票程序也应遵循与 `[DISCUSS]`, `[VOTE]` 和 `[RESULT][VOTE]` 相同的私人邮件列表中的 [新提交者投票](#new-committer-nomination).
+发送邀请前的最后一步，PMC [需要发送通知邮件到Apache](http://www.apache.org/dev/pmc.html#newpmc).
 ```
 To: board@apache.org
 Cc: private@skywalking.apache.org
@@ -160,7 +152,7 @@ SkyWalking proposes to invite Jane Doe (janedoe) to join the PMC.
 (include if a vote was held) The vote result is available here: https://lists.apache.org/...
 ```
 
-After 72 hours, if the board doesn't object(usually it wouldn't be), send the invitation.
+72小时后，如果董事会不反对(通常不会反对)，发出邀请.
 
-After the committer accepted the invitation, 
-The PMC member should add the new committer to official PMC list through [roster](https://whimsy.apache.org/roster/committee/skywalking).
+提交人接受邀请后，PMC成员应该通过 [名册](https://whimsy.apache.org/roster/committee/skywalking)
+将新的提交者添加到官方PMC列表中.

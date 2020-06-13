@@ -1,54 +1,61 @@
-# Protocols
-There are two types of protocols list here. 
+# 协议
 
-- [**Probe Protocol**](#probe-protocols). Include the descriptions and definitions about how agent send collected metrics data and traces, also the formats of each entities.
+有以下两种类型的协议.
 
-- [**Query Protocol**](#query-protocol). The backend provide query capability to SkyWalking own UI and others. These queries are based on GraphQL.
+- [**探针协议**](#探针协议). 包括对探针如何发送收集到的度量数据、跟踪信息以及涉及到的每个实体格式的描述和定义。
 
-
-## Probe Protocols
-They also related to the probe group, for understand that, look [Concepts and Designs](../concepts-and-designs/README.md) document.
-These groups are **Language based native agent protocol**, **Service Mesh protocol** and **3rd-party instrument protocol**.
-
-### Language based native agent protocol
-There are two types of protocols to make language agents work in distributed environments.
-1. **Cross Process Propagation Headers Protocol** and **Cross Process Correlation Headers Protocol** are in wire data format, 
-agent/SDK usually uses HTTP/MQ/HTTP2 headers
-to carry the data with rpc request. The remote agent will receive this in the request handler, and bind the context 
-with this specific request.
-1. **Trace Data Protocol** is out of wire data, agent/SDK uses this to send traces and metrics to skywalking or other
-compatible backend. 
-
-[Cross Process Propagation Headers Protocol v3](Skywalking-Cross-Process-Propagation-Headers-Protocol-v3.md) is the new protocol for 
-in-wire context propagation, started in 8.0.0 release.
-
-[Cross Process Correlation Headers Protocol v1](Skywalking-Cross-Process-Correlation-Headers-Protocol-v1.md) is a new in-wire context propagation additional and optional protocols. 
-Please read SkyWalking language agents documentations to see whether it is supported. 
-This protocol defines the data format of transporting custom data with `Cross Process Propagation Headers Protocol`.
-SkyWalking javaagent begins to support this since 8.0.0.
-
-[SkyWalking Trace Data Protocol v3](Trace-Data-Protocol-v3.md) defines the communication way and format between agent and backend.
-
-### Service Mesh probe protocol
-The probe in sidecar or proxy could use this protocol to send data to backendEnd. This service provided by gRPC, requires 
-the following key info:
-
-1. Service Name or ID at both sides.
-1. Service Instance Name or ID at both sides.
-1. Endpoint. URI in HTTP, service method full signature in gRPC.
-1. Latency. In milliseconds.
-1. Response code in HTTP
-1. Status. Success or fail.
-1. Protocol. HTTP, gRPC
-1. DetectPoint. In Service Mesh sidecar, `client` or `server`. In normal L7 proxy, value is `proxy`.
+- [**查询协议**](#查询协议). 服务后端给 SkyWalking 自有的 UI 和任何第三方 UI 提供了查询的能力. 这些查询都是基于 GraphQL 的.
 
 
-### 3rd-party instrument protocol
-3rd-party instrument protocols are not defined by SkyWalking. They are just protocols/formats, which SkyWalking is compatible and
-could receive from their existed libraries. SkyWalking starts with supporting Zipkin v1, v2 data formats.
+## 探针协议
 
-Backend is based on modularization principle, so very easy to extend a new receiver to support new protocol/format.
+它们也是与探针的组相关的, 为了理解这一点, 请参考[概念和设计](../concepts-and-designs/README.md)一文.
+这些探针组是**基于原生语言代理协议**, **服务网格协议**以及其他第三方打点协议.
 
-## Query Protocol
-Query protocol follows GraphQL grammar, provides data query capabilities, which depends on your analysis metrics.
-Read [query protocol doc](query-protocol.md) for more details.
+## 注册协议
+
+包含服务, 服务实例, 网络地址以及端点元数据注册.
+注册的目的是:
+1. 对于服务, 网络地址和端点, 注册之后将会返回注册对象的一个唯一 ID, 通常是一个整数. 探针可以使用这个 ID 来替代字符串文本, 达到数据压缩的功能. 进一步讲, 有些协议只接收 ID.
+1. 对于服务实例, 注册之后将会为每个新的实例返回一个新的唯一 ID. 每个服务实例必须包含服务 ID.
+
+### 基于语言的原生代理协议
+
+有以下两种协议可以让基于语言的代理在分布式环境下工作.
+1. **跨进程传播的头部协议**是一种有线数据格式, 代理和 SDK 通常使用 RPC 请求以及 HTTP/MQ/HTTP2 请求头来运载数据.
+远程代理将在请求处理器中接收这些数据, 并将上下文绑定到该请求中.
+1. **追踪数据协议**是一种离线数据格式, 代理和 SDK 使用这种数据格式来发送追踪数据和指标数据到 SkyWalking 或其他兼容的后端。
+
+为了兼容性, 请求头有两种格式. 默认是使用 v2.
+* [跨进程传播的请求头 v2](Skywalking-Cross-Process-Propagation-Headers-Protocol-v2.md) 是自 6.0.0-beta 版本开始, 针对在线上下文传播的一种新的协议.
+它将在以后替代老的 **SW3** 协议, 目前来说它们二者都是支持的.
+* [跨进程传播的请求头 v1](Skywalking-Cross-Process-Propagation-Headers-Protocol-v1.md) 是针对在线传播的协议.
+遵循此协议的不同进程的追踪数据段可以被连接起来.
+
+自 SkyWalking v6.0.0-beta 开始, SkyWalking 代理和后端都使用第二版的追踪数据协议(Trace Data Protocol v2), 后端仍然支持 v1 版本的协议.
+* [SkyWalking 追踪数据协议 v2](Trace-Data-Protocol-v2.md) 定义了代理和后端之间通讯的方式和格式.
+* [SkyWalking 追踪数据协议 v1](Trace-Data-Protocol.md). 该协议用于旧的版本中. 目前仍然支持.
+
+### 服务网格探针协议
+
+Sidecar 中的探针或代理可以使用该协议发送数据到后端. 该服务通过 gRPC 实现, 需要以下关键信息:
+
+1. 在服务两侧都需要服务名或 ID
+1. 在服务两侧都需要服务实例名称或 ID
+1. 端点. HTTP 中的 URI, gRPC 中的方法完整签名.
+1. 时延. 以毫秒为单位
+1. HTTP 中的响应码
+1. 状态. 成功或失败
+1. 协议. HTTP, gRPC 等
+1. 监测点. 在服务网格 sidecar 中, `client` 或 `server`。 在普通的 L7 代理中, 值是 `proxy`.
+
+### 第三方打点协议
+
+SkyWalking 并不定义第三方打点协议. 它们只是协议和数据格式, SkyWalking 兼容这些协议和数据格式, 且可以接收它们. SkyWalking 一开始就支持 Zipkin v1, v2 数据格式.
+后端遵循模块化原则, 所以要扩展新的接收器以支持新的协议和格式是非常容易的.
+
+## 查询协议
+
+查询协议遵循 GraphQL 语法, 提供了数据查询能力, 这都取决于你要分析的指标.
+
+实际的查询 GraphQL 脚本可以在 `query-protocol` [文件夹](https://github.com/apache/skywalking/tree/master/oap-server/server-query-plugin/query-graphql-plugin/src/main/resources)内找到.

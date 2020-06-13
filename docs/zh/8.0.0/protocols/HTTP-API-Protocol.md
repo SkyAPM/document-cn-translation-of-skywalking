@@ -1,17 +1,16 @@
-# HTTP API协议
-
-HTTP API协议定义了API数据格式，包括API请求和响应数据格式。
-链路跟踪Trace数据采用 HTTP1.1格式，更详情内容请参见 [SkyWalking Trace Data Protocol v3](Trace-Data-Protocol-v3.md). 
+# HTTP API 协议
+HTTP API协议定义了 API 数据格式，包括 API 请求和响应数据格式.
+它们封装了官方的 HTTP1.1. 详情请阅读 [SkyWalking Trace Data Protocol v3](Trace-Data-Protocol-v3.md).
 
 ## 实例管理
 
-有关数据格式的详细信息参见 [Instance Management](https://github.com/apache/skywalking-data-collect-protocol/blob/master/management/Management.proto).
+有关数据格式的详细信息可前往 [Instance Management](https://github.com/apache/skywalking-data-collect-protocol/blob/master/management/Management.proto).
 
-- 报表服务实例属性
+- 上报服务实例属性
 
 > POST http://localhost:12800/v3/management/reportProperties
 
-Input:
+输入:
 
 ```json
 {
@@ -23,17 +22,17 @@ Input:
 }
 ```
 
-Output JSON Array:
+输出 JSON 数组:
 
 ```json
 {}
 ```
 
-- Service instance ping
+- ping 服务实例
 
 > POST http://localhost:12800/v3/management/keepAlive
 
-Input:
+输入:
 
 ```json
 {
@@ -42,22 +41,22 @@ Input:
 }
 ```
 
-OutPut:
+输出:
 
 ```json
 {}
 ```
 
-## 跟踪报告
+## 追踪上报
 
-有关数据格式的详细信息参见 [Instance Management](https://github.com/apache/skywalking-data-collect-protocol/blob/master/language-agent/Tracing.proto).
-有两种方式报告段数据，每个请求一个段或批量模式下的段数组。
+有关数据格式的详细信息可前往 [Instance Management](https://github.com/apache/skywalking-data-collect-protocol/blob/master/language-agent/Tracing.proto).
+上报追踪段数据有两种方法，上报一个追踪段或批量上报追踪段数组.
 
 ### POST http://localhost:12800/v3/segment
 
-Send a single segment object with JSON format.
+发送一个JSON格式的追踪段对象.
 
-Input:
+输入:
 
 ```json
 {
@@ -96,7 +95,7 @@ Input:
 	"traceSegmentId": "a12ff60b-5807-463b-a1f8-fb1c8608219e"
 }
 ```
- OutPut:
+ 输出:
  
  ```json
 
@@ -104,9 +103,9 @@ Input:
 
 ### POST http://localhost:12800/v3/segments
 
-Send a segment object list with JSON format.
+发送一个JSON格式的追踪段对象列表.
 
-Input:
+输入:
 
 ```json
 [{
@@ -179,7 +178,7 @@ Input:
 	"traceSegmentId": "f956699e-5106-4ea3-95e5-da748c55bac1"
 }]
 ```
- OutPut:
+ 输出:
  
  ```json
 

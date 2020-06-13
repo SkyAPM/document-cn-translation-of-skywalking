@@ -1,11 +1,13 @@
-# How to build project
-This document helps people to compile and build the project in your maven and set your IDE.
+# 如何构建项目
 
-## Build Project
-**Because we are using Git submodule, we recommend don't use `GitHub` tag or release page to download source codes for compiling.**
+本文档将帮助你使用 maven 编译构建 SkyWalking 项目, 并指导你对 IDE 进行设置.
 
-### Maven behind Proxy
-If you need to execute build behind the proxy, edit the *.mvn/jvm.config* and put the follow properties:
+## 构建项目
+
+**由于本项目使用了 Git 子模块, 我们不建议使用从 `GitHub` tag 或 release 页面下载的源代码来进行编译.**
+
+### Maven代理
+如果需要在代理之后执行构建，请编辑*.mvn/jvm.config*并放置以下属性
 ```properties
 -Dhttp.proxyHost=proxy_ip
 -Dhttp.proxyPort=proxy_port
@@ -15,146 +17,164 @@ If you need to execute build behind the proxy, edit the *.mvn/jvm.config* and pu
 -Dhttp.proxyPassword=password
 ```
 
-### Build from GitHub
-1. Prepare git, JDK8 and maven3
-1. Clone project
+### 从 GitHub 构建
 
-    If you want to build a release from source codes, provide a `tag name` by using `git clone -b [tag_name] ...` while cloning.
-    
-    ```bash
-    git clone --recurse-submodules https://github.com/apache/skywalking.git
-    cd skywalking/
-    
-    OR
-    
-    git clone https://github.com/apache/skywalking.git
-    cd skywalking/
-    git submodule init
-    git submodule update
-    ```
-   
-1. Run `./mvnw clean package -DskipTests`
-1. All packages are in `/dist` (.tar.gz for Linux and .zip for Windows).
+1. 预备好 Git, JDK8 以及 Maven3
+1. `git clone https://github.com/apache/skywalking.git`
+1. `cd skywalking/`
+1. 使用 `git checkout [tagname]` 切换到指定的 tag (可选的, 只有当你想编译某个特定版本的代码时才需要)
+1. `git submodule init`
+1. `git submodule update`
+1. 运行 `./mvnw clean package -DskipTests`
+1. 所有打出来的包都在目录 `/dist` 下 (Linux 下为 .tar.gz, Windows 下为 .zip).
 
-### Build from Apache source code release
-- What is `Apache source code release`?
+### 从 Apache 源代码发行构建
 
-For each official Apache release, there is a complete and independent source code tar, which is including all source codes. You could download it from [SkyWalking Apache download page](http://skywalking.apache.org/downloads/). No git related stuff required when compiling this. Just follow these steps.
+- 什么是 **Apache 源代码发行**?
 
-1. Prepare JDK8 and maven3
-1. Run `./mvnw clean package -DskipTests`
-1. All packages are in `/dist`.(.tar.gz for Linux and .zip for Windows).
+对于每个正式的 Apache 发行版本, 都会有一个完整且独立的源代码压缩包, 其中包含了所有的源代码,
+你可以从 [SkyWalking Apache 下载页面](http://skywalking.apache.org/downloads/)下载得到. 此时没有任何与 git 相关的东西.
+跟着以下步骤操作即可.
 
-### Advanced compile
-SkyWalking is a complex maven project, including many modules, which could cause long compiling time. 
-If you just want to recompile part of the project, you have following options
-- Compile agent and package
+1. 准备 JDK8 以及 Maven3
+1. 运行 `./mvnw clean package -DskipTests`
+1. 所有打出来的包都在目录 `/dist` 下 (Linux 下为 .tar.gz, Windows 下为 .zip).
+
+### 高级编译
+
+SkyWalking 是一个复杂的 Maven 项目, 包括许多模块, 其中可能包含一些编译耗时非常长的模块.
+如果你只想重新编译项目的某个部分, 有以下选项可以支持:
+
+- 编译 agent 包
+
 >  ./mvnw package -Pagent,dist
 
-or
+或
 
 > make build.agent
 
-- Compile backend and package
+- 编译 backend 包并且打完整包
+
 >  ./mvnw package -Pbackend,dist
 
-or
+或
 
 > make build.backend
 
-- Compile UI and package
+- 编译 UI 并且打完整包
+
 >  ./mvnw package -Pui,dist
 
-or
+或
 
 > make build.ui
 
 
-### Build docker images
-We can build docker images of `backend` and `ui` with `Makefile` located in root folder.
+### 构建 docker 镜像
 
-Refer to [Build docker image](../../../docker) for more details.
+我们可以使用根目录下的 `Makefile` 文件来构建 `backend` 和 `ui` 的 docker 镜像.
 
-## Setup your IntelliJ IDEA
-**NOTICE**: If you clone the codes from GitHub, please make sure that you had finished step 1 to 3 in section **[Build from GitHub](#build-from-github)**, if you download the source codes from the official website of SkyWalking, please make sure that you had followed the steps in section **[Build from Apache source code release](#build-from-apache-source-code-release)**.
+- 构建所有 docker 镜像
 
-1. Import the project as a maven project
-1. Run `./mvnw compile -Dmaven.test.skip=true` to compile project and generate source codes. Because we use gRPC and protobuf.
-1. Set **Generated Source Codes** folders.
-    * `grpc-java` and `java` folders in **apm-protocol/apm-network/target/generated-sources/protobuf**
-    * `grpc-java` and `java` folders in **oap-server/server-core/target/generated-sources/protobuf**
-    * `grpc-java` and `java` folders in **oap-server/server-receiver-plugin/receiver-proto/target/generated-sources/protobuf**
-    * `grpc-java` and `java` folders in **oap-server/exporter/target/generated-sources/protobuf**
-    * `grpc-java` and `java` folders in **oap-server/server-configuration/grpc-configuration-sync/target/generated-sources/protobuf**
-    * `antlr4` folder in **oap-server/oal-grammar/target/generated-sources**
+> make docker.all
+
+- 构建 oap 服务的 docker 镜像
+
+> make docker.oap
+
+- 构建 UI 的 docker 镜像
+
+> make docker.ui
+
+`HUB` 和 `TAG` 变量用于设置一个 docker 镜像的 `REPOSITORY` 和 `TAG`.
+要得到一个名为 `bar/oap:foo` 的 OAP 镜像, 运行以下命令:
+
+> HUB=bar TAG=foo make docker.oap
+
+## 设置 IntelliJ IDEA
+
+1. 将项目导入为 maven 项目
+1. 运行 `./mvnw compile -Dmaven.test.skip=true` 编译项目, 生成必要的源代码(由于使用了 gRPC 和 protobuf)
+1. 设置 **生成的源代码(Generated Source Code)** 目录.
+    * **apm-protocol/apm-network/target/generated-sources/protobuf** 目录下的 `grpc-java` 和 `java` 目录
+    * **oap-server/server-core/target/generated-sources/protobuf** 目录下的 `grpc-java` 和 `java` 目录
+    * **oap-server/server-receiver-plugin/receiver-proto/target/generated-sources/protobuf** 目录下的 `grpc-java` 和 `java`
+    * **oap-server/exporter/target/generated-sources/protobuf** 目录下的 `grpc-java` 和 `java`
+    * **oap-server/server-configuration/grpc-configuration-sync/target/generated-sources/protobuf** 目录下的 `grpc-java` 和 `java` 
+    * **oap-server/generate-tool-grammar/target/generated-sources** 目录下的 `antlr4` 
+    * **oap-server/generated-analysis/target/generated-sources** 目录下的 `oal`
     
-## Setup your Eclipse IDE
-**NOTICE**: If you clone the codes from GitHub, please make sure that you had finished step 1 to 3 in section **[Build from GitHub](#build-from-github)**, if you download the source codes from the official website of SkyWalking, please make sure that you had followed the steps in section **[Build from Apache source code release](#build-from-apache-source-code-release)**.
+## 设置 Eclipse IDE
 
-1. Import the project as a maven project
-1. For supporting multiple source directories, you need to add the following configuration in `skywalking/pom.xml` file:
-    ```xml
-    <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <version>1.8</version>
-        <executions>
-            <execution>
-                <id>add-source</id>
-                <phase>generate-sources</phase>
-                <goals>
-                    <goal>add-source</goal>
-                </goals>
-                <configuration>
-                    <sources>
-                        <source>src/java/main</source>
-                        <source>apm-protocol/apm-network/target/generated-sources/protobuf</source>
-                        <source>apm-collector/apm-collector-remote/collector-remote-grpc-provider/target/generated-sources/protobuf</source>
-                   </sources>
-                </configuration>
-            </execution>
-        </executions>
-    </plugin>
-    ```
-1. Add the following configuration under to let eclipse's M2e plug-in supports execution's solution configuration
-    ```xml
-    <pluginManagement>
-        <plugins>
-        <!--This plugin's configuration is used to store Eclipse m2e settings 
-        only. It has no influence on the Maven build itself. -->
-            <plugin>
-                <groupId>org.eclipse.m2e</groupId>
-                <artifactId>lifecycle-mapping</artifactId>
-                <version>1.0.0</version>
-                <configuration>
-                    <lifecycleMappingMetadata>
-                        <pluginExecutions>
-                            <pluginExecution>
-                                <pluginExecutionFilter>
-                                    <groupId>org.codehaus.mojo</groupId>
-                                    <artifactId>build-helper-maven-plugin</artifactId>
-                                    <versionRange>[1.8,)</versionRange>
-                                    <goals>
-                                        <goal>add-source</goal>
-                                    </goals>
-                                </pluginExecutionFilter>
-                            </pluginExecution>
-                        </pluginExecutions>
-                    </lifecycleMappingMetadata>
-                </configuration>
-            </plugin>
-        </plugins>
-    </pluginManagement>
-    ```
-1. Adding Google guava dependency to apm-collector-remote/collector-remote-grpc-provider/pom.xml files
-    ```xml
-    <dependency>
-       <groupId>com.google.guava</groupId>
-       <artifactId>guava</artifactId>
-       <version>24.0-jre</version>
-    </dependency>
-    ```
-1. Run `./mvnw compile -Dmaven.test.skip=true`
-1. Run `maven update`. Must remove the clean projects item before maven update(This will be clear the proto conversion Java file generated by the compiling)
-1. Run `./mvnw compile` compile collector-remote-grpc-provider and apm-protocol
-1. Refresh project
+1. 将项目导入为 maven 项目
+2. 为了支持多个源代码目录, 你需要在文件 `skywalking/pom.xml` 中添加以下配置:
+
+```xml
+<plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>build-helper-maven-plugin</artifactId>
+    <version>1.8</version>
+    <executions>
+        <execution>
+            <id>add-source</id>
+            <phase>generate-sources</phase>
+            <goals>
+                <goal>add-source</goal>
+            </goals>
+            <configuration>
+                <sources>
+                    <source>src/java/main</source>
+                    <source>apm-protocol/apm-network/target/generated-sources/protobuf</source>
+                    <source>apm-collector/apm-collector-remote/collector-remote-grpc-provider/target/generated-sources/protobuf</source>
+               </sources>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+```
+
+3. 添加以下配置, 使得 Eclipse 的 M2E 插件可以支持运行方案配置
+
+```xml
+<pluginManagement>
+    <plugins>
+    <!--此插件的配置仅仅存放 Eclipse m2e 设置, 不会影响任何 Maven 本身的构建. -->
+        <plugin>
+            <groupId>org.eclipse.m2e</groupId>
+            <artifactId>lifecycle-mapping</artifactId>
+            <version>1.0.0</version>
+            <configuration>
+                <lifecycleMappingMetadata>
+                    <pluginExecutions>
+                        <pluginExecution>
+                            <pluginExecutionFilter>
+                                <groupId>org.codehaus.mojo</groupId>
+                                <artifactId>build-helper-maven-plugin</artifactId>
+                                <versionRange>[1.8,)</versionRange>
+                                <goals>
+                                    <goal>add-source</goal>
+                                </goals>
+                            </pluginExecutionFilter>
+                        </pluginExecution>
+                    </pluginExecutions>
+                </lifecycleMappingMetadata>
+            </configuration>
+        </plugin>
+    </plugins>
+</pluginManagement>
+```
+
+4. 添加 Google guava 依赖到 `apm-collector-remote/collector-remote-grpc-provider/pom.xml` 文件中
+
+```xml
+<dependency>
+   <groupId>com.google.guava</groupId>
+   <artifactId>guava</artifactId>
+   <version>24.0-jre</version>
+</dependency>
+```
+
+5. 运行 `./mvnw compile -Dmaven.test.skip=true`
+6. 运行 `maven update`. 执行更新前必须删除并清理项目(将会清理自动生成的 proto 类代码以及编译时生成的 Java 代码)
+7. 运行 `./mvnw compile` 编译 `collector-remote-grpc-provider` 和 `apm-protocol`
+8. 刷新项目

@@ -1,9 +1,9 @@
-# Thread dump merging mechanism
-The performance profile is an enhancement feature in the APM system. We are using the thread dump to estimate the method execution time, rather than adding many local spans. In this way, the resource cost would be much less than using distributed tracing to locate slow method. This feature is suitable in the production environment. This document introduces how thread dumps are merged into the final report as a stack tree(s).
-
-## Thread analyst
-### Read data and transform
-Read data from the database and convert it to a data structure in gRPC.
+# 线程转储归并机制
+性能概要是APM系统中的一个增强特性. 我们使用线程转储来估算方法执行时间，而不是添加许多局部span。
+这样，与使用分布式跟踪来定位慢方法相比，资源成本要低得多。该特性适用于生产环境。本文档介绍如何将线程转储作为堆栈树归并到最终报告中.
+## 线程分析
+### 读取数据并进行转换
+从数据库中读取数据并将其转换为gRPC中的数据结构.
 ```
 st=>start: Start
 e=>end: End
@@ -13,13 +13,13 @@ op2=>operation: Transform data using parallel
 st(right)->op1(right)->op2
 op2(right)->e
 ```
-Copy code and paste it into this [link](http://flowchart.js.org/) to generate flow chart.
-1. Use the stream to read data by page (50 records per page).
-2. Convert data into gRPC data structures in the form of parallel streams.
-3. Merge into a list of data.
-### Data analyze
-Use the group by and collector modes in the Java parallel stream to group according to the first stack element in the database records,
-and use the collector to perform data aggregation. Generate a multi-root tree.
+复制代码并将其粘贴到此 [链接](http://flowchart.js.org/)以生成流程图.
+1. 使用流按页读取数据(每页50条记录).
+2. 以并行流的形式将数据转换为gRPC数据结构.
+3. 合并到数据列表中.
+### 数据分析
+使用Java并行流中的group by和collector模式根据数据库记录中的第一个堆栈元素进行分组，
+并使用collector执行数据聚合. 生成一个多根树.
 ```
 st=>start: Start
 e=>end: End
@@ -32,21 +32,21 @@ fin=>operation: Calculate durations and build result
 st(right)->op1->sup(right)->acc
 acc(right)->com(right)->fin->e
 ```
-Copy code and paste it into this [link](http://flowchart.js.org/) to generate flow chart.
-- **Group by first stack element**: Use the first level element in each stack to group, ensuring that the stacks have the same root node.
-- **Generate empty stack tree**: Generate multiple top-level empty trees for preparation of the following steps, 
-The reason for generating multiple top-level trees is that original data can be add in parallel without generating locks.
-- **Accumulator data to stack tree**: Add every thread dump into the generated trees.
-    1. Iterate through each element in the thread dump to find if there is any child element with the same code signature and same stack depth in the parent element. 
-    If not, then add this element.
-    2. Keep the dump sequences and timestamps in each nodes from the source.
-- **Combine stack trees**: Combine all trees structures into one by using the rules as same as `Accumulator`.
-    1. Use LDR to traversal tree node. Use the `Stack` data structure to avoid recursive calls, each stack element represents the node that needs to be merged.
-    2. The task of merging two nodes is to merge the list of children nodes. If they have the same code signature and same parents, save the dump sequences and timestamps in this node. Otherwise, the node needs to be added into the target node as a new child.
-- **Calculate durations and build result**: Calculate relevant statistics and generate response.
-    1. Use the same traversal node logic as in the `Combine stack trees` step. Convert to a GraphQL data structure, and put all nodes into a list for subsequent duration calculations.
-    2. Calculate each node's duration in parallel. For each node, sort the sequences, if there are two continuous sequences, the duration should add the duration of these two seq's timestamp.
-    3. Calculate each node execution in parallel. For each node, the duration of the current node should minus the time consumed by all children.
+复制代码并将其粘贴到此 [链接](http://flowchart.js.org/)以生成流程图.
+- **按第一个堆栈元素分组**:使用每个堆栈中的第一级元素分组，确保堆栈具有相同的根节点e.
+- **生成空栈**:生成多个顶级空树，为下一步做准备，
+  生成多个顶级树的原因是可以并行地添加原始数据，而不需要生成锁.
+- **累加数据至栈中**: 将每个线程转储添加到生成的树中.
+    1. 遍历线程转储中的每个元素，以查找父元素中是否有具有相同代码签名和相同堆栈深度的子元素. 
+    如果不是，则添加此元素.
+    2. 保留原节点中的转储序列和时间戳.
+- **合并所有堆栈**: 使用与 `累加器` 相同的规则将所有树结构组合成一个树结构.
+    1.使用LDR遍历树节点。使用 `堆栈` 数据结构来避免递归调用，每个堆栈元素表示需要合并的节点.
+    2. 合并两个节点的方法是合并其子节点的列表. 如果它们具有相同的代码签名和相同的父节点，则在此节点中保存转储序列和时间戳. 否则，需要将节点作为新的子节点添加到目标节点中.
+- **计算时间并生成结果**: 计算相关统计数据并生成响应.
+    1. 使用与 `合并所有堆栈` 步骤相同的遍历节点逻辑. 转换为GraphQL数据结构，并将所有节点放到一个列表中，以用于后续的持续时间计算.
+    2. 并行计算每个节点的持续时间. 对于每个节点，对序列进行排序，如果有两个连续序列，持续时间应该添加这两个seq的时间戳的持续时间.
+    3. 并行计算每个节点的执行. 对于每个节点，当前节点的持续时间应该减去所有子节点消耗的时间.
 
-## Profile data debug
-Please follow the [exporter tool](backend-profile-export.md#export-command-line-usage) to package profile data. Unzip the profile data and using [analyzer main function](../../../oap-server/server-tools/profile-exporter/tool-profile-snapshot-bootstrap/src/test/java/org/apache/skywalking/oap/server/tool/profile/exporter/ProfileExportedAnalyze.java) to run it.
+## 配置文件数据调试
+请按照 [导出工具](backend-profile-export.md#export-command-line-usage) 打包配置文件数据. 解压配置文件数据并使用 [分析主要功能](../../../oap-server/server-tools/profile-exporter/tool-profile-snapshot-bootstrap/src/test/java/org/apache/skywalking/oap/server/tool/profile/exporter/ProfileExportedAnalyze.java) 运行.

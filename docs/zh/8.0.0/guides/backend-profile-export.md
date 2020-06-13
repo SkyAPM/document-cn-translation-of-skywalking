@@ -1,24 +1,24 @@
-# Exporter tool of profile raw data
-When the visualization doesn't work well through the official UI, users could submit the issue to report. This tool helps the users to package the original profile data for helping the community to locate the issue in the user case. NOTICE, this report includes the class name, method name, line number, etc. Before submit this, please make sure this wouldn't become your system vulnerability.
-
-## Export command line Usage
-1. Set the storage in `tools/profile-exporter/application.yml` file by following your use case.
-1. Prepare data
-    - Profile task id: Profile task id
-    - Trace id: Wrong profiled trace id
-    - Export dir: Directory of the data will export
-1. Enter the Skywalking root path
-1. Execute shell command
+#概要文件原始数据的导出工具
+当可视化不能通过官方UI很好地工作时，用户可以提交问题报告. 该工具帮助用户打包原始概要数据，以帮助社区在用户案例中定位问题. 
+注意，这个报告包括类名、方法名、行号等。在提交之前，请确保这不会导致您的系统泄露.
+## 使用命令行导出
+1. 通过遵循您的用例来创建 `tools/profile-exporter/application.yml` 文件，并设置存储.
+1. 准备资料
+    - 概要文件任务 ID: 概要文件任务 ID
+    - 追踪 ID: 概要文件错误追踪 ID
+    - 导出目录: 数据导出的目录
+1. 进入 Skywalking 根路径
+1. 执行 shell 命令
     ```bash
    bash tools/profile-exporter/profile_exporter.sh --taskid={profileTaskId} --traceid={traceId} {exportDir}
    ```
-1. The file `{traceId}.tar.gz` will be generated after execution shell.
+1. 执行 shell 后将生成 `{traceId}.tar.gz` 文件.
 
-## Exported data content
-1. `basic.yml`: Contains the complete information of the profiled segments in the trace.
-1. `snapshot.data`: All monitored thread snapshot data in the current segment. 
+## 导出的数据内容
+1. `basic.yml`: 包含追踪中已分析段的完整信息.
+1. `snapshot.data`: 当前段中所有监控线程的快照数据. 
 
-## Report profile issue
-1. Provide exported data generated from this tool.
-1. Provide span operation name, analyze mode(include/exclude children).
-1. Issue description. (If there have the UI screenshots, it's better)
+## 上报概要文件的问题
+1. 提供从该工具生成的导出数据.
+1. 提供span操作名，分析模式(包含或不包含子节点).
+1. 问题描述. (如果有UI截屏，效果会更好)

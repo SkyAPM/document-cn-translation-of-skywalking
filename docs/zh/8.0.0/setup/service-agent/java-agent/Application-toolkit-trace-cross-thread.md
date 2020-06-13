@@ -1,5 +1,5 @@
-# trace cross thread
-* Dependency the toolkit, such as using maven or gradle
+# 跨线程追踪
+* 使用maven或gradle引入toolkit依赖。
 ```xml
    <dependency>
       <groupId>org.apache.skywalking</groupId>
@@ -8,8 +8,8 @@
    </dependency>
 ```
 
-* usage 1.
-```java
+* 用法1
+``` java
     @TraceCrossThread
     public static class MyCallable<String> implements Callable<String> {
         @Override
@@ -21,8 +21,8 @@
     ExecutorService executorService = Executors.newFixedThreadPool(1);
     executorService.submit(new MyCallable());
 ```
-* usage 2.
-```java
+* 用法2 
+``` java
     ExecutorService executorService = Executors.newFixedThreadPool(1);
     executorService.submit(CallableWrapper.of(new Callable<String>() {
         @Override public String call() throws Exception {
@@ -30,8 +30,9 @@
         }
     }));
 ```
-or 
-```java
+
+或者 
+``` java
     ExecutorService executorService = Executors.newFixedThreadPool(1);
     executorService.execute(RunnableWrapper.of(new Runnable() {
         @Override public void run() {
@@ -39,7 +40,8 @@ or
         }
     }));
 ```
-* usage 3.
+
+* 用法 3.
 ```java
     @TraceCrossThread
     public class MySupplier<String> implements Supplier<String> {
@@ -48,16 +50,13 @@ or
             return null;
         }
     }
-...
-    CompletableFuture.supplyAsync(new MySupplier<String>());
 ```
-or 
-```java
+    CompletableFuture.supplyAsync(new MySupplier<String>());
+
+或者 
+``` java
     CompletableFuture.supplyAsync(SupplierWrapper.of(()->{
             return "SupplierWrapper";
     })).thenAccept(System.out::println);
 ```
-_Sample codes only_
-
-
-
+_仅为示例代码_

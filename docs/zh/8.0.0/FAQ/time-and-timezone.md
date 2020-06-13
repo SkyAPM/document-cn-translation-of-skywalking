@@ -1,21 +1,21 @@
-# Why can't I see any data in the UI?
+# UI中为什么看不到任何数据?
 
-There are three main reasons no data can be shown by the UI:
+UI不能显示数据有三个主要原因:
 
-1. No traces have been sent to the collector.
-2. Traces have been sent, but the timezone of your containers is incorrect.
-3. Traces are in the collector, but you're not watching the correct timeframe in the UI.
+1. 没有发送任何追踪到采集器.
+2. 追踪已发送，但容器的时区不正确.
+3. 追踪已在收集器中，但是您没有在UI中选择正确的时间框架.
 
-## No traces
+## 无追踪
 
-Be sure to check the logs of your agents to see if they are connected to the collector and traces are being sent.
-
-
-## Incorrect timezone in containers
-
-Be sure to check the time in your containers.
+确认检查代理的日志，看看它们是否连接到采集器，并发送追踪.
 
 
-## The UI isn't showing any data
+## 容器中的时区不正确
 
-Be sure to configure the timeframe shown by the UI.
+确认检查你的容器里的时区.
+
+
+## UI没有显示任何数据
+
+确保配置UI显示的时间框架.

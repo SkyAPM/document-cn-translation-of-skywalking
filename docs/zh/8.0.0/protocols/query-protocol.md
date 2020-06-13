@@ -9,24 +9,24 @@
 extend type Query {
     getGlobalBrief(duration: Duration!): ClusterBrief
 
-    # Normal service related metainfo 
+    # 标准服务相关元信息 
     getAllServices(duration: Duration!): [Service!]!
     searchServices(duration: Duration!, keyword: String!): [Service!]!
     searchService(serviceCode: String!): Service
     
-    # Fetch all services of Browser type
+    # 获取所有浏览器类型的服务
     getAllBrowserServices(duration: Duration!): [Service!]!
 
-    # Service intance query
+    # 服务实例查询
     getServiceInstances(duration: Duration!, serviceId: ID!): [ServiceInstance!]!
 
-    # Endpoint query
-    # Consider there are huge numbers of endpoint,
-    # must use endpoint owner's service id, keyword and limit filter to do query.
+    # 端点查询
+    # 考虑到有大量的端点,
+    # 必须使用端点所有者的服务id、关键字和限制过滤器来进行查询.
     searchEndpoint(keyword: String!, serviceId: ID!, limit: Int!): [Endpoint!]!
     getEndpointInfo(endpointId: ID!): EndpointInfo
 
-    # Database related meta info.
+    # 数据库相关元信息.
     getAllDatabases(duration: Duration!): [Database!]!
     getTimeInfo: TimeInfo
 }
@@ -37,13 +37,13 @@ extend type Query {
 
 ```graphql
 extend type Query {
-    # Query the global topology
+    # 查询全局拓扑
     getGlobalTopology(duration: Duration!): Topology
-    # Query the topology, based on the given service
+    # 基于给定服务查询拓扑
     getServiceTopology(serviceId: ID!, duration: Duration!): Topology
-    # Query the instance topology, based on the given clientServiceId and serverServiceId
+    # 基于给定客户端服务 ID 和服务端服务 ID 查询实例拓扑
     getServiceInstanceTopology(clientServiceId: ID!, serverServiceId: ID!, duration: Duration!): ServiceInstanceTopology
-    # Query the topology, based on the given endpoint
+    # 基于给定端点查询拓扑
     getEndpointTopology(endpointId: ID!, duration: Duration!): Topology
 }
 ```
@@ -95,12 +95,12 @@ extend type Query {
 1. 追踪. 分布式追踪查询.
 1. 告警. 通过告警查询，可以了解告警趋势和详细信息.
 
-可以在以下文件找到实际的 GraphQL 查询脚本 `query-protocol` ,[此处](../../../oap-server/server-query-plugin/query-graphql-plugin/src/main/resources).
+可以在以下文件找到实际的 GraphQL 查询脚本 `query-protocol` 文件为 [here](../../../oap-server/server-query-plugin/query-graphql-plugin/src/main/resources).
 
 ## 条件
 ### Duration
 Duration 是一种广泛使用的参数类型，因为 APM 数据与时间有关. 解释如下.
-步长与精度有关. 
+步长与精度有关.
 ```graphql
 # Duration 定义了每个查询操作的开始和结束时间.
 # Fields: `start` and `end`
@@ -113,13 +113,13 @@ Duration 是一种广泛使用的参数类型，因为 APM 数据与时间有关
 #       `DAY` step: yyyy-MM-dd
 #       `MONTH` step: yyyy-MM
 # Field: `step`
-#   表示精确的时间点
+#   表示精确的时间点.
 # e.g.
 #   if step==HOUR , start=2017-11-08 09, end=2017-11-08 19
 #   then
 #       指标取自以下时间点
 #       2017-11-08 9:00 -> 2017-11-08 19:00
-#       在时间跨度中有11个时间点(小时)
+#       在时间跨度中有11个时间点(小时).
 input Duration {
     start: String!
     end: String!
