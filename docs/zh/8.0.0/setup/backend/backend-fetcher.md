@@ -11,30 +11,28 @@ prometheus-fetcher:
     active: ${SW_PROMETHEUS_FETCHER_ACTIVE:false}
 ```
 
-### Configuration file
-Prometheus fetcher is configured via a configuration file. The configuration file defines everything related to fetching
- services and their instances, as well as which rule files to load.
-                   
-OAP can load the configuration at bootstrap. If the new configuration is not well-formed, OAP fails to start up. The files
-are located at `$CLASSPATH/fetcher-prom-rules`.
+### 配置文件
 
-The file is written in YAML format, defined by the scheme described below. Brackets indicate that a parameter is optional.
+Prometheus fetcher 通过配置文件设置。配置文件定义了所有与 fetching 服务及实例关联的内容，以及要加载哪些规则文件。
 
-A full example can be found [here](../../../../oap-server/server-bootstrap/src/main/resources/fetcher-prom-rules/self.yaml)
+OAP 可以在启动时加载配置。如果新的配置不是格式规范的，OAP 启动失败。这些文件在 `$CLASSPATH/fetcher-prom-rules` 目录下。
 
-Generic placeholders are defined as follows:
+文件使用 YAML 格式编写，有下面描述方案定义。方括号表示参数是可选择的。
 
- * `<duration>`: a duration This will parse a textual representation of a duration. The formats accepted are based on 
-                 the ISO-8601 duration format `PnDTnHnMn.nS` with days considered to be exactly 24 hours.
- * `<labelname>`: a string matching the regular expression [a-zA-Z_][a-zA-Z0-9_]*
- * `<labelvalue>`: a string of unicode characters
- * `<host>`: a valid string consisting of a hostname or IP followed by an optional port number
- * `<path>`: a valid URL path
- * `<string>`: a regular string
+一个完整的样例可以查看 [此处](../../../../oap-server/server-bootstrap/src/main/resources/fetcher-prom-rules/self.yaml)
+
+通用占位符如下：
+
+- `<duration>`: 将被解析为持续时间的文本表示。The formats accepted are based on the ISO-8601 duration format `PnDTnHnMn.nS` with days considered to be exactly 24 hours.
+- `<labelname>`: 匹配正则表达式的字符串 [a-zA-Z_][a-zA-Z0-9_]*
+- `<labelvalue>`: unicode 字符的字符串
+- `<host>`: 由主机名或IP加可选端口号组成的有效字符串
+- `<path>`: 有效的 URL 路径
+- `<string>`: 普通的字符串
 
 ```yaml
 # How frequently to fetch targets.
-fetcherInterval: <duration> 
+fetcherInterval: <duration>
 # Per-fetch timeout when fetching this target.
 fetcherTimeout: <duration>
 # The HTTP resource path on which to fetch metrics from targets.
@@ -80,9 +78,6 @@ sources:
 
 #### <operation>
 
-The available operations are `avg`, `avgHistogram` and `avgHistogramPercentile`. The `avg` and `avgXXX` mean to average
-the raw fetched metrics or high rate metrics into low rate metrics. The process is the extension of skywalking downsampling, 
-that adds the procedure from raw data to minute rate.
+可用的操作有 `avg`, `avgHistogram` 和 `avgHistogramPercentile`。`avg` 和 `avgXXX` 表示将原始获得的度量指标或者高比率指标平均为低比率度量指标。该过程是 Skywalking 的向下采样的延伸，这就增加了从原始数据到分钟比率的过程。
 
-When you specify `avgHistogram` and `avgHistogramPercentile`, the source should be the type of `histogram`. A counterFunction
-is also needed due to the `bucket`, `sum` and `count` of histogram are counters.
+当你指定 `avgHistogram` 和 `avgHistogramPercentile` 时，度量指标 source 必须是 `histogram` 类型。由于直方图的 `bucket`, `sum` 和 `count` 都是计数器，所以也需要一个统计函数。
