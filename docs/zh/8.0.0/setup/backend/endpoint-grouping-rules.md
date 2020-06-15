@@ -5,10 +5,12 @@
 目前，用户可以通过静态YAML文件中的 endpoint_name_grouping 来设置分组规则。或使用[动态配置](dynamic-config.md)初始化和更新端点分组规则。
 # 配置格式
 无论是静态本地文件还是动态配置值，它们都共享相同的YAML格式。
+```yaml
 grouping:
-  # 服务端点将遵循以下规则
+  # Endpoint of the service would follow the following rules
   - service-name: serviceA
     rules:
-      # 通过正则表达式匹配时的逻辑名称
+      # Logic name when the regex expression matched.
       - endpoint-name: /prod/{id}
         regex: \/prod\/.+
+```
