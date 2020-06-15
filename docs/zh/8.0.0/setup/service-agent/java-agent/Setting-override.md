@@ -1,52 +1,51 @@
-# Setting Override
-In default, SkyWalking provide `agent.config` for agent.
+# 配置覆盖
+默认情况下，SkyWalking为agent提供了`agent.config`配置文件。
 
-Setting override means end user can override the settings in these config file, through using system properties or agent options.
+配置覆盖意味着用户可以通过系统属性或agent选项覆盖配置文件中的配置。
 
+## 系统属性
 
-## System properties
+使用 `skywalking.` + 配置文件中的配置名 作为系统属性的配置名来覆盖配置文件中的值。
 
-Use `skywalking.` + key in config file as system properties key, to override the value.
+- 为什么需要这个前缀？
 
-- Why need this prefix?
+  因为agent系统属性是和目标应用共享的，加前缀是为了避免冲突。
 
-  The agent system properties and env share with target application, this prefix can avoid variable conflict.
+- 例子 
 
-- Example
+  通过下面的系统属性覆盖`agent.application_code`。
+  ```
+  -Dskywalking.agent.application_code=31200
+  ```
 
-  Override `agent.application_code` by this.
-```
--Dskywalking.agent.application_code=31200
-```
+## agent选项
 
-## Agent options
-
-Add the properties after the agent path in JVM arguments.
+在JVM参数的agent路径后面添加选项。
 
 ```
 -javaagent:/path/to/skywalking-agent.jar=[option1]=[value1],[option2]=[value2]
 ```
 
-- Example
+- 例子 
 
-  Override `agent.application_code` and `logging.level` by this.
+  通过下面的配置覆盖`agent.application_code``logging.level`。
 
 ```
 -javaagent:/path/to/skywalking-agent.jar=agent.application_code=31200,logging.level=debug
 ```
 
-- Special characters
+- 特殊字符
 
-  If a separator(`,` or `=`) in the option or value, it should be wrapped in quotes.
+  如果在选项或选项值中有分隔符(`,`或者`=`)，应该用引号包起来。
 
 ```
 -javaagent:/path/to/skywalking-agent.jar=agent.ignore_suffix='.jpg,.jpeg'
 ```
 
-## System environment variables
-- Example
+## 系统环境变量
+- 例子 
 
-  Override `agent.application_code` and `logging.level` by this.
+  通过下面的配置覆盖`agent.application_code`和`logging.level`。
 
 ```
 # The service name in UI
@@ -56,14 +55,13 @@ agent.service_name=${SW_AGENT_NAME:Your_ApplicationName}
 logging.level=${SW_LOGGING_LEVEL:INFO}
 ```
 
-If the `SW_AGENT_NAME ` environment variable exists in your operating system and its value is `skywalking-agent-demo`, 
-then the value of `agent.service_name` here will be overwritten to `skywalking-agent-demo`, otherwise, it will be set to `Your_ApplicationName`.
+如果 `SW_AGENT_NAME ` 环境变量在你的操作系统中已存在，并且，它的值为 `skywalking-agent-demo`，那么这里的`agent.service_name`的值将会被覆写为
+`skywalking-agent-demo`, 否则, 它将会被设置成 `Your_ApplicationName`。
 
-By the way, Placeholder nesting is also supported, like `${SW_AGENT_NAME:${ANOTHER_AGENT_NAME:Your_ApplicationName}}`.
-In this case, if the `SW_AGENT_NAME ` environment variable not exists, but the ```ANOTHER_AGENT_NAME``` 
-environment variable exists and its value is `skywalking-agent-demo`, then the value of `agent.service_name` here will be overwritten to `skywalking-agent-demo`,otherwise, it will be set to `Your_ApplicationName`.
+另外，占位符嵌套也是支持的，比如 `${SW_AGENT_NAME:${ANOTHER_AGENT_NAME:Your_ApplicationName}}`。
+在这种情况下，如果 `SW_AGENT_NAME ` 环境变量不存在，但是 ```ANOTHER_AGENT_NAME``` 环境变量存在，并且它的值为 `skywalking-agent-demo`, 
+那么这里的`agent.service_name`的值将会被覆写为`skywalking-agent-demo`, 否则, 它将会被设置成 `Your_ApplicationName`。
 
+## 覆盖优先级
 
-## Override priority
-
-Agent Options > System.Properties(-D) > System environment variables > Config file
+agent选项 > 系统属性(-D) > 系统环境变量 > 配置文件 
