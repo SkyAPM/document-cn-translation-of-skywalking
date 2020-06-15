@@ -3,7 +3,7 @@
 此文档源自 Apache SkyWalking [官方文档](https://github.com/apache/skywalking/blob/master/docs/README.md)。
 由社区志愿者提供翻译和更新。
 
-**此文档缺少 7.x 版本，8.x dev 持续更新中。**
+此文档缺少 7.x 版本
 
 **所有文档内容仅供参考，所有描述以英文官方文档为准。**
 
