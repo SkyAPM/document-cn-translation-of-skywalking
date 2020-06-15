@@ -19,7 +19,7 @@ Istio 已经安装在 kubernetes 集群中. 参考 [Istio 快速启动](https://
 
 `kubectl apply -f https://raw.githubusercontent.com/istio/istio/1.3.3/mixer/template/metric/template.yaml`
 
-#### 2. 安装 SkyWalking 适配器
+### 2. 安装 SkyWalking 适配器
 
 `kubectl apply -f skywalkingadapter.yml`
 

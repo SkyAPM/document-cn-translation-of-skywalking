@@ -21,7 +21,7 @@ SkyWalking 包含四种存储实体.
 ### 数据库
 
 1. 节点类型 == **数据库**. NodeType == **Database(1)**
-1. JSON 属性包含以下 Key.
+2. JSON 属性包含以下 Key.
   - `database`. 数据库名称, 如 MySQL, PostgreSQL.
   - `db.type`. 数据库类型, 如 sql db, redis db.
   - `db.instance`. 数据库实例名称.

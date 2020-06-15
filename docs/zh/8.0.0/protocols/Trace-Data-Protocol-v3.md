@@ -16,7 +16,7 @@
 ### 发送跟踪和指标
 拥有服务ID和服务实例ID后，可以发送跟踪和指标。现在我们有
 1. `TraceSegmentReportService#collect` 用于 skywalking 的跟踪格式
-1. `JVMMetricReportService#collect` 用于 skywalking 的JVM格式
+2. `JVMMetricReportService#collect` 用于 skywalking 的JVM格式
 
 对于跟踪格式，有一些注意事项
 1. 追踪段是SkyWalking中的一个概念，它应包括单个OS进程中每个请求的所有跨度，通常是基于语言的单个线程。

@@ -11,8 +11,8 @@ agent 自动检测出的操作名称是变化莫测的, 有时，目标应用程
 
 支持具有不同键值，即单个插件有多个配置项，例如
 1. plugin.opgroup.resttemplate.rule[/rule1]=/path1
-1. plugin.opgroup.resttemplate.rule[/rule2]=/path2
-1. plugin.opgroup.resttemplate.rule[/rule2]=/path3
+2. plugin.opgroup.resttemplate.rule[/rule2]=/path2
+3. plugin.opgroup.resttemplate.rule[/rule2]=/path3
 
 我们有以下插件支持操作名称分组.
 

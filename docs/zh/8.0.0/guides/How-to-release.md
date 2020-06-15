@@ -241,15 +241,15 @@ enter your apache password
 
 ```
 
-1. 在 nexus staging repo 中发布.
-2. 公共下载源和分发 tar/zip 位于  `http://www.apache.org/dyn/closer.cgi/skywalking/x.y.z/xxx`.
+2. 在 nexus staging repo 中发布.
+3. 公共下载源和分发 tar/zip 位于  `http://www.apache.org/dyn/closer.cgi/skywalking/x.y.z/xxx`.
 我们只发布 Apache 镜像路径作为发布信息.
-3. 公共 asc 和 sha512 位于  位于 `https://www.apache.org/dist/skywalking/x.y.z/xxx`
-4. 公共密钥指向  `https://www.apache.org/dist/skywalking/KEYS`
-5. 更新最新下载地址. http://skywalking.apache.org/downloads/ . 增加一个新的下载源、描述、distribution、 sha加密、文档链接等. 
+4. 公共 asc 和 sha512 位于  位于 `https://www.apache.org/dist/skywalking/x.y.z/xxx`
+5. 公共密钥指向  `https://www.apache.org/dist/skywalking/KEYS`
+6. 更新最新下载地址. http://skywalking.apache.org/downloads/ . 增加一个新的下载源、描述、distribution、 sha加密、文档链接等. 
 按照(3)-(6)的规则可以找到链接.
-6. 在网站首页和活动页面添加发布活动。发布带有变更日志或关键特性的公开版本.
-7. 使用Apache账号将完成的内容邮件发送到 `dev@skywalking.apache.org`, `announce@apache.org`.
+7. 在网站首页和活动页面添加发布活动。发布带有变更日志或关键特性的公开版本.
+8. 使用Apache账号将完成的内容邮件发送到 `dev@skywalking.apache.org`, `announce@apache.org`.
 ```
 Mail title: [ANNOUNCE] Apache SkyWalking x.y.z released
 

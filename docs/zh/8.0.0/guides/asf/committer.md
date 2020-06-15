@@ -77,12 +77,12 @@ establishing you as a committer.
 
 如果他们接受了，那么他们需要做以下事情.
 1. 确保他们已经订阅了 `dev@skywalking.apache.org`.通常他们已订阅.
-1. 签署ICLA(个人贡献者许可协议)，可前往 [here](http://www.apache.org/licenses/contributor-agreements.html#clas).
-1. 如果你想在日常工作中为项目做出贡献，CCLA是你的不二选择.
-1. 关于ICLA标志，您需要打印ICLA，手动签名，并将其扫描为pdf. 
-1. 选择您的Apache ID并将其填入ICLA，可前往 [here](http://people.apache.org/committer-index.html) 找到所有现有的Apache ID
-1. 将gpg签署到您的icla.pdf.
-1. 将 `icla.pdf` 和 `icla.pdf.asc` 邮件发送到 `secretary@apache.org` 和 `private@skywalking.apache.org`.
+2. 签署ICLA(个人贡献者许可协议)，可前往 [here](http://www.apache.org/licenses/contributor-agreements.html#clas).
+3. 如果你想在日常工作中为项目做出贡献，CCLA是你的不二选择.
+4. 关于ICLA标志，您需要打印ICLA，手动签名，并将其扫描为pdf. 
+5. 选择您的Apache ID并将其填入ICLA，可前往 [here](http://people.apache.org/committer-index.html) 找到所有现有的Apache ID
+6. 将gpg签署到您的icla.pdf.
+7. 将 `icla.pdf` 和 `icla.pdf.asc` 邮件发送到 `secretary@apache.org` 和 `private@skywalking.apache.org`.
 
 然后PMC将等待 Apache 确认ICLA的文件. 新的提交者和PMC将收到如下邮件
 ```
@@ -108,8 +108,8 @@ PMC成员应该将新的提交者添加到正式提交者列表中 [roster](http
 ### 设置 Apache ID 和 dev env
 1. 前往 [Apache Account Utility Platform](https://id.apache.org/), 初始化你的密码，设置你的个人邮箱(`Forwarding email address`) 
 和 GitHub 账号(`Your GitHub Username`).
-1. 如果你想使用 `xxx@apache.org` 发送邮件，你需要使用GMail，并遵循[本指南](https://reference.apache.org/committer/email).
-1. Use [GitBox Account Linking Utility](https://gitbox.apache.org/setup/) to make your GitHub account to join Apache GitHub org.
+2. 如果你想使用 `xxx@apache.org` 发送邮件，你需要使用GMail，并遵循[本指南](https://reference.apache.org/committer/email).
+3. Use [GitBox Account Linking Utility](https://gitbox.apache.org/setup/) to make your GitHub account to join Apache GitHub org.
 注意，如果没有收到你的GitHub邀请?访问github.com/apache看看你是否有一个待定的邀请. 同样，你的GitHub MFA状态也是必须的.
 
 如果你想让别人看到你在Apache GitHub org，你需要去 [Apache GitHub org people page](https://github.com/orgs/apache/people), 
@@ -120,8 +120,8 @@ SkyWalking项目在你成为提交者后不需要继续的贡献，但是我们�
 
 作为一个提交者，你可以
 1. 在Apache repo中检查并将pull请求合并到主分支. 拉请求通常包含多次提交. 那些提交**必须被压缩并合并到一个带有注释**的提交**中. 对于新的提交者，我们希望您能要求一些资深提交者重新检查pull请求.
-1. 在Apache repo中创建代码并将其推送到新的分支.
-1. 遵循 [发布过程](../How-to-release.md) 发布新版本. 当然，您需要请求提交者团队确认现在是发布的正确时间.
+2. 在Apache repo中创建代码并将其推送到新的分支.
+3. 遵循 [发布过程](../How-to-release.md) 发布新版本. 当然，您需要请求提交者团队确认现在是发布的正确时间.
 
 PMC希望新的提交者能够参与release和release的投票，甚至仍然考虑 `+1无约束力`.
 但是熟悉版本是晋升为PMC成员的关键之一.
@@ -131,9 +131,9 @@ PMC希望新的提交者能够参与release和release的投票，甚至仍然考
 它们只是覆盖并确保项目符合Apache需求，
 包括 
 1. 发布有约束力的投票和许可检查
-1. 新的提交者和PMC成员的认可
-1. 识别品牌问题并进行品牌保护.
-1. 回答ASF董事会的问题，采取必要的行动.
+2. 新的提交者和PMC成员的认可
+3. 识别品牌问题并进行品牌保护.
+4. 回答ASF董事会的问题，采取必要的行动.
 
 副主席和PMC主席是秘书，负责整理董事会报告.
 

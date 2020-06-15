@@ -1,9 +1,9 @@
 # 安装Java agent
 1. 7.x版本中代理支持 JDK 8 - 14， 6.x版本支持JDK 1.6 - JDK 12 [NOTICE¹](#notice)
-1. 在SkyWalking发行包中找到`agent`文件夹
-1. 配置`config/agent.config`中的`agent.service_name`。可以是任意的英文字符串。
-1. 配置`config/agent.config`中的`collector.backend_service`。默认指向`127.0.0.1:11800`，表示仅作用于本地后端。
-1. JVM参数中添加`-javaagent:/path/to/skywalking-package/agent/skywalking-agent.jar`，并且确保这个参数在`-jar`参数之前。
+2. 在SkyWalking发行包中找到`agent`文件夹
+3. 配置`config/agent.config`中的`agent.service_name`。可以是任意的英文字符串。
+4. 配置`config/agent.config`中的`collector.backend_service`。默认指向`127.0.0.1:11800`，表示仅作用于本地后端。
+5. JVM参数中添加`-javaagent:/path/to/skywalking-package/agent/skywalking-agent.jar`，并且确保这个参数在`-jar`参数之前。
 
 agent发行包包含在Apache[官方发行版](http://skywalking.apache.org/downloads/)中。最新的agent包结构如下。
 ```

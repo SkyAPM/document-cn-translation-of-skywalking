@@ -54,8 +54,8 @@ extend type Query {
 
 3种类型的指标可以是查询
 1. 单一值. 大多数默认指标的类型是单一值，将其视为默认值. `getValues` 和 `getLinearIntValues` 适合此类型.
-1. 多值. OAL中定义的一个指标包括多个值计算. 使用 `getMultipleLinearIntValues` 获取所有值. `percentile` 是 OAL 中一个典型的多值函数.
-1. Heatmap value. 阅读 [Heatmap in WIKI](https://en.wikipedia.org/wiki/Heat_map) 获取详细信息. `thermodynamic` 仅仅是 OAL 的一个函数. 使用 `getThermodynamic` 获取值.
+2. 多值. OAL中定义的一个指标包括多个值计算. 使用 `getMultipleLinearIntValues` 获取所有值. `percentile` 是 OAL 中一个典型的多值函数.
+3. Heatmap value. 阅读 [Heatmap in WIKI](https://en.wikipedia.org/wiki/Heat_map) 获取详细信息. `thermodynamic` 仅仅是 OAL 的一个函数. 使用 `getThermodynamic` 获取值.
 ```graphql
 extend type Query {
     getValues(metric: BatchMetricConditions!, duration: Duration!): IntValues
@@ -93,7 +93,7 @@ extend type Query {
 ### 其它
 以下查询针对特定功能，包括跟踪、警报或配置文件.
 1. 追踪. 分布式追踪查询.
-1. 告警. 通过告警查询，可以了解告警趋势和详细信息.
+2. 告警. 通过告警查询，可以了解告警趋势和详细信息.
 
 可以在以下文件找到实际的 GraphQL 查询脚本 `query-protocol` 文件为 [here](../../../oap-server/server-query-plugin/query-graphql-plugin/src/main/resources).
 

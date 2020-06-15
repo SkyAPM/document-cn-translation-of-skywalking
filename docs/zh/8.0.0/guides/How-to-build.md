@@ -20,13 +20,13 @@
 ### 从 GitHub 构建
 
 1. 预备好 Git, JDK8 以及 Maven3
-1. `git clone https://github.com/apache/skywalking.git`
-1. `cd skywalking/`
-1. 使用 `git checkout [tagname]` 切换到指定的 tag (可选的, 只有当你想编译某个特定版本的代码时才需要)
-1. `git submodule init`
-1. `git submodule update`
-1. 运行 `./mvnw clean package -DskipTests`
-1. 所有打出来的包都在目录 `/dist` 下 (Linux 下为 .tar.gz, Windows 下为 .zip).
+2. `git clone https://github.com/apache/skywalking.git`
+3. `cd skywalking/`
+4. 使用 `git checkout [tagname]` 切换到指定的 tag (可选的, 只有当你想编译某个特定版本的代码时才需要)
+5. `git submodule init`
+6. `git submodule update`
+7. 运行 `./mvnw clean package -DskipTests`
+8. 所有打出来的包都在目录 `/dist` 下 (Linux 下为 .tar.gz, Windows 下为 .zip).
 
 ### 从 Apache 源代码发行构建
 
@@ -37,8 +37,8 @@
 跟着以下步骤操作即可.
 
 1. 准备 JDK8 以及 Maven3
-1. 运行 `./mvnw clean package -DskipTests`
-1. 所有打出来的包都在目录 `/dist` 下 (Linux 下为 .tar.gz, Windows 下为 .zip).
+2. 运行 `./mvnw clean package -DskipTests`
+3. 所有打出来的包都在目录 `/dist` 下 (Linux 下为 .tar.gz, Windows 下为 .zip).
 
 ### 高级编译
 
@@ -94,8 +94,8 @@ SkyWalking 是一个复杂的 Maven 项目, 包括许多模块, 其中可能包�
 ## 设置 IntelliJ IDEA
 
 1. 将项目导入为 maven 项目
-1. 运行 `./mvnw compile -Dmaven.test.skip=true` 编译项目, 生成必要的源代码(由于使用了 gRPC 和 protobuf)
-1. 设置 **生成的源代码(Generated Source Code)** 目录.
+2. 运行 `./mvnw compile -Dmaven.test.skip=true` 编译项目, 生成必要的源代码(由于使用了 gRPC 和 protobuf)
+3. 设置 **生成的源代码(Generated Source Code)** 目录.
     * **apm-protocol/apm-network/target/generated-sources/protobuf** 目录下的 `grpc-java` 和 `java` 目录
     * **oap-server/server-core/target/generated-sources/protobuf** 目录下的 `grpc-java` 和 `java` 目录
     * **oap-server/server-receiver-plugin/receiver-proto/target/generated-sources/protobuf** 目录下的 `grpc-java` 和 `java`
