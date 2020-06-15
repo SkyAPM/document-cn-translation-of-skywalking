@@ -4,11 +4,10 @@
 
 OAL 聚焦于服务, 服务实例以及端点的度量指标, 因此 OAL 非常易于学习和使用.
 
-Since 6.3, the OAL engine is embedded in OAP server runtime, as `oal-rt`(OAL Runtime).
-OAL scripts now locate in `/config` folder, user could simply change and reboot the server to make it effective.
-But still, OAL script is compile language, OAL Runtime generates java codes dynamically.
-
-You could open set `SW_OAL_ENGINE_DEBUG=Y` at system env, to see which classes generated.
+6.3版本以后, OAL引擎嵌入在OAP服务器运行时中，称为“OAL -rt”(OAL运行时)。
+OAL脚本现在位于' /config '文件夹，用户可以简单地改变和重新启动服务器，使其有效。
+但是，OAL脚本仍然是编译语言，OAL运行时动态生成java代码。
+您可以在system env上打开set ' SW_OAL_ENGINE_DEBUG=Y '，查看生成了哪些类。
 
 ## 语法
 
@@ -74,12 +73,14 @@ The parameter (2) is the status of this request. The status(success/failure) eff
 - `p99`, `p95`, `p90`, `p75`, `p50`. Read [percentile in WIKI](https://en.wikipedia.org/wiki/Percentile)
 > all_percentile = from(All.latency).percentile(10);
 
-**percentile** is the first multiple value metrics, introduced since 7.0.0. As having multiple values, it could be query through `getMultipleLinearIntValues` GraphQL query.
-In this case, `p99`, `p95`, `p90`, `p75`, `p50` of all incoming request. The parameter is the precision of p99 latency calculation, such as in above case, 120ms and 124 are considered same.
-Before 7.0.0, use `p99`, `p95`, `p90`, `p75`, `p50` func(s) to calculate metrics separately. Still supported in 7.x, but don't be recommended, and don't be included in official OAL script. 
+
+**百分位**是自7.0版本引入的第一个多值度量。由于有多个值，可以通过' getMultipleLinearIntValues ' GraphQL查询进行查询。
+在本例中，所有传入请求的“p99”、“p95”、“p90”、“p75”、“p50”。参数是p99延迟计算的精度，如在上述情况下，120ms和124被认为是相同的。
+在7.0.0之前，使用' p99 '、' p95 '、' p90 '、' p75 '、' p50 '函数分别计算指标。在7.x版本仍然支持，但不推荐且不包括在正式脚本。
 > All_p99 = from(All.latency).p99(10);
 
-In this case, p99 value of all incoming requests. The parameter is the precision of p99 latency calculation, such as in above case, 120ms and 124 are considered same.
+在本例中，p99为所有传入请求的值。参数是p99延迟计算的精度，如在上述情况下，120ms和124被认为是相同的。
+
 
 ## 度量指标名称
 
@@ -91,12 +92,13 @@ In this case, p99 value of all incoming requests. The parameter is the precision
 
 - 在端点(Endpoint)域中, Scope.ID = Endpoint 的 ID(基于服务及其端点的唯一标志).
 
-## Disable
-`Disable` is an advanced statement in OAL, which is only used in certain case.
-Some of the aggregation and metrics are defined through core hard codes,
-this `disable` statement is designed for make them de-active,
-such as `segment`, `top_n_database_statement`.
-In default, no one is being disable.
+
+# #禁用
+“Disable”是OAL中的高级语句，只在特定情况下使用。
+一些聚合和度量是通过核心硬代码定义的，
+这个“禁用”语句是设计用来让它们停止活动的，
+比如' segment '， ' top_n_database_statement '。
+在默认情况下，没有人是禁用的。
 
 ## 示例
 
