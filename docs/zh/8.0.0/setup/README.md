@@ -34,7 +34,7 @@
     
 ## Proxy
   - [Envoy Proxy](https://www.envoyproxy.io/)
-    - [从 Engoy 向 SkyWalking 发送指标数据](envoy/metrics_service_setting.md)。介绍了如何使用[Metrics 服务](https://www.envoyproxy.io/docs/envoy/latest/api-v2/config/metrics/v2/metrics_service.proto.html) 
+    - [从 Envoy 向 SkyWalking 发送指标数据](envoy/metrics_service_setting.md)。介绍了如何使用[Metrics 服务](https://www.envoyproxy.io/docs/envoy/latest/api-v2/config/metrics/v2/metrics_service.proto.html) 
       将指标项从Envoy发到SkyWalking。
     - [从 Envoy 发送指标到 Skywalking](envoy/metrics_service_setting.md). 介绍了如何使用 [Metrics service](https://www.envoyproxy.io/docs/envoy/latest/api-v2/config/metrics/v2/metrics_service.proto.html) 
       向 SkyWalking 发送指标.
