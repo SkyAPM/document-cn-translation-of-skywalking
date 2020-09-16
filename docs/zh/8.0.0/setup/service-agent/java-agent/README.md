@@ -63,7 +63,7 @@ set "CATALINA_OPTS=-javaagent:/path/to/skywalking-agent/skywalking-agent.jar"
  ```shell
  export JAVA_OPTIONS="${JAVA_OPTIONS} -javaagent:/path/to/skywalking-agent/skywalking-agent.jar"
  ```
- 
+
 ## Agent的可配置属性列表
 这里是`agent/config/agent.config`中支持的属性列表。
 
@@ -81,13 +81,11 @@ set "CATALINA_OPTS=-javaagent:/path/to/skywalking-agent/skywalking-agent.jar"
 `agent.operation_name_threshold `|设置操作名不建议超过最大长度(190).|`150`|
 `agent.keep_tracing`|如果该值为 `true`，即使后台不可用，也要保持跟踪.|`false`|
 `osinfo.ipv4_list_size`| 限制ipv4列表的长度. |`10`|
-
-`collector.grpc_channel_check_interval`|检查grpc的channel状态的时间间隔。|`30`|
+`collector.grpc_channel_check_interval| 检查grpc的channel状态的时间间隔。|`30`|
 `collector.backend_service`|接收skywalking trace数据的后端地址|`127.0.0.1:11800`|
 `collector.heartbeat_period`|探针心跳报告时间. 单位秒.|`30`|
 `collector.grpc_upstream_timeout`|grpc客户端向上游发送数据时超时多长时间. 单位秒.|`30` 秒|
 `collector.get_profile_task_interval`|嗅探器获取配置文件任务列表间隔.|`20`|
-
 `logging.level`|日志级别。默认为debug。|`DEBUG`|
 `logging.file_name`|日志文件名|`skywalking-api.log`|
 `logging.output`| 日志输出. 默认是文件. 使用控制台意味着输出到标准输出. |`FILE`|
@@ -95,17 +93,14 @@ set "CATALINA_OPTS=-javaagent:/path/to/skywalking-agent/skywalking-agent.jar"
 `logging.pattern `|日志格式. 所有的转换说明符: <br>&nbsp;&nbsp;* `%level` means log level. <br>&nbsp;&nbsp;*  `%timestamp` 表示现在的时间格式 `yyyy-MM-dd HH:mm:ss:SSS`.<br>&nbsp;&nbsp;*   `%thread` 表示当前线程的名称.<br>&nbsp;&nbsp;*   `%msg` 表示用户记录的某些消息. <br>&nbsp;&nbsp;*  `%class` 表示TargetClass的SimpleName. <br>&nbsp;&nbsp;*  `%throwable` 表示用户抛出的异常. <br>&nbsp;&nbsp;*  `%agent_name` 表示 `agent.service_name`  |`%level %timestamp %thread %class : %msg %throwable`|
 `logging.max_file_size`|日志文件的最大大小。当日志文件大小超过这个数，归档当前的日志文件，将日志写入到新文件。|`300 * 1024 * 1024`|
 `logging.max_history_files`|The max history log files. When rollover happened, if log files exceed this number,then the oldest file will be delete. Negative or zero means off, by default.|`-1`|
-
 `jvm.buffer_size`|收集JVM信息的buffer的大小。|`60 * 10`|
 `buffer.channel_size`|buffer的channel大小。|`5`|
 `buffer.buffer_size`|buffer的大小|`300`|
-
 `profile.active`|如果为`true`，SkyWalking代理将在用户创建新的配置文件任务时启用配置文件. 否则禁用概要.|`true`|
 `profile.max_parallel`|并行监控段计数|`5`|
 `profile.duration`|监控段最大时间(分钟)，如果当前监控段时间超出限制，则停止.|`10`|
 `profile.dump_max_stack_depth`|最大线程转储的堆栈深度|`500`|
 `profile.snapshot_transport_buffer_size`|快照传输到后端缓冲区的大小|`50`|
-
 `plugin.mongodb.trace_param`|如果为true，记录所有访问MongoDB的参数信息。默认为false，表示仅记录操作名，不记录参数信息。|`false`|
 `plugin.elasticsearch.trace_dsl`|如果为true，记录所有访问ElasticSearch的DSL信息。默认为false。|`false`|
 `plugin.springmvc.use_qualified_name_as_endpoint_name`|如果为true，endpoint的name为方法的全限定名，而不是请求的URL。默认为false。|`false`|
@@ -114,7 +109,6 @@ set "CATALINA_OPTS=-javaagent:/path/to/skywalking-agent/skywalking-agent.jar"
 `plugin.mysql.sql_parameters_max_length`|如果设置为正整数, 收集的 SQL 参数 `db.sql.parameters` 会被截断到这个长度, 否则会被完整保存, 这可能会导致性能问题.|`512`|
 `plugin.solrj.trace_statement`|如果为 true, 追踪 Solr 查询请求中的所有查询参数(包括 deleteByIds 和 deleteByQuery) 默认为 false.|`false`|
 `plugin.solrj.trace_ops_params`|如果为 true, 追踪 Solr 查询中所有操作参数, 默认为 false.|`false`|
-
 `plugin.peer_max_length `|Peer 描述最大限制.|`200`|
 `plugin.mongodb.filter_length_limit`|如果设置为正数, `WriteRequest.params` 将被截短到这个长度, 否则它将被完全保存，这可能会导致性能问题.|`256`|
 `plugin.postgresql.trace_sql_parameters`|如果设置为true，将收集sql的参数(通常是 `java.sql.PreparedStatement`).|`false`|
