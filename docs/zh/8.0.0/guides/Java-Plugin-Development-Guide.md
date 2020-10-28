@@ -36,7 +36,7 @@ ExitSpan 代表一个服务客户端或 MQ 的生产者, 在 SkyWalking 的早�
 3. 将 `ContextCarrier` 所有信息放到请求头 (如 HTTP HEAD), 附件(如 Dubbo RPC 框架), 或者消息 (如 Kafka) 中
 4. 通过服务调用, 将 `ContextCarrier` 传递到服务端.
 5. 在服务端, 在对应组件的头部, 附件或消息中获取 `ContextCarrier` 所有内容.
-6. 通过 `ContestManager#createEntrySpan` 创建 EntrySpan 或者使用 `ContextManager#extract` 来绑定服务端和客户端.
+6. 通过 `ContextManager#createEntrySpan` 创建 EntrySpan 或者使用 `ContextManager#extract` 来绑定服务端和客户端.
 
 让我们通过 Apache HttpComponent client 插件和 Tomcat 7 服务器插件演示, 步骤如下:
 
