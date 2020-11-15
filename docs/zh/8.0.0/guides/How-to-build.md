@@ -7,7 +7,7 @@
 **由于本项目使用了 Git 子模块, 我们不建议使用从 `GitHub` tag 或 release 页面下载的源代码来进行编译.**
 
 ### Maven代理
-如果需要在代理之后执行构建，请编辑*.mvn/jvm.config*并放置以下属性
+如果需要在代理之后执行构建，请编辑 **.mvn/jvm.config** 并放置以下属性
 ```properties
 -Dhttp.proxyHost=proxy_ip
 -Dhttp.proxyPort=proxy_port
@@ -19,33 +19,43 @@
 
 ### 从 GitHub 构建
 
-1. 预备好 Git, JDK8 以及 Maven3
-2. `git clone https://github.com/apache/skywalking.git`
-3. `cd skywalking/`
-4. 使用 `git checkout [tagname]` 切换到指定的 tag (可选的, 只有当你想编译某个特定版本的代码时才需要)
-5. `git submodule init`
-6. `git submodule update`
-7. 运行 `./mvnw clean package -DskipTests`
-8. 所有打出来的包都在目录 `/dist` 下 (Linux 下为 .tar.gz, Windows 下为 .zip).
+1. 准备 Git, JDK8+ 和 Maven3.6+
+2. 克隆项目
 
-### 从 Apache 源代码发行构建
+    如果从源代码构建一个版本, 克隆时 `git clone -b [tag_name] ...` 必须指定 `tag name`.
+    ```bash
+        git clone --recurse-submodules https://github.com/apache/skywalking.git
+        cd skywalking/
+        
+        或者
+        
+        git clone https://github.com/apache/skywalking.git
+        cd skywalking/
+        git submodule init
+        git submodule update
+    ```
+    
+1. 运行 `./mvnw clean package -DskipTests`
+1. 所有编译出来的包都在目录 `/dist` 下 (Linux 下为 .tar.gz, Windows 下为 .zip).
 
-- 什么是 **Apache 源代码发行**?
+### 从 Apache 发行版本源代码构建
+
+- 什么是 **Apache 发行版本源代码**?
 
 对于每个正式的 Apache 发行版本, 都会有一个完整且独立的源代码压缩包, 其中包含了所有的源代码,
 你可以从 [SkyWalking Apache 下载页面](http://skywalking.apache.org/downloads/)下载得到. 此时没有任何与 git 相关的东西.
 跟着以下步骤操作即可.
 
-1. 准备 JDK8 以及 Maven3
+1. 准备 JDK8+ 和 Maven3.6+
 2. 运行 `./mvnw clean package -DskipTests`
-3. 所有打出来的包都在目录 `/dist` 下 (Linux 下为 .tar.gz, Windows 下为 .zip).
+3. 所有编译出来的包都在目录 `/dist` 下 (Linux 下为 .tar.gz, Windows 下为 .zip).
 
 ### 高级编译
 
 SkyWalking 是一个复杂的 Maven 项目, 包括许多模块, 其中可能包含一些编译耗时非常长的模块.
 如果你只想重新编译项目的某个部分, 有以下选项可以支持:
 
-- 编译 agent 包
+- 编译打包 agent
 
 >  ./mvnw package -Pagent,dist
 
@@ -53,7 +63,10 @@ SkyWalking 是一个复杂的 Maven 项目, 包括许多模块, 其中可能包�
 
 > make build.agent
 
-- 编译 backend 包并且打完整包
+如果您打算只编译一个插件，例如在开发阶段，则可以
+>  cd plugin_module_dir & mvn clean package
+
+- 编译打包 backend
 
 >  ./mvnw package -Pbackend,dist
 
@@ -61,7 +74,7 @@ SkyWalking 是一个复杂的 Maven 项目, 包括许多模块, 其中可能包�
 
 > make build.backend
 
-- 编译 UI 并且打完整包
+- 编译打包 UI
 
 >  ./mvnw package -Pui,dist
 
@@ -92,7 +105,7 @@ SkyWalking 是一个复杂的 Maven 项目, 包括许多模块, 其中可能包�
 > HUB=bar TAG=foo make docker.oap
 
 ## 设置 IntelliJ IDEA
-
+**注意**: 如果你从Github克隆代码, 请确保已完成 **[从 GitHub 构建](#)** 中的步骤1至3, 如果你从SkyWalking的官方网站下载源代码, 请确保已按照 **[从 Apache 发行版本源代码构建](#)** 中的步骤操作.
 1. 将项目导入为 maven 项目
 2. 运行 `./mvnw compile -Dmaven.test.skip=true` 编译项目, 生成必要的源代码(由于使用了 gRPC 和 protobuf)
 3. 设置 **生成的源代码(Generated Source Code)** 目录.
