@@ -63,9 +63,6 @@ SkyWalking 是一个复杂的 Maven 项目, 包括许多模块, 其中可能包�
 
 > make build.agent
 
-如果您打算只编译一个插件，例如在开发阶段，则可以
->  cd plugin_module_dir & mvn clean package
-
 - 编译打包 backend
 
 >  ./mvnw package -Pbackend,dist
