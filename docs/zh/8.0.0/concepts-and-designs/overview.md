@@ -18,7 +18,7 @@ Skywalking 的服务网格接收器可以让 Skywalking 接收来自服务网格
 
 使用 SkyWalking 时, 用户可以看到服务与端点之间的拓扑结构, 每个服务/服务实例/端点的性能指标, 还可以设置报警规则。
 
-除此之外, 你还可以通过一下方式集成
+除此之外, 你还可以通过以下方式集成
 
 1. 其他分布式追踪使用 Skywalking 原生代理和Zipkin , Jaeger 和 OpenCensus 的 SDK；
 2. 其他度量指标系统，例如 Prometheus , Sleuth(Micrometer。
