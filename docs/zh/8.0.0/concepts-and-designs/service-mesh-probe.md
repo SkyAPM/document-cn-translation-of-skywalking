@@ -12,7 +12,7 @@
 
 Istio 是一个非常典型的服务网格的设计和实现。它定义了 **控制平面** 和 **数据平面**，被广泛使用。下面是 Istio 的架构 :
 
-![Istio 架构](https://istio.io/docs/ops/architecture/arch.svg)
+![Istio 架构](https://istio.io/latest/docs/ops/deployment/architecture/arch.svg)
 
 服务网格探针可以选择从 **控制平面** 和 **数据平面** 采集数据。在 Istio 中，指的是从 Mixer(Control Panel) 或者 Envoy sidecar(Data Panel) 中采集遥测数据。探针从客户端和服务器端收集每个请求的两个遥测实体，它们其实是相同的数据。
 
