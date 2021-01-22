@@ -21,7 +21,7 @@ OAP 从多种数据源接收数据, 这些数据分为两大类, **链路追踪*
 1. 在 SkyWalking 5.x 中传统的方式. 以 SkyWalking 的 segment 和 span 来格式化追踪数据，甚至包括 Zipkin 数据格式化。OAP 通过分析数据段获得度量指标, 并将度量数据推送到聚合流。
 2. 考虑仅仅将追踪视为某种日志, 只提供存储和可视化能力.
 
-同样的, SkyWalking 接收来自其他系统的追踪数据格式, 如 Zipkin, Jeager, OpenCensus. 这些格式也可以由以上两种方式进行处理.
+同样的, SkyWalking 接收来自其他系统的追踪数据格式, 如 Zipkin, Jaeger, OpenCensus. 这些格式也可以由以上两种方式进行处理.
 
 ## OAP 中的度量指标
 
