@@ -14,7 +14,7 @@
 receiver-trace:
   default:
     ...
-    sampleRate: ${SW_TRACE_SAMPLE_RATE:1000} # 采样率精度为1/10000。 10000表示默认为100％采样。
+    sampleRate: ${SW_TRACE_SAMPLE_RATE:10000} # 采样率精度为1/10000。 10000表示默认为100％采样。
 ```
 
 `sampleRate` 可让你设置Backend的采样率。
