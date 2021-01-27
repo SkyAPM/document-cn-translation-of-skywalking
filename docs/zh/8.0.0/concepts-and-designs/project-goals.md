@@ -13,7 +13,7 @@
 - **可移植**.  SkyWalking 可以运行在多种环境下, 包括:
 (1) 使用传统的注册中心, 如 [Eureka](https://github.com/spring-cloud/spring-cloud-netflix)
 (2) 使用包含服务发现的RPC框架，如Spring Cloud, Apache Dubbo
-(3) 在现代基础设施中使用服务网
+(3) 在现代基础设施中使用服务网格
 (4) 使用云服务
 (5) 跨云部署
 
