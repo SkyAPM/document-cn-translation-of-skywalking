@@ -9,7 +9,7 @@
 
 * 配置layout
 ```properties
-log4j.appender.CONSOLE.layout=TraceIdPatternLayout
+log4j.appender.CONSOLE.layout=org.apache.skywalking.apm.toolkit.log.log4j.v1.x.TraceIdPatternLayout
 ```
 
 * 在`layout.ConversionPattern`中设置`%T` (在2.0-2016中，你应该使用%x，[为什么做了修改?](https://github.com/wu-sheng/sky-walking/issues/77) )
