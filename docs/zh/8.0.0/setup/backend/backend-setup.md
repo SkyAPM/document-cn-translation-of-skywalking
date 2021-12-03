@@ -73,7 +73,7 @@ Receiver有许多不同的模块名，你可以阅读[link list](#advanced-featu
 3. [Backend init mode startup](backend-init-mode.md)。如何初始化环境并优雅地退出。
 在尝试初始化新群集之前，请阅读此内容。
 4. [Cluster management](backend-cluster.md)。指导您将backend服务器设置为群集模式。
-5. [Deploy in kubernetes](backend-k8s.md).。指导您构建和使用Skywalking图像，并在K8S中部署。
+5. [Deploy in kubernetes](backend-k8s.md).。指导您构建和使用Skywalking镜像，并在K8S中部署。
 6. [Choose storage](backend-storage.md).如我们所知，在默认的快速启动中，backend 使用h2数据库运行。但显然，它不符合产品环境。在这里，你可以找到其他的选择。
 选择你喜欢的，我们也欢迎任何人贡献新的存储实施者，
 7. [Set receivers](backend-receivers.md)。 你可以根据你的要求选择接收者，大多数接收者是无害的，至少我们的默认接收器是无害的。您可以设置并激活所有提供的接收器。
