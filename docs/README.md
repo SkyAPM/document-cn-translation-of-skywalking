@@ -1,7 +1,7 @@
 # [存档] SkyWalking 文档中文版（社区提供）
 
 > [!CAUTION]
-> **请注意！本文档已经过期且不再更新，中文文档问答功能请直接访问 SkyWalking [官网](https://skywalking.apache.org/docs/), 官网已经提供了 AI 问答和搜索功能（见右侧 "Ask AI" 按钮）并且支持中文问答，其包含所有 SkyWalking 项目最新发行版的文档和所有历史疑难杂症数据。如果 AI 无法访问则需要开启 VPN 或联系 @Superskyyy 维护。**
+> **请注意！本文档已经过期且不再更新，中文文档问答功能请直接访问 SkyWalking [官网](https://skywalking.apache.org/docs/)。
 
 此文档源自 Apache SkyWalking [官方文档](https://github.com/apache/skywalking/blob/master/docs/README.md)。
 由社区志愿者提供翻译和~~更新~~。
